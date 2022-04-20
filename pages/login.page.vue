@@ -1,15 +1,21 @@
+<script setup>
+import { ref } from 'vue'
+import axios from 'axios'
+import { ElButton, ElInput } from 'element-plus'
+const username = ref('')
+const password = ref('')
+function login() {
+	axios.post('/login', {
+		username: username,
+		password: password
+	}).then((res) => {
+		console.log(res)
+	})
+}
+</script>
+
 <template>
-	<form action="/login" method="post">
-		<div>
-			<label>Username:</label>
-			<input type="text" name="username" /><br />
-		</div>
-		<div>
-			<label>Password:</label>
-			<input type="password" name="password" />
-		</div>
-		<div>
-			<input type="submit" value="Submit" />
-		</div>
-	</form>
+	<el-input v-model="username" placeholder="username" clearable />
+	<el-input v-model="password" placeholder="password" type="password" show-password clearable />
+	<el-button type="primary" @click="login">Login</el-button>
 </template>

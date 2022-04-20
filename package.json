@@ -27,16 +27,18 @@
   "homepage": "https://github.com/DevecorSoft/tinyoauth#readme",
   "dependencies": {
     "@aws-sdk/client-dynamodb": "^3.72.0",
-    "express": "^4.17.3",
-    "oauth2orize": "^1.11.1",
-    "serverless-http": "^3.0.1",
-    "vue": "^3.2.33",
     "@vitejs/plugin-vue": "^2.2.2",
     "@vue/compiler-sfc": "^3.2.31",
     "@vue/server-renderer": "^3.2.31",
+    "axios": "^0.26.1",
     "compression": "^1.7.4",
     "cross-env": "^7.0.3",
+    "element-plus": "^2.1.10",
+    "express": "^4.17.3",
+    "oauth2orize": "^1.11.1",
+    "serverless-http": "^3.0.1",
     "vite": "^2.8.4",
-    "vite-plugin-ssr": "^0.3.64"
+    "vite-plugin-ssr": "^0.3.64",
+    "vue": "^3.2.33"
   }
 }
