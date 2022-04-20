@@ -1,0 +1,42 @@
+{
+  "name": "tinyoauth",
+  "version": "1.0.0",
+  "description": "a hostable api gateway that protects your api with oauth2.0 ",
+  "main": "index.js",
+  "scripts": {
+    "dev": "npm run server",
+    "prod": "npm run build && npm run server:prod",
+    "build": "vite build && vite build --ssr",
+    "server": "node ./server",
+    "server:prod": "cross-env NODE_ENV=production node ./server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DevecorSoft/tinyoauth.git"
+  },
+  "keywords": [
+    "oauth2.0",
+    "serverless",
+    "ssr"
+  ],
+  "author": "Devecorsoft",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/DevecorSoft/tinyoauth/issues"
+  },
+  "homepage": "https://github.com/DevecorSoft/tinyoauth#readme",
+  "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.72.0",
+    "express": "^4.17.3",
+    "oauth2orize": "^1.11.1",
+    "serverless-http": "^3.0.1",
+    "vue": "^3.2.33",
+    "@vitejs/plugin-vue": "^2.2.2",
+    "@vue/compiler-sfc": "^3.2.31",
+    "@vue/server-renderer": "^3.2.31",
+    "compression": "^1.7.4",
+    "cross-env": "^7.0.3",
+    "vite": "^2.8.4",
+    "vite-plugin-ssr": "^0.3.64"
+  }
+}
