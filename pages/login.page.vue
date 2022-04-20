@@ -6,8 +6,8 @@ const username = ref('')
 const password = ref('')
 function login() {
 	axios.post('/login', {
-		username: username,
-		password: password
+		username: username.value,
+		password: password.value
 	}).then((res) => {
 		console.log(res)
 	})
