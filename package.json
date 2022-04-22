@@ -2,7 +2,7 @@
   "name": "tinyoauth",
   "version": "1.0.0",
   "description": "a hostable api gateway that protects your api with oauth2.0 ",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
     "dev": "npm run server",
     "prod": "npm run build && npm run server:prod",
@@ -36,6 +36,7 @@
     "cross-env": "^7.0.3",
     "element-plus": "^2.1.10",
     "express": "^4.17.3",
+    "express-session": "^1.17.2",
     "oauth2orize": "^1.11.1",
     "passport": "^0.5.2",
     "passport-jwt": "^4.0.0",
