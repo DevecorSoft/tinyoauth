@@ -4,10 +4,8 @@
   "description": "a hostable api gateway that protects your api with oauth2.0 ",
   "main": "app.js",
   "scripts": {
-    "dev": "npm run server",
     "prod": "npm run build && npm run server:prod",
     "build": "vite build && vite build --ssr",
-    "server": "node ./server",
     "server:prod": "cross-env NODE_ENV=production node ./server"
   },
   "repository": {

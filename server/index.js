@@ -1,4 +1,4 @@
-const createServer = require('../app').createServer
+const createServer = require('../appapp').createServer
 
 startServer();
 

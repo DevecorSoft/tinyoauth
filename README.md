@@ -33,3 +33,5 @@ flowchart LR
   internet((Internet)) --> post_image_api
 ```
 
+
+curl -XPOST "http://localhost:8080/2015-03-31/functions/function/invocations" -d '{"requestContext": {"http": {"method": "GET"}}, "version": "2.0", "rawPath": "localhost:9000/login"}'
