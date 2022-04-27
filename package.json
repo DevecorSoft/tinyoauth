@@ -4,7 +4,8 @@
   "description": "a hostable oauth2.0 serverless app",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test:api:ui": "npx cypress open",
+    "test:api:ci": "npx cypress run"
   },
   "repository": {
     "type": "git",
@@ -25,8 +26,5 @@
   "dependencies": {
     "@aws-sdk/client-dynamodb": "^3.78.0",
     "express": "^4.18.0"
-  },
-  "devDependencies": {
-    "cypress": "^9.6.0"
   }
 }
