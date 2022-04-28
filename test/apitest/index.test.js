@@ -1,5 +1,3 @@
-process.env.NODE_ENV = 'test';
-
 const chai = require('chai');
 const chaiHttp = require('chai-http');
 const server = require('../../server');
@@ -9,9 +7,7 @@ const url = 'http://localhost:3333';
 
 chai.use(chaiHttp);
 
-  after(function () {
-    server.close();
-  });
+  after(() => server.close());
 
 describe("helth check", () => {
     it('it should successfully done health check', (done) => {
