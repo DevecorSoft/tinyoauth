@@ -1,7 +1,7 @@
 const axios = require("axios");
 const expect = require("chai").expect;
 
-describe("Given a correct pair of username and password", () => {
+xdescribe("Given a correct pair of username and password", () => {
   before(() => {
     require("../../dev_server")
     console.log("before endded")
