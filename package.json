@@ -4,7 +4,7 @@
   "description": "a hostable oauth2.0 serverless app",
   "main": "index.js",
   "scripts": {
-    "test:api": "npx mocha --recursive"
+    "test:api": "DEBUG=testcontainers* NODE_ENV=development npx mocha --recursive --colors --timeout 60000"
   },
   "repository": {
     "type": "git",
