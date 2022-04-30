@@ -1,4 +1,4 @@
-const axios = require("axios").default;
+const axios = require("axios");
 const expect = require("chai").expect;
 const assert = require("assert");
 const { server } = require("../../dev_server");
@@ -21,8 +21,7 @@ describe("Given a correct pair of username and password", () => {
           },
         })
       )
-      .then((data) => {
-        console.log("table created: ", JSON.stringify(data));
+      .then(() => {
         done();
       })
       .catch((err) => {
