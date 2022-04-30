@@ -3,25 +3,22 @@ const { ddbClient } = require("../db/ddbClient");
 const { GetItemCommand } = require("@aws-sdk/client-dynamodb");
 
 const app = express();
+app.use(express.json())
 
-app.post("/login", async (req, res) => {
+app.post("/login", (req, res) => {
   const username = req.body?.username;
   const password = req.body?.password;
   ddbClient
     .send(
       new GetItemCommand({
         TableName: "tinyoauth_user",
-        Key: { user_id: { S: username } },
+        Key: { username: { S: username } },
       })
     )
     .then((val) => {
-      res.send({
-        result: "succeeded" ? val.password === password : "failed",
+      res.json({
+        result: "succeeded",
       });
-    })
-    .catch((err) => {
-      console.error(err);
-      res.send(err)
     });
 });
 
