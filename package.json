@@ -4,7 +4,8 @@
   "description": "a hostable oauth2.0 serverless app",
   "main": "index.js",
   "scripts": {
-    "test:api": "NODE_ENV=development npx mocha --recursive --colors --timeout 60000"
+    "test:api": "NODE_ENV=apitest npx mocha --recursive --colors --timeout 60000",
+    "test:unit": "NODE_ENV=unittest npx mocha --recursive --colors ./test/unittest/**/*.js"
   },
   "repository": {
     "type": "git",
@@ -29,6 +30,7 @@
   "devDependencies": {
     "axios": "^0.27.2",
     "chai": "^4.3.6",
-    "mocha": "^9.2.2"
+    "mocha": "^9.2.2",
+    "sinon": "^13.0.2"
   }
 }

@@ -2,9 +2,18 @@
 
 a hostable api gateway that protects your api with oauth2.0
 
-## Use cases
+## Architecture
 
-### Api protection
+### Serverless
+
+```mermaid
+flowchart LR
+  api[restful api] --> controller --> service --> repository --> db
+```
+
+## Design
+
+### Api
 
 ```mermaid
 flowchart LR
