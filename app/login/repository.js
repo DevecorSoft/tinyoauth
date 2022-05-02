@@ -1,14 +1,18 @@
-const { ddbClient } = require("../../db/ddbClient");
 const { GetItemCommand } = require("@aws-sdk/client-dynamodb");
 
+const login_repository = function (dynamodb) {
+  this.ddbClient = dynamodb;
+};
 
-exports.find_user_by_user_name = async (username) => {
-  const user = await ddbClient.send(
+login_repository.prototype.find_user_by_user_name = async function(username) {
+  const user = await this.ddbClient.send(
     new GetItemCommand({
       TableName: "tinyoauth_user",
       Key: { username: { S: username } },
     })
   );
 
-  return user.Item
-}
+  return user.Item.username ? user.Item : null;
+};
+
+exports.login_repository = login_repository;
