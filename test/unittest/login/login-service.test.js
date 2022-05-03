@@ -17,6 +17,46 @@ describe("Given a valid pair of user name and password", () => {
       expect(res).to.be.true;
     });
   });
+
+  describe("When marking the user as online", () => {
+    it("Then should call repository with status", () => {
+      const repo = {
+        update_user_status: sinon.fake(),
+      };
+
+      const login_service = new LoginService(repo);
+      login_service.set_status("user", true);
+
+      expect(repo.update_user_status.calledOnce).to.be.true;
+      const args = repo.update_user_status.getCall(0).args;
+      expect(args).to.be.deep.equal(["user", true]);
+    });
+
+    it("Then should return true in case of without any error", () => {
+      const repo = { update_user_status: () => {} };
+      const login_service = new LoginService(repo);
+
+      const res = login_service.set_status("user", true);
+
+      expect(res).to.be.true;
+    });
+
+    it("Then should let it throw up in case of any error occurs", () => {
+      const repo = {
+        update_user_status: () => {
+          throw Error("some error");
+        },
+      };
+      const login_service = new LoginService(repo);
+
+      try {
+        login_service.set_status("user", true);
+        expect.fail();
+      } catch (err) {
+        expect(err.message).to.be.equal("some error");
+      }
+    });
+  });
 });
 
 describe("Given a invalid pair of user name and password", () => {

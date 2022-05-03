@@ -12,6 +12,9 @@ login_service.prototype.verify = function (username, password) {
   }
   return false;
 };
-login_service.prototype.set_status = function (username, status) {};
+login_service.prototype.set_status = function (username, status) {
+  this.login_repo.update_user_status(username, status);
+  return true;
+};
 
 exports.LoginService = login_service;
