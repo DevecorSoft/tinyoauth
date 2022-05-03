@@ -1,6 +1,6 @@
 const expect = require("chai").expect;
 const sinon = require("sinon");
-const { login_repository } = require("../../../app/login/repository");
+const { LoginRepository } = require("../../../app/login/repository");
 
 describe("Given a username that exists in db", () => {
   describe("When find user by username form repository", () => {
@@ -9,7 +9,7 @@ describe("Given a username that exists in db", () => {
         Item: { username: "user", password: "pass" },
       }),
     };
-    const login_repo = new login_repository(stubed_db_client);
+    const login_repo = new LoginRepository(stubed_db_client);
 
     it("Then should tell db to find in tinyoauth_user table", async () => {
       await login_repo.find_user_by_user_name("user");
@@ -34,7 +34,7 @@ describe("Given a invalid user", () => {
         Item: {},
       }),
     };
-    const login_repo = new login_repository(stubed_db_client);
+    const login_repo = new LoginRepository(stubed_db_client);
     it("Then should return just null", async () => {
       const user = await login_repo.find_user_by_user_name("user");
 

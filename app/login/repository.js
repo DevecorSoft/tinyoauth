@@ -15,4 +15,4 @@ login_repository.prototype.find_user_by_user_name = async function(username) {
   return user.Item.username ? user.Item : null;
 };
 
-exports.login_repository = login_repository;
+exports.LoginRepository = login_repository;
