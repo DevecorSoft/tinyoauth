@@ -24,7 +24,7 @@ login_repository.prototype.update_user_status = async function (
   username,
   islogin
 ) {
-  const user = await this.ddbDocClient.send(
+  await this.ddbDocClient.send(
     new UpdateItemCommand({
       TableName: "tinyoauth_user",
       Key: {

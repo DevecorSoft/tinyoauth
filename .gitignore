@@ -2,3 +2,4 @@ node_modules
 dist
 db/docker/dynamodb/*
 .vscode
+.nyc_output
