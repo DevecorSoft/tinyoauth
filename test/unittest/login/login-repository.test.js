@@ -25,6 +25,37 @@ describe("Given a username that exists in db", () => {
       expect(user).to.have.property("password", "pass");
     });
   });
+
+  describe("When update user status and updation time", () => {
+    it("Then should tell db exactly which field need to be updated", async () => {
+      const stubed_db_doc_client = {
+        send: sinon.fake(),
+      };
+      const time_suppiler = {
+        get utc_now() {
+          return "Wed, 14 Jun 2017 07:00:00 GMT"
+        }
+      }
+
+      const login_repo = new LoginRepository(null, stubed_db_doc_client, time_suppiler);
+
+      await login_repo.update_user_status("user", true);
+
+      expect(stubed_db_doc_client.send.calledOnce).to.be.true;
+      const args = stubed_db_doc_client.send.getCall(0).args[0].input;
+      expect(args).to.be.deep.equal({
+        TableName: "tinyoauth_user",
+        Key: {
+          username: "user",
+        },
+        UpdateExpression: "set status = :s, updation_time = :u",
+        ExpressionAttributeValues: {
+          ":s": { S: "online" },
+          ":u": { S: "Wed, 14 Jun 2017 07:00:00 GMT" },
+        },
+      });
+    });
+  });
 });
 
 describe("Given a invalid user", () => {
