@@ -28,11 +28,11 @@ login_repository.prototype.update_user_status = async function (
     new UpdateItemCommand({
       TableName: "tinyoauth_user",
       Key: {
-        username: "user",
+        username: username,
       },
-      UpdateExpression: "set status = :s, updation_time = :u",
+      UpdateExpression: "set status = :s, operation_time = :u",
       ExpressionAttributeValues: {
-        ":s": { S: "online" },
+        ":s": { S: islogin ? "online" : "offline" },
         ":u": { S: this.timeSuppiler.utc_now },
       },
     })

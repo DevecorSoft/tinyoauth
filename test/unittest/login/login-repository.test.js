@@ -26,18 +26,22 @@ describe("Given a username that exists in db", () => {
     });
   });
 
-  describe("When update user status and updation time", () => {
-    it("Then should tell db exactly which field need to be updated", async () => {
+  describe("When set user online", () => {
+    it("Then should tell db set status to online and update operation time", async () => {
       const stubed_db_doc_client = {
         send: sinon.fake(),
       };
       const time_suppiler = {
         get utc_now() {
-          return "Wed, 14 Jun 2017 07:00:00 GMT"
-        }
-      }
+          return "Wed, 14 Jun 2017 07:00:00 GMT";
+        },
+      };
 
-      const login_repo = new LoginRepository(null, stubed_db_doc_client, time_suppiler);
+      const login_repo = new LoginRepository(
+        null,
+        stubed_db_doc_client,
+        time_suppiler
+      );
 
       await login_repo.update_user_status("user", true);
 
@@ -48,10 +52,45 @@ describe("Given a username that exists in db", () => {
         Key: {
           username: "user",
         },
-        UpdateExpression: "set status = :s, updation_time = :u",
+        UpdateExpression: "set status = :s, operation_time = :u",
         ExpressionAttributeValues: {
           ":s": { S: "online" },
           ":u": { S: "Wed, 14 Jun 2017 07:00:00 GMT" },
+        },
+      });
+    });
+  });
+
+  describe("When set user offline", () => {
+    it("Then should tell db set status to offline and update operation time", async () => {
+      const stubed_db_doc_client = {
+        send: sinon.fake(),
+      };
+      const time_suppiler = {
+        get utc_now() {
+          return "Wed, 14 Jun 2017 07:00:01 GMT";
+        },
+      };
+
+      const login_repo = new LoginRepository(
+        null,
+        stubed_db_doc_client,
+        time_suppiler
+      );
+
+      await login_repo.update_user_status("user2", false);
+
+      expect(stubed_db_doc_client.send.calledOnce).to.be.true;
+      const args = stubed_db_doc_client.send.getCall(0).args[0].input;
+      expect(args).to.be.deep.equal({
+        TableName: "tinyoauth_user",
+        Key: {
+          username: "user2",
+        },
+        UpdateExpression: "set status = :s, operation_time = :u",
+        ExpressionAttributeValues: {
+          ":s": { S: "offline" },
+          ":u": { S: "Wed, 14 Jun 2017 07:00:01 GMT" },
         },
       });
     });
