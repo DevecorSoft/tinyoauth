@@ -28,7 +28,7 @@ describe("Given a username that exists in db", () => {
 
   describe("When set user online", () => {
     it("Then should tell db set status to online and update operation time", async () => {
-      const stubed_db_doc_client = {
+      const stubed_db_client = {
         send: sinon.fake(),
       };
       const time_suppiler = {
@@ -38,15 +38,14 @@ describe("Given a username that exists in db", () => {
       };
 
       const login_repo = new LoginRepository(
-        null,
-        stubed_db_doc_client,
+        stubed_db_client,
         time_suppiler
       );
 
       await login_repo.update_user_status("user", true);
 
-      expect(stubed_db_doc_client.send.calledOnce).to.be.true;
-      const args = stubed_db_doc_client.send.getCall(0).args[0].input;
+      expect(stubed_db_client.send.calledOnce).to.be.true;
+      const args = stubed_db_client.send.getCall(0).args[0].input;
       expect(args).to.be.deep.equal({
         TableName: "tinyoauth_user",
         Key: {
@@ -63,7 +62,7 @@ describe("Given a username that exists in db", () => {
 
   describe("When set user offline", () => {
     it("Then should tell db set status to offline and update operation time", async () => {
-      const stubed_db_doc_client = {
+      const stubed_db_client = {
         send: sinon.fake(),
       };
       const time_suppiler = {
@@ -73,15 +72,14 @@ describe("Given a username that exists in db", () => {
       };
 
       const login_repo = new LoginRepository(
-        null,
-        stubed_db_doc_client,
+        stubed_db_client,
         time_suppiler
       );
 
       await login_repo.update_user_status("user2", false);
 
-      expect(stubed_db_doc_client.send.calledOnce).to.be.true;
-      const args = stubed_db_doc_client.send.getCall(0).args[0].input;
+      expect(stubed_db_client.send.calledOnce).to.be.true;
+      const args = stubed_db_client.send.getCall(0).args[0].input;
       expect(args).to.be.deep.equal({
         TableName: "tinyoauth_user",
         Key: {

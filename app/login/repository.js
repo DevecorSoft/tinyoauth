@@ -1,14 +1,36 @@
+/**
+ * login repository
+ * @module login/repository
+ */
+
 const {
   GetItemCommand,
   UpdateItemCommand,
+  DynamoDBClient,
+  GetItemOutput,
 } = require("@aws-sdk/client-dynamodb");
 
-const login_repository = function (dynamodb, docClient, timeSuppiler) {
+/**
+ * @typedef TimeSuppiler
+ * @type {Object}
+ * @property {Function} utc_now - current utc time in format
+ */
+
+/**
+ * @constructor
+ * @param {DynamoDBClient} dynamodb
+ * @param {TimeSuppiler} timeSuppiler
+ */
+const login_repository = function (dynamodb, timeSuppiler) {
   this.ddbClient = dynamodb;
-  this.ddbDocClient = docClient;
   this.timeSuppiler = timeSuppiler;
 };
 
+/**
+ * find user by username from dynamodb
+ * @param {String} username - the key of tinyoauth_user table
+ * @returns {GetItemOutput.Item|undefined}
+ */
 login_repository.prototype.find_user_by_user_name = async function (username) {
   const user = await this.ddbClient.send(
     new GetItemCommand({
@@ -20,11 +42,16 @@ login_repository.prototype.find_user_by_user_name = async function (username) {
   return user.Item.username ? user.Item : null;
 };
 
+/**
+ * update user status and operation time
+ * @param {String} username 
+ * @param {Boolean} islogin 
+ */
 login_repository.prototype.update_user_status = async function (
   username,
   islogin
 ) {
-  await this.ddbDocClient.send(
+  await this.ddbClient.send(
     new UpdateItemCommand({
       TableName: "tinyoauth_user",
       Key: {
