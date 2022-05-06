@@ -1,3 +1,9 @@
-const login_controller = require("./controller")
+const { LoginController } = require("./controller");
+const { LoginService } = require("./service");
+const { LoginRepository } = require("./repository");
+const { ddbClient } = require("../../db/ddbClient");
+const { timeSuppiler } = require("../../lib/timeSupplier");
 
-exports.login = login_controller.login
+exports.login = new LoginController(
+  new LoginService(new LoginRepository(ddbClient, timeSuppiler))
+).handler;
