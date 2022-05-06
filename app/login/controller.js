@@ -17,9 +17,17 @@ function login_controller(login_service) {
 login_controller.prototype.handler = function (req, res) {
   const username = req.body?.username;
   const password = req.body?.password;
-  res.json({
-    result: "succeeded",
-  });
+
+  if (this.login_service.verify(username, password)) {
+    this.login_service.set_status(username, true);
+    res.json({
+      result: "succeeded",
+    });
+  } else {
+    res.json({
+      result: "failed",
+    });
+  }
 };
 
 exports.LoginController = login_controller;
