@@ -44,8 +44,8 @@ login_repository.prototype.find_user_by_user_name = async function (username) {
 
 /**
  * update user status and operation time
- * @param {String} username 
- * @param {Boolean} islogin 
+ * @param {String} username
+ * @param {Boolean} islogin
  */
 login_repository.prototype.update_user_status = async function (
   username,
@@ -55,7 +55,7 @@ login_repository.prototype.update_user_status = async function (
     new UpdateItemCommand({
       TableName: "tinyoauth_user",
       Key: {
-        username: username,
+        username: { S: username },
       },
       UpdateExpression: "set status = :s, operation_time = :u",
       ExpressionAttributeValues: {

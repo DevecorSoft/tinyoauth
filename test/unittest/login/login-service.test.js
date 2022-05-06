@@ -7,9 +7,9 @@ describe("Given a valid pair of user name and password", () => {
     it("Then should return true to indicate successful authentication", async () => {
       const repo = {
         find_user_by_user_name: sinon.fake.returns({
-          username: "user",
-          password: "pass",
-          status: "offline",
+          username: { S: "user" },
+          password: { S: "pass" },
+          status: { S: "offline" },
         }),
       };
       const login_service = new LoginService(repo);
@@ -32,16 +32,16 @@ describe("Given a valid pair of user name and password", () => {
       expect(args).to.be.deep.equal(["user", true]);
     });
 
-    it("Then should return true in case of without any error", () => {
+    it("Then should return true in case of without any error", async () => {
       const repo = { update_user_status: () => {} };
       const login_service = new LoginService(repo);
 
-      const res = login_service.set_status("user", true);
+      const res = await login_service.set_status("user", true);
 
       expect(res).to.be.true;
     });
 
-    it("Then should let it throw up in case of any error occurs", () => {
+    it("Then should let it throw up in case of any error occurs", async () => {
       const repo = {
         update_user_status: () => {
           throw Error("some error");
@@ -50,7 +50,7 @@ describe("Given a valid pair of user name and password", () => {
       const login_service = new LoginService(repo);
 
       try {
-        login_service.set_status("user", true);
+        await login_service.set_status("user", true);
         expect.fail();
       } catch (err) {
         expect(err.message).to.be.equal("some error");
@@ -64,9 +64,9 @@ describe("Given a invalid pair of user name and password", () => {
     it("Then should return false to indicate a failed authentication", async () => {
       const repo = {
         find_user_by_user_name: sinon.fake.returns({
-          username: "user",
-          password: "pass",
-          status: "offline",
+          username: { S: "user" },
+          password: { S: "pass" },
+          status: { S: "offline" },
         }),
       };
       const login_service = new LoginService(repo);

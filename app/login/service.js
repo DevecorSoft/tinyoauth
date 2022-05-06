@@ -24,7 +24,7 @@ function login_service(login_repo) {
 login_service.prototype.verify = async function (username, password) {
   const user = await this.login_repo.find_user_by_user_name(username);
   if (user) {
-    if (user.password === password) {
+    if (user.password.S === password) {
       return true;
     }
     return false;
@@ -39,8 +39,8 @@ login_service.prototype.verify = async function (username, password) {
  * @param {Boolean} status - online: true, offline: false
  * @returns Boolean
  */
-login_service.prototype.set_status = function (username, status) {
-  this.login_repo.update_user_status(username, status);
+login_service.prototype.set_status = async function (username, status) {
+  await this.login_repo.update_user_status(username, status);
   return true;
 };
 
