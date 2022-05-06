@@ -4,7 +4,7 @@ const { LoginService } = require("../../../app/login/service");
 
 describe("Given a valid pair of user name and password", () => {
   describe("When verify password by login service", () => {
-    it("Then should return true to indicate successful authentication", () => {
+    it("Then should return true to indicate successful authentication", async () => {
       const repo = {
         find_user_by_user_name: sinon.fake.returns({
           username: "user",
@@ -13,7 +13,7 @@ describe("Given a valid pair of user name and password", () => {
         }),
       };
       const login_service = new LoginService(repo);
-      const res = login_service.verify("user", "pass");
+      const res = await login_service.verify("user", "pass");
       expect(res).to.be.true;
     });
   });
@@ -61,7 +61,7 @@ describe("Given a valid pair of user name and password", () => {
 
 describe("Given a invalid pair of user name and password", () => {
   describe("When verify password by login service", () => {
-    it("Then should return false to indicate a failed authentication", () => {
+    it("Then should return false to indicate a failed authentication", async () => {
       const repo = {
         find_user_by_user_name: sinon.fake.returns({
           username: "user",
@@ -70,7 +70,7 @@ describe("Given a invalid pair of user name and password", () => {
         }),
       };
       const login_service = new LoginService(repo);
-      const res = login_service.verify("user", "wrong password");
+      const res = await login_service.verify("user", "wrong password");
       expect(res).to.be.false;
     });
   });
@@ -78,12 +78,12 @@ describe("Given a invalid pair of user name and password", () => {
 
 describe("Given a non-existent user", () => {
   describe("When verify password by login service", () => {
-    it("Then shuld also return false to indicate a failed authentication", () => {
+    it("Then shuld also return false to indicate a failed authentication", async () => {
       const repo = {
         find_user_by_user_name: sinon.fake.returns(null),
       };
       const login_service = new LoginService(repo);
-      const res = login_service.verify("non-existent user", "password");
+      const res = await login_service.verify("non-existent user", "password");
       expect(res).to.be.false;
     });
   });

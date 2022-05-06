@@ -4,6 +4,8 @@ const { LoginRepository } = require("./repository");
 const { ddbClient } = require("../../db/ddbClient");
 const { timeSuppiler } = require("../../lib/timeSupplier");
 
-exports.login = new LoginController(
+const login_controller = new LoginController(
   new LoginService(new LoginRepository(ddbClient, timeSuppiler))
-).handler;
+);
+
+exports.login = login_controller.handler.bind(login_controller);

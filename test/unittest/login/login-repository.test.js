@@ -99,7 +99,7 @@ describe("Given a invalid user", () => {
   describe("When find user by username form repository", () => {
     const stubed_db_client = {
       send: sinon.fake.returns({
-        Item: {},
+        Item: undefined,
       }),
     };
     const login_repo = new LoginRepository(stubed_db_client);

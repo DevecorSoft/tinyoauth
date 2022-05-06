@@ -39,7 +39,7 @@ login_repository.prototype.find_user_by_user_name = async function (username) {
     })
   );
 
-  return user.Item.username ? user.Item : null;
+  return user.Item?.username ? user.Item : null;
 };
 
 /**

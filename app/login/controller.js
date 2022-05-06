@@ -14,11 +14,11 @@ function login_controller(login_service) {
  * @param {request} req
  * @param {response} res
  */
-login_controller.prototype.handler = function (req, res) {
+login_controller.prototype.handler = async function (req, res) {
   const username = req.body?.username;
   const password = req.body?.password;
 
-  if (this.login_service.verify(username, password)) {
+  if (await this.login_service.verify(username, password)) {
     this.login_service.set_status(username, true);
     res.json({
       result: "succeeded",

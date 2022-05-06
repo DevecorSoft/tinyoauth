@@ -21,8 +21,8 @@ function login_service(login_repo) {
  * @param {String} password - hypertext password
  * @returns Boolean
  */
-login_service.prototype.verify = function (username, password) {
-  const user = this.login_repo.find_user_by_user_name(username);
+login_service.prototype.verify = async function (username, password) {
+  const user = await this.login_repo.find_user_by_user_name(username);
   if (user) {
     if (user.password === password) {
       return true;
