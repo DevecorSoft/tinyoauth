@@ -37,10 +37,7 @@ describe("Given a username that exists in db", () => {
         },
       };
 
-      const login_repo = new LoginRepository(
-        stubed_db_client,
-        time_suppiler
-      );
+      const login_repo = new LoginRepository(stubed_db_client, time_suppiler);
 
       await login_repo.update_user_status("user", true);
 
@@ -49,7 +46,7 @@ describe("Given a username that exists in db", () => {
       expect(args).to.be.deep.equal({
         TableName: "tinyoauth_user",
         Key: {
-          username: "user",
+          username: { S: "user" },
         },
         UpdateExpression: "set status = :s, operation_time = :u",
         ExpressionAttributeValues: {
@@ -71,10 +68,7 @@ describe("Given a username that exists in db", () => {
         },
       };
 
-      const login_repo = new LoginRepository(
-        stubed_db_client,
-        time_suppiler
-      );
+      const login_repo = new LoginRepository(stubed_db_client, time_suppiler);
 
       await login_repo.update_user_status("user2", false);
 
@@ -83,7 +77,7 @@ describe("Given a username that exists in db", () => {
       expect(args).to.be.deep.equal({
         TableName: "tinyoauth_user",
         Key: {
-          username: "user2",
+          username: { S: "user2" },
         },
         UpdateExpression: "set status = :s, operation_time = :u",
         ExpressionAttributeValues: {
