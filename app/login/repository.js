@@ -57,7 +57,7 @@ login_repository.prototype.update_user_status = async function (
       Key: {
         username: { S: username },
       },
-      UpdateExpression: "set status = :s, operation_time = :u",
+      UpdateExpression: "set user_status = :s, operation_time = :u",
       ExpressionAttributeValues: {
         ":s": { S: islogin ? "online" : "offline" },
         ":u": { S: this.timeSuppiler.utc_now },

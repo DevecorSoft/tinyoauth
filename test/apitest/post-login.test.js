@@ -33,7 +33,7 @@ describe("Given a correct pair of username and password", () => {
               Item: {
                 username: { S: "test" },
                 password: { S: "pwd for test" },
-                status: { S: "offline" },
+                user_status: { S: "offline" },
                 operation_time: { S: "Wed, 14 Jun 2017 07:00:00 GMT" },
               },
             })
@@ -71,7 +71,7 @@ describe("Given a correct pair of username and password", () => {
               })
             )
             .then((val) => {
-              expect(val.Item?.status.S).to.be.equal("online");
+              expect(val.Item?.user_status.S).to.be.equal("online");
               done();
             })
             .catch((err) => {

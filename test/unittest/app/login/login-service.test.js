@@ -9,7 +9,7 @@ describe("Given a valid pair of user name and password", () => {
         find_user_by_user_name: sinon.fake.returns({
           username: { S: "user" },
           password: { S: "pass" },
-          status: { S: "offline" },
+          user_status: { S: "offline" },
         }),
       };
       const login_service = new LoginService(repo);
@@ -66,7 +66,7 @@ describe("Given a invalid pair of user name and password", () => {
         find_user_by_user_name: sinon.fake.returns({
           username: { S: "user" },
           password: { S: "pass" },
-          status: { S: "offline" },
+          user_status: { S: "offline" },
         }),
       };
       const login_service = new LoginService(repo);

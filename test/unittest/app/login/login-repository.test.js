@@ -48,7 +48,7 @@ describe("Given a username that exists in db", () => {
         Key: {
           username: { S: "user" },
         },
-        UpdateExpression: "set status = :s, operation_time = :u",
+        UpdateExpression: "set user_status = :s, operation_time = :u",
         ExpressionAttributeValues: {
           ":s": { S: "online" },
           ":u": { S: "Wed, 14 Jun 2017 07:00:00 GMT" },
@@ -79,7 +79,7 @@ describe("Given a username that exists in db", () => {
         Key: {
           username: { S: "user2" },
         },
-        UpdateExpression: "set status = :s, operation_time = :u",
+        UpdateExpression: "set user_status = :s, operation_time = :u",
         ExpressionAttributeValues: {
           ":s": { S: "offline" },
           ":u": { S: "Wed, 14 Jun 2017 07:00:01 GMT" },
