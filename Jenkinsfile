@@ -3,11 +3,7 @@ pipeline {
     stages {
         stage('Test') { 
             steps {
-                sh '''
-                npm install
-                npm run coverage
-                npm run test:api
-                '''
+                sh "npm install"
             }
         }
     }
