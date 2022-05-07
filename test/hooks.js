@@ -1,9 +1,14 @@
 const { execSync } = require("child_process");
+const { server } = require("../dev_server");
+
 
 let container_hash;
 
 module.exports.mochaHooks = {
-  beforeAll() {
+  afterAll() {
+    server.close()
+  },
+  beforeEach() {
     const res = execSync("docker run -d -p 3330:8000 amazon/dynamodb-local");
     container_hash = String.fromCharCode(...res);
     console.log(container_hash);
@@ -22,7 +27,7 @@ module.exports.mochaHooks = {
       }
     }
   },
-  afterAll() {
+  afterEach() {
     const res = execSync(
       `docker stop ${container_hash} \\\ndocker rm ${container_hash}`
     );

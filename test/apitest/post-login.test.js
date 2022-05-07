@@ -1,7 +1,5 @@
 const axios = require("axios");
 const expect = require("chai").expect;
-const assert = require("assert");
-const { server } = require("../../dev_server");
 const { ddbClient } = require("../../db/ddbClient");
 const {
   CreateTableCommand,
@@ -10,46 +8,31 @@ const {
 } = require("@aws-sdk/client-dynamodb");
 
 describe("Given a correct pair of username and password", () => {
-  before((done) => {
-    ddbClient
-      .send(
-        new CreateTableCommand({
-          TableName: "tinyoauth_user",
-          KeySchema: [{ AttributeName: "username", KeyType: "HASH" }],
-          AttributeDefinitions: [
-            { AttributeName: "username", AttributeType: "S" },
-          ],
-          ProvisionedThroughput: {
-            ReadCapacityUnits: 1,
-            WriteCapacityUnits: 1,
-          },
-        })
-      )
-      .then(() => {
-        ddbClient
-          .send(
-            new PutItemCommand({
-              TableName: "tinyoauth_user",
-              Item: {
-                username: { S: "test" },
-                password: { S: "pwd for test" },
-                user_status: { S: "offline" },
-                operation_time: { S: "Wed, 14 Jun 2017 07:00:00 GMT" },
-              },
-            })
-          )
-          .then(() => {
-            done();
-          })
-          .catch((err) => {
-            done(err);
-            assert.fail();
-          });
+  beforeEach(async () => {
+    await ddbClient.send(
+      new CreateTableCommand({
+        TableName: "tinyoauth_user",
+        KeySchema: [{ AttributeName: "username", KeyType: "HASH" }],
+        AttributeDefinitions: [
+          { AttributeName: "username", AttributeType: "S" },
+        ],
+        ProvisionedThroughput: {
+          ReadCapacityUnits: 1,
+          WriteCapacityUnits: 1,
+        },
       })
-      .catch((err) => {
-        done(err);
-        assert.fail();
-      });
+    );
+    await ddbClient.send(
+      new PutItemCommand({
+        TableName: "tinyoauth_user",
+        Item: {
+          username: { S: "test" },
+          password: { S: "pwd for test" },
+          user_status: { S: "offline" },
+          operation_time: { S: "Wed, 14 Jun 2017 07:00:00 GMT" },
+        },
+      })
+    );
   });
 
   describe("When it post /login api", () => {
@@ -74,9 +57,5 @@ describe("Given a correct pair of username and password", () => {
       );
       expect(user_item.Item?.user_status.S).to.be.equal("online");
     });
-  });
-
-  after(() => {
-    server.close();
   });
 });
