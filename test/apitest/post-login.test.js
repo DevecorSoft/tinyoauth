@@ -53,36 +53,26 @@ describe("Given a correct pair of username and password", () => {
   });
 
   describe("When it post /login api", () => {
-    it("Then response code should be 200", (done) => {
-      axios
-        .post("/login", {
-          username: "test",
-          password: "pwd for test",
-        })
-        .then((res) => {
-          expect(res.status).to.be.equal(200);
-          expect(res.data.result).to.be.equal("succeeded");
+    it("Then response code should be 200", async () => {
+      const res = await axios.post("/login", {
+        username: "test",
+        password: "pwd for test",
+      });
 
-          ddbClient
-            .send(
-              new GetItemCommand({
-                TableName: "tinyoauth_user",
-                Key: { username: { S: "test" } },
-              })
-            )
-            .then((val) => {
-              expect(val.Item?.user_status.S).to.be.equal("online");
-              done();
-            })
-            .catch((err) => {
-              done(err);
-              expect.fail(err);
-            });
+      expect(res.status).to.be.equal(200);
+      expect(res.data.result).to.be.equal("succeeded");
+
+      await new Promise((resolve) => {
+        setTimeout(() => resolve(), 500);
+      });
+
+      const user_item = await ddbClient.send(
+        new GetItemCommand({
+          TableName: "tinyoauth_user",
+          Key: { username: { S: "test" } },
         })
-        .catch((err) => {
-          done(err);
-          assert.fail();
-        });
+      );
+      expect(user_item.Item?.user_status.S).to.be.equal("online");
     });
   });
 
