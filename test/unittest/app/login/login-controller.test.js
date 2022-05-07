@@ -1,6 +1,6 @@
 const { expect } = require("chai");
 const sinon = require("sinon");
-const { LoginController } = require("../../../app/login/controller");
+const { LoginController } = require("../../../../app/login/controller");
 
 describe("Given a user with correct password", () => {
   describe("When this user try to login", () => {

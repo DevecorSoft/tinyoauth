@@ -1,6 +1,6 @@
 const sinon = require("sinon");
 const { expect } = require("chai");
-const { LoginService } = require("../../../app/login/service");
+const { LoginService } = require("../../../../app/login/service");
 
 describe("Given a valid pair of user name and password", () => {
   describe("When verify password by login service", () => {

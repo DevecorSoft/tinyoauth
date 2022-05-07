@@ -4,8 +4,8 @@
   "description": "a hostable oauth2.0 serverless app",
   "main": "index.js",
   "scripts": {
-    "test:api": "NODE_ENV=apitest npx mocha --recursive --colors --timeout 60000",
-    "test:unit": "NODE_ENV=unittest npx mocha --recursive --colors ./test/unittest/**/*.js",
+    "test:api": "NODE_ENV=apitest npx mocha --recursive --colors --timeout 60000 ./test/apitest",
+    "test:unit": "NODE_ENV=unittest npx mocha --recursive --colors ./test/unittest",
     "coverage": "npx nyc mocha --recursive --colors --timeout 60000"
   },
   "repository": {

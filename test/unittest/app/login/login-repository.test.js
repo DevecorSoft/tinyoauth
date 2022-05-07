@@ -1,6 +1,6 @@
 const expect = require("chai").expect;
 const sinon = require("sinon");
-const { LoginRepository } = require("../../../app/login/repository");
+const { LoginRepository } = require("../../../../app/login/repository");
 
 describe("Given a username that exists in db", () => {
   describe("When find user by username form repository", () => {
