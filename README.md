@@ -2,6 +2,22 @@
 
 a hostable api gateway that protects your api with oauth2.0
 
+## Development guide
+
+### Requirements
+
+1. node-16-lts
+2. docker
+
+### Install
+
+1. npm install
+
+### Test
+
+1. npm run test:unit
+2. npm run test:api
+
 ## Architecture
 
 ### Serverless
