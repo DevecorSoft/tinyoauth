@@ -28,4 +28,8 @@ jobs:
         run: npm run test:unit
 
       - name: Api test
-        run: npm run test:api
+        run: |
+          mkdir -p ~/.aws
+          echo "[default]" > ~/.aws/config
+          echo "region = ap-southeast-1" >> ~/.aws/config
+          npm run test:api
