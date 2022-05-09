@@ -1,5 +1,7 @@
 # Tinyoauth
 
+[![ci/cd](https://github.com/DevecorSoft/tinyoauth/actions/workflows/ci.yml/badge.svg)](https://github.com/DevecorSoft/tinyoauth/actions/workflows/ci.yml)
+
 a hostable api gateway that protects your api with oauth2.0
 
 ## Development guide
