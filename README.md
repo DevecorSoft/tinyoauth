@@ -6,17 +6,28 @@ a hostable api gateway that protects your api with oauth2.0
 
 ### Requirements
 
-1. node-16-lts
-2. docker
+- node-16-lts
+- docker
 
 ### Install
 
-1. npm install
+- npm install
 
 ### Test
 
-1. npm run test:unit
-2. npm run test:api
+- npm run test:unit
+- npm run test:api
+
+### Trunk-based development
+
+#### Just push your commits!
+
+There is no branch, no pull-request, you are allowed to make any changes and push it:
+
+1. git pull --rebase
+2. git add -p
+3. git commit -m "xxx"
+4. git push
 
 ## Architecture
 
