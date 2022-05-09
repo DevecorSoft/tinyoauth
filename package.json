@@ -4,8 +4,10 @@
   "description": "a hostable oauth2.0 serverless app",
   "main": "index.js",
   "scripts": {
-    "test:api": "NODE_ENV=apitest npx mocha --recursive --colors --timeout 60000 ./test/apitest",
-    "test:unit": "NODE_ENV=unittest npx nyc mocha --recursive --colors ./test/unittest"
+    "test:api": "HOST_NAME=http://localhost NODE_ENV=apitest npx mocha --recursive --colors --timeout 60000 ./test/apitest",
+    "test:unit": "HOST_NAME=http://localhost NODE_ENV=unittest npx nyc mocha --recursive --colors ./test/unittest",
+    "test:api:ci": "HOST_NAME=http://172.17.0.1 NODE_ENV=apitest npx mocha --recursive --colors --timeout 60000 ./test/apitest",
+    "test:unit:ci": "HOST_NAME=http://172.17.0.1 NODE_ENV=unittest npx nyc mocha --recursive --colors ./test/unittest"
   },
   "repository": {
     "type": "git",

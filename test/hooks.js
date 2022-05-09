@@ -16,7 +16,7 @@ module.exports.mochaHooks = {
     while (true) {
       try {
         JSON.parse(
-          String.fromCharCode(...execSync("curl -s http://localhost:3330"))
+          String.fromCharCode(...execSync(`curl -s ${process.env.HOST_NAME}:3330`))
         );
         break;
       } catch (err) {

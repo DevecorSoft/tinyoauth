@@ -4,6 +4,6 @@ const config = process.env.NODE_ENV === "production"
   ? { region: "ap-southeast-1" }
   : {
       region: "ap-southeast-1",
-      endpoint: "http://localhost:3330",
+      endpoint: `${process.env.HOST_NAME}:3330`,
     };
 module.exports.ddbClient = new DynamoDBClient(config);
