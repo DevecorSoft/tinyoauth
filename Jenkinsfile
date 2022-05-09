@@ -7,6 +7,7 @@ pipeline {
         stage("Setup") {
             steps {
                 sh "apk add docker-cli"
+                sh "apk add curl"
             }
         }
         stage('Test') { 
