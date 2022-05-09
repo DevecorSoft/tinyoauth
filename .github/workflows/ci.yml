@@ -1,0 +1,17 @@
+name: ci/cd
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'app'
+      - 'db'
+      - 'serverless'
+      - 'test'
+      - 'package.json'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
