@@ -30,8 +30,9 @@ jobs:
           git checkout pages
           git rebase
           sphinx-build -b html docs/source/ docs/build/html
+          git config advice.addIgnoredFile false
           git add docs/build/html
-          git config user.name "bot"
-          git config user.email "bot@github.com"
+          git config --local user.name "bot"
+          git config --local user.email "bot@github.com"
           git commit -m "build html"
           git push
