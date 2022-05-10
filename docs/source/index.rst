@@ -10,6 +10,8 @@ Welcome to tinyoauth's documentation!
    :maxdepth: 2
    :caption: Contents:
 
+   explanation
+
 
 
 Indices and tables
