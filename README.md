@@ -35,6 +35,14 @@ There is no branch, no pull-request, you are allowed to make any changes and pus
 3. git commit -m "xxx"
 4. git push
 
+### Build docs
+
+```
+cd docs
+python -m pip install -r requirements.txt
+make help
+```
+
 ## Architecture
 
 ### Serverless

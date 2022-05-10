@@ -5,3 +5,4 @@ db/docker/dynamodb/*
 .nyc_output
 docs/build
 .idea
+.DS_Store
