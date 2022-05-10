@@ -4,3 +4,4 @@ db/docker/dynamodb/*
 .vscode
 .nyc_output
 docs/build
+.idea
