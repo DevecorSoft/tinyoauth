@@ -33,6 +33,7 @@ jobs:
           mv docs/build/html/* docs@next
           rm -r docs/*
           mv docs@next/* docs
+          mv docs/_static/_config.yml docs/_config.yml
           rm -r docs@next
           git add docs
           git config --local user.name "bot"

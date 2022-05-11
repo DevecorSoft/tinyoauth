@@ -1,0 +1,4 @@
+theme: jekyll-theme-cayman
+include:
+  - "_static"
+  - "_sources"
