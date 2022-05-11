@@ -29,7 +29,8 @@ jobs:
         run: |
           sphinx-build -b html docs/source/ docs/build/html
           git checkout pages
-          mv -f docs/build/html/* docs
+          rm -rf docs/*
+          mv docs/build/html/* docs
           rm -r docs/build
           git add docs
           git config --local user.name "bot"
