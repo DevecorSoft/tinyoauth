@@ -1,8 +1,5 @@
-Explanation
-===========
-
 Spike aws lambda
-----------------
+================
 
 To deploy lambda with container for a new lambda, It probably not make sense!
 
