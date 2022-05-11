@@ -8,10 +8,17 @@ Welcome to tinyoauth's documentation!
 
 .. toctree::
    :maxdepth: 2
-   :caption: Contents:
+   :caption: Explanation:
 
-   explanation
+   explanation/architecture
+   explanation/spike-aws-lambda
 
+
+.. toctree::
+   :maxdepth: 2
+   :caption: How-to Guides:
+
+   how-to-guides/development-guide
 
 
 Indices and tables

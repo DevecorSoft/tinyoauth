@@ -1,0 +1,165 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Architecture &#8212; tinyoauth  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({startOnLoad:true});</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Spike aws lambda" href="spike-aws-lambda.html" />
+    <link rel="prev" title="Welcome to tinyoauth’s documentation!" href="../index.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="architecture">
+<h1>Architecture<a class="headerlink" href="#architecture" title="Permalink to this headline">¶</a></h1>
+<section id="serverless">
+<h2>Serverless<a class="headerlink" href="#serverless" title="Permalink to this headline">¶</a></h2>
+<div class="mermaid">
+            flowchart LR
+  api[restful api] --&gt; controller --&gt; service --&gt; repository --&gt; db
+        </div></section>
+<section id="api">
+<h2>Api<a class="headerlink" href="#api" title="Permalink to this headline">¶</a></h2>
+<div class="mermaid">
+            flowchart LR
+  subgraph tinyoauth
+
+    subgraph gateway[api gateway]
+      post_image_api[post /image]
+      post_login_api[post /login]
+      post_register_api[post /register]
+      post_authorize_api[post /authrize]
+      post_token_api[post /token]
+    end
+
+    subgraph auth
+      authenticate
+      authorize
+      issue_token[issue token]
+    end
+
+    subgraph db
+      dynamodb
+    end
+
+    post_image_api --&gt; authenticate
+    authenticate -- failure --&gt; 401
+
+    post_authorize_api --&gt; authorize
+    post_token_api --&gt; issue_token
+
+  end
+
+  subgraph service
+    service_api[post /image]
+  end
+
+  authenticate -- success --&gt; service
+  user_agent((user agent)) --&gt; post_image_api
+        </div></section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">tinyoauth</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Explanation:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Architecture</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#serverless">Serverless</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#api">Api</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="spike-aws-lambda.html">Spike aws lambda</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">How-to Guides:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../how-to-guides/development-guide.html">Development guide</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="../index.html" title="previous chapter">Welcome to tinyoauth’s documentation!</a></li>
+      <li>Next: <a href="spike-aws-lambda.html" title="next chapter">Spike aws lambda</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2022, devecorsoft.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.5.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../_sources/explanation/architecture.md.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
