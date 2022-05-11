@@ -3,10 +3,10 @@ on:
   push:
     branches: [main]
     paths:
-      - "app"
-      - "db"
-      - "serverless"
-      - "test"
+      - "app/**"
+      - "db/**"
+      - "serverless/**"
+      - "test/**"
       - "package.json"
 
 jobs:
