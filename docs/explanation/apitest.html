@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>Development guide &#8212; tinyoauth  documentation</title>
+    <title>Api test &#8212; tinyoauth  documentation</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -35,7 +35,8 @@
     <script>mermaid.initialize({startOnLoad:true});</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="prev" title="Api test" href="../explanation/apitest.html" />
+    <link rel="next" title="Development guide" href="../how-to-guides/development-guide.html" />
+    <link rel="prev" title="Spike aws lambda" href="spike-aws-lambda.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -87,19 +88,19 @@
   Explanation:
  </span>
 </p>
-<ul class="nav bd-sidenav">
+<ul class="current nav bd-sidenav">
  <li class="toctree-l1">
-  <a class="reference internal" href="../explanation/architecture.html">
+  <a class="reference internal" href="architecture.html">
    Architecture
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="../explanation/spike-aws-lambda.html">
+  <a class="reference internal" href="spike-aws-lambda.html">
    Spike aws lambda
   </a>
  </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../explanation/apitest.html">
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
    Api test
   </a>
  </li>
@@ -109,9 +110,9 @@
   How-to Guides:
  </span>
 </p>
-<ul class="current nav bd-sidenav">
- <li class="toctree-l1 current active">
-  <a class="current reference internal" href="#">
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../how-to-guides/development-guide.html">
    Development guide
   </a>
  </li>
@@ -188,7 +189,7 @@ title="Fullscreen mode"
   <div class="menu-dropdown__content">
     <ul>
       <li>
-        <a href="../_sources/how-to-guides/development-guide.md.txt"
+        <a href="../_sources/explanation/apitest.md.txt"
    class="headerbtn"
    data-toggle="tooltip"
 data-placement="left"
@@ -248,40 +249,13 @@ title="Print to PDF"
     <nav id="bd-toc-nav" aria-label="Page">
         <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#requirements">
-   Requirements
+  <a class="reference internal nav-link" href="#what-s-api-test">
+   What’s api test?
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#install">
-   Install
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#test">
-   Test
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#trunk-based-development">
-   Trunk-based development
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#just-push-your-commits">
-     Just push your commits!
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#build-docs">
-   Build docs
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#deploy-to-aws-lambda">
-   Deploy to aws lambda
+  <a class="reference internal nav-link" href="#child-process-vs-testcontainer">
+   child_process VS testcontainer
   </a>
  </li>
 </ul>
@@ -293,7 +267,7 @@ title="Print to PDF"
         <div class="col pl-md-3 pl-lg-5 content-container">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Development guide</h1>
+                <h1>Api test</h1>
                 <!-- Table of contents -->
                 <div id="print-main-content">
                     <div id="jb-print-toc">
@@ -304,40 +278,13 @@ title="Print to PDF"
                         <nav aria-label="Page">
                             <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#requirements">
-   Requirements
+  <a class="reference internal nav-link" href="#what-s-api-test">
+   What’s api test?
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#install">
-   Install
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#test">
-   Test
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#trunk-based-development">
-   Trunk-based development
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#just-push-your-commits">
-     Just push your commits!
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#build-docs">
-   Build docs
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#deploy-to-aws-lambda">
-   Deploy to aws lambda
+  <a class="reference internal nav-link" href="#child-process-vs-testcontainer">
+   child_process VS testcontainer
   </a>
  </li>
 </ul>
@@ -350,55 +297,27 @@ title="Print to PDF"
                 
               <div>
                 
-  <section id="development-guide">
-<h1>Development guide<a class="headerlink" href="#development-guide" title="Permalink to this headline">#</a></h1>
-<section id="requirements">
-<h2>Requirements<a class="headerlink" href="#requirements" title="Permalink to this headline">#</a></h2>
+  <section id="api-test">
+<h1>Api test<a class="headerlink" href="#api-test" title="Permalink to this headline">#</a></h1>
+<section id="what-s-api-test">
+<h2>What’s api test?<a class="headerlink" href="#what-s-api-test" title="Permalink to this headline">#</a></h2>
+<p>I would say that api test is integration test but just foucs on single api call.</p>
+<p>In api test:</p>
 <ul class="simple">
-<li><p>nodejs</p></li>
-<li><p>docker</p></li>
+<li><p>we starts up real db via docker</p></li>
+<li><p>we won’t mock any method/component</p></li>
+<li><p>but we will mock a http call to 3rdparty system</p></li>
 </ul>
 </section>
-<section id="install">
-<h2>Install<a class="headerlink" href="#install" title="Permalink to this headline">#</a></h2>
-<ul class="simple">
-<li><p>npm install</p></li>
-</ul>
-</section>
-<section id="test">
-<h2>Test<a class="headerlink" href="#test" title="Permalink to this headline">#</a></h2>
-<ul class="simple">
-<li><p>npm run test:unit</p></li>
-<li><p>npm run test:api</p></li>
-</ul>
-</section>
-<section id="trunk-based-development">
-<h2>Trunk-based development<a class="headerlink" href="#trunk-based-development" title="Permalink to this headline">#</a></h2>
-<section id="just-push-your-commits">
-<h3>Just push your commits!<a class="headerlink" href="#just-push-your-commits" title="Permalink to this headline">#</a></h3>
-<p>There is no branch, no pull-request, you are allowed to make any changes and push it:</p>
-<ol class="arabic simple">
-<li><p>git pull –rebase</p></li>
-<li><p>git add -p</p></li>
-<li><p>git commit -m “xxx”</p></li>
-<li><p>git push</p></li>
-</ol>
-</section>
-</section>
-<section id="build-docs">
-<h2>Build docs<a class="headerlink" href="#build-docs" title="Permalink to this headline">#</a></h2>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span> docs
-python -m pip install -r requirements.txt
-make <span class="nb">help</span>
+<section id="child-process-vs-testcontainer">
+<h2>child_process VS testcontainer<a class="headerlink" href="#child-process-vs-testcontainer" title="Permalink to this headline">#</a></h2>
+<p>In java world, we have a fantastic tool called <code class="docutils literal notranslate"><span class="pre">Testcontainer</span></code>, which is convenient to run a db via docker in a programmable way. and it also have a nodejs lib to support tests. However, if case we don’t have <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">desktop</span></code> in Macos, testcontainer-node won’t work this period.</p>
+<p>We found that to start up a docker container by <code class="docutils literal notranslate"><span class="pre">child_process</span></code> works well:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span><span class="w"> </span><span class="nx">container_hash</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">execSync</span><span class="p">(</span><span class="s2">&quot;docker run -d -p 3330:8000 amazon/dynamodb-local&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="nx">execSync</span><span class="p">(</span><span class="sb">`docker stop </span><span class="si">${</span><span class="nx">container_hash</span><span class="si">}</span><span class="sb"> \\\ndocker rm </span><span class="si">${</span><span class="nx">container_hash</span><span class="si">}</span><span class="sb">`</span><span class="p">);</span><span class="w"></span>
 </pre></div>
 </div>
-</section>
-<section id="deploy-to-aws-lambda">
-<h2>Deploy to aws lambda<a class="headerlink" href="#deploy-to-aws-lambda" title="Permalink to this headline">#</a></h2>
-<ul class="simple">
-<li><p>please run <code class="docutils literal notranslate"><span class="pre">npm</span> <span class="pre">run</span> <span class="pre">build</span></code> in your terminal</p></li>
-<li><p>then upload build/tinyoauth.zip to aws lambda</p></li>
-</ul>
+<p>You may want to read <a class="reference external" href="https://github.com/DevecorSoft/tinyoauth/blob/main/test/hooks.js">hooks.js</a> and understand how it works with api test</p>
 </section>
 </section>
 
@@ -410,12 +329,19 @@ make <span class="nb">help</span>
                 
     <!-- Previous / next buttons -->
 <div class='prev-next-area'>
-    <a class='left-prev' id="prev-link" href="../explanation/apitest.html" title="previous page">
+    <a class='left-prev' id="prev-link" href="spike-aws-lambda.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">Api test</p>
+            <p class="prev-next-title">Spike aws lambda</p>
         </div>
+    </a>
+    <a class='right-next' id="next-link" href="../how-to-guides/development-guide.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Development guide</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
     </a>
 </div>
             </footer>

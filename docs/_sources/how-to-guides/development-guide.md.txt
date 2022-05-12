@@ -2,7 +2,7 @@
 
 ## Requirements
 
-- node-16-lts
+- nodejs
 - docker
 
 ## Install
@@ -27,8 +27,13 @@ There is no branch, no pull-request, you are allowed to make any changes and pus
 
 ## Build docs
 
-```
+```shell
 cd docs
 python -m pip install -r requirements.txt
 make help
 ```
+
+## Deploy to aws lambda
+
+- please run `npm run build` in your terminal
+- then upload build/tinyoauth.zip to aws lambda
