@@ -249,13 +249,35 @@ title="Print to PDF"
     <nav id="bd-toc-nav" aria-label="Page">
         <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#serverless">
-   Serverless
+  <a class="reference internal nav-link" href="#architecture-style-perspective">
+   Architecture style perspective
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#api">
-   Api
+  <a class="reference internal nav-link" href="#architecture-dicisions-perspective">
+   Architecture dicisions perspective
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#api-design">
+     1. Api design
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#infrastructure">
+     2. Infrastructure
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#design-principle-perspective">
+   Design principle perspective
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#architecture-characteristics-perspective">
+   Architecture characteristics perspective
   </a>
  </li>
 </ul>
@@ -278,13 +300,35 @@ title="Print to PDF"
                         <nav aria-label="Page">
                             <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#serverless">
-   Serverless
+  <a class="reference internal nav-link" href="#architecture-style-perspective">
+   Architecture style perspective
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#api">
-   Api
+  <a class="reference internal nav-link" href="#architecture-dicisions-perspective">
+   Architecture dicisions perspective
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#api-design">
+     1. Api design
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#infrastructure">
+     2. Infrastructure
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#design-principle-perspective">
+   Design principle perspective
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#architecture-characteristics-perspective">
+   Architecture characteristics perspective
   </a>
  </li>
 </ul>
@@ -299,20 +343,22 @@ title="Print to PDF"
                 
   <section id="architecture">
 <h1>Architecture<a class="headerlink" href="#architecture" title="Permalink to this headline">#</a></h1>
-<section id="serverless">
-<h2>Serverless<a class="headerlink" href="#serverless" title="Permalink to this headline">#</a></h2>
-<div class="mermaid">
-            flowchart LR
+<section id="architecture-style-perspective">
+<h2>Architecture style perspective<a class="headerlink" href="#architecture-style-perspective" title="Permalink to this headline">#</a></h2>
+<div class="highlight-mermaid notranslate"><div class="highlight"><pre><span></span>flowchart LR
   api[restful api] --&gt; controller --&gt; service --&gt; repository --&gt; db
-        </div></section>
-<section id="api">
-<h2>Api<a class="headerlink" href="#api" title="Permalink to this headline">#</a></h2>
-<div class="mermaid">
-            flowchart LR
+</pre></div>
+</div>
+</section>
+<section id="architecture-dicisions-perspective">
+<h2>Architecture dicisions perspective<a class="headerlink" href="#architecture-dicisions-perspective" title="Permalink to this headline">#</a></h2>
+<section id="api-design">
+<h3>1. Api design<a class="headerlink" href="#api-design" title="Permalink to this headline">#</a></h3>
+<div class="highlight-mermaid notranslate"><div class="highlight"><pre><span></span>flowchart LR
   subgraph tinyoauth
 
     subgraph gateway[api gateway]
-      post_image_api[post /image]
+      post_protected_api[post /protected/resource]
       post_login_api[post /login]
       post_register_api[post /register]
       post_authorize_api[post /authrize]
@@ -325,11 +371,7 @@ title="Print to PDF"
       issue_token[issue token]
     end
 
-    subgraph db
-      dynamodb
-    end
-
-    post_image_api --&gt; authenticate
+    post_protected_api --&gt; authenticate
     authenticate -- failure --&gt; 401
 
     post_authorize_api --&gt; authorize
@@ -338,12 +380,40 @@ title="Print to PDF"
   end
 
   subgraph service
-    service_api[post /image]
+    service_api[post /protected/resource]
   end
 
   authenticate -- success --&gt; service
-  user_agent((user agent)) --&gt; post_image_api
-        </div></section>
+  user_agent((user agent)) --&gt; post_protected_api
+</pre></div>
+</div>
+</section>
+<section id="infrastructure">
+<h3>2. Infrastructure<a class="headerlink" href="#infrastructure" title="Permalink to this headline">#</a></h3>
+<ul class="simple">
+<li><p>serverless mode</p></li>
+</ul>
+<div class="highlight-mermaid notranslate"><div class="highlight"><pre><span></span>flowchart LR
+  apigateway[aws apigateway] --&gt; lambda[aws lambda] --&gt; db[aws dynamodb]
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>micro service mode</p></li>
+</ul>
+<div class="highlight-mermaid notranslate"><div class="highlight"><pre><span></span>flowchart LR
+  gateway[nginx as gateway] --&gt; app[tinyoauth server] --&gt; db[aws dynamo db]
+</pre></div>
+</div>
+</section>
+</section>
+<section id="design-principle-perspective">
+<h2>Design principle perspective<a class="headerlink" href="#design-principle-perspective" title="Permalink to this headline">#</a></h2>
+<p>WIP…</p>
+</section>
+<section id="architecture-characteristics-perspective">
+<h2>Architecture characteristics perspective<a class="headerlink" href="#architecture-characteristics-perspective" title="Permalink to this headline">#</a></h2>
+<p>WIP…</p>
+</section>
 </section>
 
 
