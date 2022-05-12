@@ -12,6 +12,7 @@ Welcome to tinyoauth's documentation!
 
    explanation/architecture
    explanation/spike-aws-lambda
+   explanation/apitest
 
 
 .. toctree::
