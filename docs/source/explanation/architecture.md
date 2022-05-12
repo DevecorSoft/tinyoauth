@@ -1,20 +1,21 @@
 # Architecture
 
-## Serverless
-
-```{mermaid}
+## Architecture style perspective
+```mermaid
 flowchart LR
   api[restful api] --> controller --> service --> repository --> db
 ```
 
-## Api
+## Architecture dicisions perspective
 
-```{mermaid}
+### 1. Api design
+
+```mermaid
 flowchart LR
   subgraph tinyoauth
 
     subgraph gateway[api gateway]
-      post_image_api[post /image]
+      post_protected_api[post /protected/resource]
       post_login_api[post /login]
       post_register_api[post /register]
       post_authorize_api[post /authrize]
@@ -27,11 +28,7 @@ flowchart LR
       issue_token[issue token]
     end
 
-    subgraph db
-      dynamodb
-    end
-
-    post_image_api --> authenticate
+    post_protected_api --> authenticate
     authenticate -- failure --> 401
 
     post_authorize_api --> authorize
@@ -40,10 +37,33 @@ flowchart LR
   end
 
   subgraph service
-    service_api[post /image]
+    service_api[post /protected/resource]
   end
 
   authenticate -- success --> service
-  user_agent((user agent)) --> post_image_api
+  user_agent((user agent)) --> post_protected_api
 ```
 
+### 2. Infrastructure
+
+- serverless mode
+
+```mermaid
+flowchart LR
+  apigateway[aws apigateway] --> lambda[aws lambda] --> db[aws dynamodb]
+```
+
+- micro service mode
+
+```mermaid
+flowchart LR
+  gateway[nginx as gateway] --> app[tinyoauth server] --> db[aws dynamo db]
+```
+
+## Design principle perspective
+
+WIP...
+
+## Architecture characteristics perspective
+
+WIP...
