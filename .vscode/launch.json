@@ -15,7 +15,10 @@
       "program": "${workspaceFolder}/node_modules/.bin/mocha",
       "request": "launch",
       "skipFiles": ["<node_internals>/**"],
-      "type": "node"
+      "type": "node",
+      "env": {
+        "HOST_NAME": "http://localhost"
+      }
     }
   ]
 }
