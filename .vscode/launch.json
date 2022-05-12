@@ -1,0 +1,21 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "args": [
+        "--timeout",
+        "60000",
+        "--colors",
+        "--require",
+        "test/hooks.js",
+        "${file}"
+      ],
+      "internalConsoleOptions": "openOnSessionStart",
+      "name": "Api Test",
+      "program": "${workspaceFolder}/node_modules/.bin/mocha",
+      "request": "launch",
+      "skipFiles": ["<node_internals>/**"],
+      "type": "node"
+    }
+  ]
+}
