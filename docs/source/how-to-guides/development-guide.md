@@ -33,6 +33,10 @@ python -m pip install -r requirements.txt
 make help
 ```
 
+## Check board
+
+[github project](https://github.com/DevecorSoft/tinyoauth/projects/1)
+
 ## Deploy to aws lambda
 
 - please run `npm run build` in your terminal
