@@ -345,16 +345,16 @@ title="Print to PDF"
 <h1>Architecture<a class="headerlink" href="#architecture" title="Permalink to this headline">#</a></h1>
 <section id="architecture-style-perspective">
 <h2>Architecture style perspective<a class="headerlink" href="#architecture-style-perspective" title="Permalink to this headline">#</a></h2>
-<div class="highlight-mermaid notranslate"><div class="highlight"><pre><span></span>flowchart LR
+<div class="mermaid">
+            flowchart LR
   api[restful api] --&gt; controller --&gt; service --&gt; repository --&gt; db
-</pre></div>
-</div>
-</section>
+        </div></section>
 <section id="architecture-dicisions-perspective">
 <h2>Architecture dicisions perspective<a class="headerlink" href="#architecture-dicisions-perspective" title="Permalink to this headline">#</a></h2>
 <section id="api-design">
 <h3>1. Api design<a class="headerlink" href="#api-design" title="Permalink to this headline">#</a></h3>
-<div class="highlight-mermaid notranslate"><div class="highlight"><pre><span></span>flowchart LR
+<div class="mermaid">
+            flowchart LR
   subgraph tinyoauth
 
     subgraph gateway[api gateway]
@@ -385,26 +385,22 @@ title="Print to PDF"
 
   authenticate -- success --&gt; service
   user_agent((user agent)) --&gt; post_protected_api
-</pre></div>
-</div>
-</section>
+        </div></section>
 <section id="infrastructure">
 <h3>2. Infrastructure<a class="headerlink" href="#infrastructure" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>serverless mode</p></li>
 </ul>
-<div class="highlight-mermaid notranslate"><div class="highlight"><pre><span></span>flowchart LR
+<div class="mermaid">
+            flowchart LR
   apigateway[aws apigateway] --&gt; lambda[aws lambda] --&gt; db[aws dynamodb]
-</pre></div>
-</div>
-<ul class="simple">
+        </div><ul class="simple">
 <li><p>micro service mode</p></li>
 </ul>
-<div class="highlight-mermaid notranslate"><div class="highlight"><pre><span></span>flowchart LR
+<div class="mermaid">
+            flowchart LR
   gateway[nginx as gateway] --&gt; app[tinyoauth server] --&gt; db[aws dynamo db]
-</pre></div>
-</div>
-</section>
+        </div></section>
 </section>
 <section id="design-principle-perspective">
 <h2>Design principle perspective<a class="headerlink" href="#design-principle-perspective" title="Permalink to this headline">#</a></h2>

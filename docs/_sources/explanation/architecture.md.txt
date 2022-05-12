@@ -1,7 +1,7 @@
 # Architecture
 
 ## Architecture style perspective
-```mermaid
+```{mermaid}
 flowchart LR
   api[restful api] --> controller --> service --> repository --> db
 ```
@@ -10,7 +10,7 @@ flowchart LR
 
 ### 1. Api design
 
-```mermaid
+```{mermaid}
 flowchart LR
   subgraph tinyoauth
 
@@ -48,14 +48,14 @@ flowchart LR
 
 - serverless mode
 
-```mermaid
+```{mermaid}
 flowchart LR
   apigateway[aws apigateway] --> lambda[aws lambda] --> db[aws dynamodb]
 ```
 
 - micro service mode
 
-```mermaid
+```{mermaid}
 flowchart LR
   gateway[nginx as gateway] --> app[tinyoauth server] --> db[aws dynamo db]
 ```
