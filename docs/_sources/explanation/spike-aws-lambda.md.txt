@@ -1,10 +1,8 @@
-Spike aws lambda
-================
+# Spike aws lambda
 
 To deploy lambda with container for a new lambda, It probably not make sense!
 
-.. mermaid::
-
+```{mermaid}
     flowchart LR
         subgraph client
         end
@@ -19,11 +17,11 @@ To deploy lambda with container for a new lambda, It probably not make sense!
         end
 
         client -.http call.-> apigateway -.event.-> lambda -.http call.-> container -. invoke .-> handler
+```
 
 As you can see on above diagram, there are so many times data transformation.
 
-.. mermaid::
-
+```{mermaid}
     flowchart LR
         subgraph client
         end
@@ -36,5 +34,6 @@ As you can see on above diagram, there are so many times data transformation.
         end
 
         client -.http call.-> apigateway -. event .-> lambda -. invoke .-> handler
+```
 
 If we perform it with pure javascript, it looks much better, right?

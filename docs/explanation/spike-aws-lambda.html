@@ -189,7 +189,7 @@ title="Fullscreen mode"
   <div class="menu-dropdown__content">
     <ul>
       <li>
-        <a href="../_sources/explanation/spike-aws-lambda.rst.txt"
+        <a href="../_sources/explanation/spike-aws-lambda.md.txt"
    class="headerbtn"
    data-toggle="tooltip"
 data-placement="left"
@@ -200,7 +200,7 @@ title="Download source file"
 <span class="headerbtn__icon-container">
   <i class="fas fa-file"></i>
   </span>
-<span class="headerbtn__text-container">.rst</span>
+<span class="headerbtn__text-container">.md</span>
 </a>
 
       </li>
@@ -254,34 +254,34 @@ title="Print to PDF"
 <h1>Spike aws lambda<a class="headerlink" href="#spike-aws-lambda" title="Permalink to this headline">#</a></h1>
 <p>To deploy lambda with container for a new lambda, It probably not make sense!</p>
 <div class="mermaid">
-            flowchart LR
-    subgraph client
-    end
-    subgraph apigateway[api gateway]
-    end
-    subgraph lambda[aws lambda]
-    end
-    subgraph container[aws lambda container]
-    end
-    subgraph handler
-        func(&quot;(event, context) =&gt; {}&quot;)
-    end
+                flowchart LR
+        subgraph client
+        end
+        subgraph apigateway[api gateway]
+        end
+        subgraph lambda[aws lambda]
+        end
+        subgraph container[aws lambda container]
+        end
+        subgraph handler
+            func(&quot;(event, context) =&gt; {}&quot;)
+        end
 
-    client -.http call.-&gt; apigateway -.event.-&gt; lambda -.http call.-&gt; container -. invoke .-&gt; handler
+        client -.http call.-&gt; apigateway -.event.-&gt; lambda -.http call.-&gt; container -. invoke .-&gt; handler
         </div><p>As you can see on above diagram, there are so many times data transformation.</p>
 <div class="mermaid">
-            flowchart LR
-    subgraph client
-    end
-    subgraph apigateway[api gateway]
-    end
-    subgraph lambda[aws lambda]
-    end
-    subgraph handler
-        func(&quot;(event, context) =&gt; {}&quot;)
-    end
+                flowchart LR
+        subgraph client
+        end
+        subgraph apigateway[api gateway]
+        end
+        subgraph lambda[aws lambda]
+        end
+        subgraph handler
+            func(&quot;(event, context) =&gt; {}&quot;)
+        end
 
-    client -.http call.-&gt; apigateway -. event .-&gt; lambda -. invoke .-&gt; handler
+        client -.http call.-&gt; apigateway -. event .-&gt; lambda -. invoke .-&gt; handler
         </div><p>If we perform it with pure javascript, it looks much better, right?</p>
 </section>
 
