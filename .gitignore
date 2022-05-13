@@ -5,3 +5,4 @@ db/docker/dynamodb/*
 build
 .idea
 .DS_Store
+out
