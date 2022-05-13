@@ -12,10 +12,15 @@ function register_controller(register_service) {
 register_controller.prototype.handler = function(req, res) {
     const username = req?.body?.username
     const password = req?.body?.password
-    this.register_service.register(username, password)
-    res.json({
-        result: "succeeded"
-    })
+    if (this.register_service.register(username, password)) {
+      res.json({
+          result: "succeeded"
+      })
+    } else {
+      res.json({
+        result: "failed"
+      })
+    }
 }
 
 exports.RegisterController = register_controller;

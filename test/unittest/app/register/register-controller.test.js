@@ -42,4 +42,27 @@ describe("Given guest try to register tinyoauth", () => {
       });
     });
   });
+
+  describe("When register fails for some reason", () => {
+
+    it("Then should return a failure result as response", () => {
+      const fake_service = {
+        register: sinon.fake.returns(false),
+      };
+      const register_controller = new RegisterController(fake_service);
+
+      const fake_res = { json: sinon.fake() };
+
+      register_controller.handler(
+        { body: { username: "user", password: "my pass" } },
+        fake_res
+      );
+
+      expect(fake_res.json.calledOnce).to.be.true;
+      const res = fake_res.json.getCall(0).args[0];
+      expect(res).to.be.deep.equal({
+        result: "failed",
+      });
+    });
+  });
 });
