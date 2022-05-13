@@ -23,9 +23,8 @@ Welcome to tinyoauth's documentation!
    how-to-guides/development-guide
 
 
-Indices and tables
-==================
+.. toctree::
+   :maxdepth: 2
+   :caption: Reference:
 
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
+   Module index <reference#http://>
