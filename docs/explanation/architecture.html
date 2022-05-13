@@ -268,6 +268,16 @@ title="Print to PDF"
      2. Infrastructure
     </a>
    </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#build">
+     3. Build
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#document-tool">
+     4. Document tool
+    </a>
+   </li>
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
@@ -317,6 +327,16 @@ title="Print to PDF"
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#infrastructure">
      2. Infrastructure
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#build">
+     3. Build
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#document-tool">
+     4. Document tool
     </a>
    </li>
   </ul>
@@ -394,13 +414,38 @@ title="Print to PDF"
 <div class="mermaid">
             flowchart LR
   apigateway[aws apigateway] --&gt; lambda[aws lambda] --&gt; db[aws dynamodb]
-        </div><ul class="simple">
+        </div><div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>costless</p>
+</div>
+<ul class="simple">
 <li><p>micro service mode</p></li>
 </ul>
 <div class="mermaid">
             flowchart LR
   gateway[nginx as gateway] --&gt; app[tinyoauth server] --&gt; db[aws dynamo db]
-        </div></section>
+        </div><div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>low-cost</p>
+</div>
+</section>
+<section id="build">
+<h3>3. Build<a class="headerlink" href="#build" title="Permalink to this headline">#</a></h3>
+<p>We have to build artifacts for FaaS and BaaS since current project contains too many <code class="docutils literal notranslate"><span class="pre">devDependencies</span></code> and redundancy modules.
+<a class="reference external" href="https://esbuild.github.io/">esbuild</a> is an extremely fast JavaScript bundler that can do what we desire:</p>
+<ul class="simple">
+<li><p>simple to use: <code class="docutils literal notranslate"><span class="pre">npx</span> <span class="pre">esbuild</span> <span class="pre">server/index.js</span> <span class="pre">--bundle</span> <span class="pre">--platform=node</span> <span class="pre">--target=node14.19.2</span> <span class="pre">--outfile=build/server/index.js</span></code></p></li>
+<li><p>build a standalone artifact: a huuuuge <code class="docutils literal notranslate"><span class="pre">index.js</span></code></p></li>
+</ul>
+</section>
+<section id="document-tool">
+<h3>4. Document tool<a class="headerlink" href="#document-tool" title="Permalink to this headline">#</a></h3>
+<blockquote>
+<div><p>It doesn’t matter how good your product is, because if its documentation is not good enough, people will not use it. Even if they have to use it because they have no choice, without good documentation, they won’t use it effectively or the way you’d like them to.</p>
+</div></blockquote>
+<p>That the reason we need an awesome document tool and follow document quadrants pattern.</p>
+<p><a class="reference external" href="https://www.sphinx-doc.org/en/master/">sphinx</a> is the best document tool as far as I know. It was originally created for the Python documentation, and it has excellent facilities for the documentation of software projects in a range of languages.</p>
+</section>
 </section>
 <section id="design-principle-perspective">
 <h2>Design principle perspective<a class="headerlink" href="#design-principle-perspective" title="Permalink to this headline">#</a></h2>
@@ -408,7 +453,18 @@ title="Print to PDF"
 </section>
 <section id="architecture-characteristics-perspective">
 <h2>Architecture characteristics perspective<a class="headerlink" href="#architecture-characteristics-perspective" title="Permalink to this headline">#</a></h2>
-<p>WIP…</p>
+<ul class="simple">
+<li><p>testability: easy to test</p></li>
+<li><p>hostability: it can be deployed in server/serverless way</p></li>
+<li><p>flexibility:</p>
+<ul>
+<li><p>can be intergrated as a component</p></li>
+<li><p>can be a pod in kubenetes cluster</p></li>
+<li><p>can be deployed as a standalne service</p></li>
+<li><p>can be a component of micro service system</p></li>
+</ul>
+</li>
+</ul>
 </section>
 </section>
 
