@@ -95,9 +95,10 @@ WIP...
 ## Architecture characteristics perspective
 
 - testability: easy to test
-- hostability: it can be deployed in server/serverless way
+- installability: it can be deployed in server/serverless way
 - flexibility:
   - can be intergrated as a component
   - can be a pod in kubenetes cluster
   - can be deployed as a standalne service
   - can be a component of micro service system
+- configurability
