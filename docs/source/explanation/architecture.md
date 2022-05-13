@@ -76,13 +76,17 @@ We have to build artifacts for FaaS and BaaS since current project contains too 
 - simple to use: `npx esbuild server/index.js --bundle --platform=node --target=node14.19.2 --outfile=build/server/index.js`
 - build a standalone artifact: a huuuuge `index.js`
 
-### 4. Document tool
+### 4. Documentation
 
 > It doesn’t matter how good your product is, because if its documentation is not good enough, people will not use it. Even if they have to use it because they have no choice, without good documentation, they won’t use it effectively or the way you’d like them to.
 
 That the reason we need an awesome document tool and follow document quadrants pattern.
 
 [sphinx](https://www.sphinx-doc.org/en/master/) is the best document tool as far as I know. It was originally created for the Python documentation, and it has excellent facilities for the documentation of software projects in a range of languages.
+
+### 5. [Api test](apitest.md)
+
+### 6. [Spike aws lambda](spike-aws-lambda.rst)
 
 ## Design principle perspective
 
