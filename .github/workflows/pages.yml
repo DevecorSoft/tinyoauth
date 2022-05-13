@@ -20,14 +20,20 @@ jobs:
         with:
           python-version: '3.10'
 
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: "16"
+
       - name: Install
         run: |
+          npm install
           cd docs
           python -m pip install -r requirements.txt
 
       - name: Build and commit
         run: |
-          sphinx-build -b html docs/source/ docs/build/html
+          npm run build:docs
           git checkout pages
           mkdir docs@next
           mv docs/build/html/* docs@next
