@@ -280,14 +280,26 @@ title="Print to PDF"
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#check-board">
-   Check board
+  <a class="reference internal nav-link" href="#board">
+   Board
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#deploy-to-aws-lambda">
-   Deploy to aws lambda
+  <a class="reference internal nav-link" href="#build-artifacts-and-deploy">
+   Build artifacts and deploy
   </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#serverless-mode">
+     serverless mode
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#server-mode">
+     server mode
+    </a>
+   </li>
+  </ul>
  </li>
 </ul>
 
@@ -341,14 +353,26 @@ title="Print to PDF"
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#check-board">
-   Check board
+  <a class="reference internal nav-link" href="#board">
+   Board
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#deploy-to-aws-lambda">
-   Deploy to aws lambda
+  <a class="reference internal nav-link" href="#build-artifacts-and-deploy">
+   Build artifacts and deploy
   </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#serverless-mode">
+     serverless mode
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#server-mode">
+     server mode
+    </a>
+   </li>
+  </ul>
  </li>
 </ul>
 
@@ -403,16 +427,26 @@ make <span class="nb">help</span>
 </pre></div>
 </div>
 </section>
-<section id="check-board">
-<h2>Check board<a class="headerlink" href="#check-board" title="Permalink to this headline">#</a></h2>
+<section id="board">
+<h2>Board<a class="headerlink" href="#board" title="Permalink to this headline">#</a></h2>
 <p><a class="reference external" href="https://github.com/DevecorSoft/tinyoauth/projects/1">github project</a></p>
 </section>
-<section id="deploy-to-aws-lambda">
-<h2>Deploy to aws lambda<a class="headerlink" href="#deploy-to-aws-lambda" title="Permalink to this headline">#</a></h2>
+<section id="build-artifacts-and-deploy">
+<h2>Build artifacts and deploy<a class="headerlink" href="#build-artifacts-and-deploy" title="Permalink to this headline">#</a></h2>
+<section id="serverless-mode">
+<h3>serverless mode<a class="headerlink" href="#serverless-mode" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
-<li><p>please run <code class="docutils literal notranslate"><span class="pre">npm</span> <span class="pre">run</span> <span class="pre">build</span></code> in your terminal</p></li>
-<li><p>then upload build/tinyoauth.zip to aws lambda</p></li>
+<li><p>please run <code class="docutils literal notranslate"><span class="pre">npm</span> <span class="pre">run</span> <span class="pre">build:serverless:aws</span></code> in your terminal</p></li>
+<li><p>then upload build/serverless/tinyoauth.zip to aws lambda</p></li>
 </ul>
+</section>
+<section id="server-mode">
+<h3>server mode<a class="headerlink" href="#server-mode" title="Permalink to this headline">#</a></h3>
+<ul class="simple">
+<li><p>please run <code class="docutils literal notranslate"><span class="pre">npm</span> <span class="pre">run</span> <span class="pre">build:server</span></code> in your terminal</p></li>
+<li><p>then you can run your server with <code class="docutils literal notranslate"><span class="pre">node</span> <span class="pre">build/server/index.js</span></code> and it will be avaliable on <code class="docutils literal notranslate"><span class="pre">http://localhost:3333</span></code></p></li>
+</ul>
+</section>
 </section>
 </section>
 

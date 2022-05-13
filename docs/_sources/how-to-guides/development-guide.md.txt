@@ -33,11 +33,18 @@ python -m pip install -r requirements.txt
 make help
 ```
 
-## Check board
+## Board
 
 [github project](https://github.com/DevecorSoft/tinyoauth/projects/1)
 
-## Deploy to aws lambda
+## Build artifacts and deploy
 
-- please run `npm run build` in your terminal
-- then upload build/tinyoauth.zip to aws lambda
+### serverless mode
+
+- please run `npm run build:serverless:aws` in your terminal
+- then upload build/serverless/tinyoauth.zip to aws lambda
+
+### server mode
+
+- please run `npm run build:server` in your terminal
+- then you can run your server with `node build/server/index.js` and it will be avaliable on `http://localhost:3333`
