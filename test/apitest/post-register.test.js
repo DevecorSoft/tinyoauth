@@ -1,8 +1,3 @@
-// 1. post /register {username: user, password: pwd}
-// 2. assert status code: 200
-// 3. assert body {result: succeeded}
-// 4. query db user table
-
 const axios = require("axios");
 const { expect } = require("chai");
 
