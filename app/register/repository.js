@@ -8,6 +8,12 @@ function register_repository(dynamodb) {
   this.ddbclient = dynamodb;
 }
 
+
+/**
+ * put user info as an item into dynamodb
+ * @param {String} username 
+ * @param {String} passowrd 
+ */
 register_repository.prototype.create_user = function (username, passowrd) {
   this.ddbclient.send(new PutItemCommand({
     TableName: "tinyoauth_user",
