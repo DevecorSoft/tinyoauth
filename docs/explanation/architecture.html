@@ -105,6 +105,11 @@
   </a>
  </li>
  <li class="toctree-l1">
+  <a class="reference internal" href="api-design.html">
+   Api design
+  </a>
+ </li>
+ <li class="toctree-l1">
   <a class="reference internal" href="infrastructure.html">
    Infrastructure
   </a>
@@ -271,23 +276,18 @@ title="Print to PDF"
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#api-design">
-     1. Api design
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#build">
-     2. Build
+     1. Build
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#documentation">
-     3. Documentation
+     2. Documentation
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#api-test">
-     4.
+     3.
      <span class="xref myst">
       Api test
      </span>
@@ -295,7 +295,7 @@ title="Print to PDF"
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#spike-aws-lambda">
-     5.
+     4.
      <span class="xref myst">
       Spike aws lambda
      </span>
@@ -343,23 +343,18 @@ title="Print to PDF"
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#api-design">
-     1. Api design
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#build">
-     2. Build
+     1. Build
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#documentation">
-     3. Documentation
+     2. Documentation
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#api-test">
-     4.
+     3.
      <span class="xref myst">
       Api test
      </span>
@@ -367,7 +362,7 @@ title="Print to PDF"
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#spike-aws-lambda">
-     5.
+     4.
      <span class="xref myst">
       Spike aws lambda
      </span>
@@ -405,43 +400,8 @@ title="Print to PDF"
         </div></section>
 <section id="architecture-dicisions-perspective">
 <h2>Architecture dicisions perspective<a class="headerlink" href="#architecture-dicisions-perspective" title="Permalink to this headline">#</a></h2>
-<section id="api-design">
-<h3>1. Api design<a class="headerlink" href="#api-design" title="Permalink to this headline">#</a></h3>
-<div class="mermaid">
-            flowchart LR
-  subgraph tinyoauth
-
-    subgraph gateway[api gateway]
-      post_protected_api[post /protected/resource]
-      post_login_api[post /login]
-      post_register_api[post /register]
-      post_authorize_api[post /authrize]
-      post_token_api[post /token]
-    end
-
-    subgraph auth
-      authenticate
-      authorize
-      issue_token[issue token]
-    end
-
-    post_protected_api --&gt; authenticate
-    authenticate -- failure --&gt; 401
-
-    post_authorize_api --&gt; authorize
-    post_token_api --&gt; issue_token
-
-  end
-
-  subgraph service
-    service_api[post /protected/resource]
-  end
-
-  authenticate -- success --&gt; service
-  user_agent((user agent)) --&gt; post_protected_api
-        </div></section>
 <section id="build">
-<h3>2. Build<a class="headerlink" href="#build" title="Permalink to this headline">#</a></h3>
+<h3>1. Build<a class="headerlink" href="#build" title="Permalink to this headline">#</a></h3>
 <p>We have to build artifacts for FaaS and BaaS since current project contains too many <code class="docutils literal notranslate"><span class="pre">devDependencies</span></code> and redundancy modules.
 <a class="reference external" href="https://esbuild.github.io/">esbuild</a> is an extremely fast JavaScript bundler that can do what we desire:</p>
 <ul class="simple">
@@ -450,7 +410,7 @@ title="Print to PDF"
 </ul>
 </section>
 <section id="documentation">
-<h3>3. Documentation<a class="headerlink" href="#documentation" title="Permalink to this headline">#</a></h3>
+<h3>2. Documentation<a class="headerlink" href="#documentation" title="Permalink to this headline">#</a></h3>
 <blockquote>
 <div><p>It doesn’t matter how good your product is, because if its documentation is not good enough, people will not use it. Even if they have to use it because they have no choice, without good documentation, they won’t use it effectively or the way you’d like them to.</p>
 </div></blockquote>
@@ -458,10 +418,10 @@ title="Print to PDF"
 <p><a class="reference external" href="https://www.sphinx-doc.org/en/master/">sphinx</a> is the best document tool as far as I know. It was originally created for the Python documentation, and it has excellent facilities for the documentation of software projects in a range of languages.</p>
 </section>
 <section id="api-test">
-<h3>4. <a class="reference internal" href="apitest.html"><span class="doc std std-doc">Api test</span></a><a class="headerlink" href="#api-test" title="Permalink to this headline">#</a></h3>
+<h3>3. <a class="reference internal" href="apitest.html"><span class="doc std std-doc">Api test</span></a><a class="headerlink" href="#api-test" title="Permalink to this headline">#</a></h3>
 </section>
 <section id="spike-aws-lambda">
-<h3>5. <a class="reference internal" href="spike-aws-lambda.html"><span class="doc std std-doc">Spike aws lambda</span></a><a class="headerlink" href="#spike-aws-lambda" title="Permalink to this headline">#</a></h3>
+<h3>4. <a class="reference internal" href="spike-aws-lambda.html"><span class="doc std std-doc">Spike aws lambda</span></a><a class="headerlink" href="#spike-aws-lambda" title="Permalink to this headline">#</a></h3>
 </section>
 </section>
 <section id="design-principle-perspective">

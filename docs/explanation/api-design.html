@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>Infrastructure &#8212; tinyoauth  documentation</title>
+    <title>Api design &#8212; tinyoauth  documentation</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -35,8 +35,8 @@
     <script>mermaid.initialize({startOnLoad:true});</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Development guide" href="../how-to-guides/development-guide.html" />
-    <link rel="prev" title="Api design" href="api-design.html" />
+    <link rel="next" title="Infrastructure" href="infrastructure.html" />
+    <link rel="prev" title="Api test" href="apitest.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -104,13 +104,13 @@
    Api test
   </a>
  </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="api-design.html">
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
    Api design
   </a>
  </li>
- <li class="toctree-l1 current active">
-  <a class="current reference internal" href="#">
+ <li class="toctree-l1">
+  <a class="reference internal" href="infrastructure.html">
    Infrastructure
   </a>
  </li>
@@ -206,7 +206,7 @@ title="Fullscreen mode"
   <div class="menu-dropdown__content">
     <ul>
       <li>
-        <a href="../_sources/explanation/infrastructure.md.txt"
+        <a href="../_sources/explanation/api-design.md.txt"
    class="headerbtn"
    data-toggle="tooltip"
 data-placement="left"
@@ -266,13 +266,13 @@ title="Print to PDF"
     <nav id="bd-toc-nav" aria-label="Page">
         <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#serverless-mode">
-   serverless mode
+  <a class="reference internal nav-link" href="#post-login">
+   post /login
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#server-mode">
-   server mode
+  <a class="reference internal nav-link" href="#post-authorize">
+   post /authorize
   </a>
  </li>
 </ul>
@@ -284,7 +284,7 @@ title="Print to PDF"
         <div class="col pl-md-3 pl-lg-5 content-container">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Infrastructure</h1>
+                <h1>Api design</h1>
                 <!-- Table of contents -->
                 <div id="print-main-content">
                     <div id="jb-print-toc">
@@ -295,13 +295,13 @@ title="Print to PDF"
                         <nav aria-label="Page">
                             <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#serverless-mode">
-   serverless mode
+  <a class="reference internal nav-link" href="#post-login">
+   post /login
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#server-mode">
-   server mode
+  <a class="reference internal nav-link" href="#post-authorize">
+   post /authorize
   </a>
  </li>
 </ul>
@@ -314,27 +314,106 @@ title="Print to PDF"
                 
               <div>
                 
-  <section id="infrastructure">
-<h1>Infrastructure<a class="headerlink" href="#infrastructure" title="Permalink to this headline">#</a></h1>
-<section id="serverless-mode">
-<h2>serverless mode<a class="headerlink" href="#serverless-mode" title="Permalink to this headline">#</a></h2>
+  <section id="api-design">
+<h1>Api design<a class="headerlink" href="#api-design" title="Permalink to this headline">#</a></h1>
 <div class="mermaid">
             flowchart LR
-  apigateway[aws apigateway] --&gt; lambda[aws lambda] --&gt; db[aws dynamodb]
-        </div><div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>costless</p>
+  subgraph tinyoauth
+
+    subgraph gateway[api gateway]
+      request_protected_api[request /protected/resource]
+      post_login_api[post /login]
+      post_register_api[post /register]
+      post_authorize_api[post /authrize]
+      post_token_api[post /token]
+    end
+
+    subgraph auth
+      authenticate
+      authorize
+      issue_token[issue token]
+    end
+
+    request_protected_api --&gt; authenticate
+    authenticate -- failure --&gt; 401
+
+    post_authorize_api --&gt; authorize
+    post_token_api --&gt; issue_token
+
+  end
+
+  subgraph service
+    service_api[post /protected/resource]
+  end
+
+  authenticate -- success --&gt; service
+  user_agent((user agent)) --&gt; request_protected_api
+        </div><section id="post-login">
+<h2>post /login<a class="headerlink" href="#post-login" title="Permalink to this headline">#</a></h2>
+<ul class="simple">
+<li><p>[x] mark user as online</p></li>
+<li><p>[x] update operation time</p></li>
+<li><p>[ ] register user’s current clients(issue client id)</p></li>
+<li><p>[ ] issue client secret</p></li>
+</ul>
+<ul>
+<li><p>Request</p>
+<ul>
+<li><p>General:</p>
+<ul class="simple">
+<li><p>Request Method: <code class="docutils literal notranslate"><span class="pre">POST</span></code></p></li>
+</ul>
+</li>
+<li><p>Headers:</p>
+<ul class="simple">
+<li><p>Content-Type: <code class="docutils literal notranslate"><span class="pre">application/json</span></code></p></li>
+</ul>
+</li>
+<li><p>Payload:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;username&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;user&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;password&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;xxxx&quot;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
 </div>
+</li>
+</ul>
+</li>
+<li><p>Response</p>
+<ul>
+<li><p>General：</p>
+<ul class="simple">
+<li><p>Status Code: <code class="docutils literal notranslate"><span class="pre">200</span></code></p></li>
+</ul>
+</li>
+<li><p>Payload:</p>
+<ul>
+<li><p>success:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;result&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;succeeded&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;client_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;xxxxx&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;client_secret&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;xxxxx&quot;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+</li>
+<li><p>failure:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;result&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;failed&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;client_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;client_secret&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
 </section>
-<section id="server-mode">
-<h2>server mode<a class="headerlink" href="#server-mode" title="Permalink to this headline">#</a></h2>
-<div class="mermaid">
-            flowchart LR
-  gateway[nginx as gateway] --&gt; app[tinyoauth server] --&gt; db[aws dynamo db]
-        </div><div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>low-cost</p>
-</div>
+<section id="post-authorize">
+<h2>post /authorize<a class="headerlink" href="#post-authorize" title="Permalink to this headline">#</a></h2>
 </section>
 </section>
 
@@ -346,17 +425,17 @@ title="Print to PDF"
                 
     <!-- Previous / next buttons -->
 <div class='prev-next-area'>
-    <a class='left-prev' id="prev-link" href="api-design.html" title="previous page">
+    <a class='left-prev' id="prev-link" href="apitest.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">Api design</p>
+            <p class="prev-next-title">Api test</p>
         </div>
     </a>
-    <a class='right-next' id="next-link" href="../how-to-guides/development-guide.html" title="next page">
+    <a class='right-next' id="next-link" href="infrastructure.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Development guide</p>
+        <p class="prev-next-title">Infrastructure</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>
