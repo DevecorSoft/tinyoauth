@@ -41,6 +41,11 @@ login_service.prototype.set_status = async function (username, status) {
   return true;
 };
 
+/**
+ * 
+ * @param {ClientIdSupplier} clientIdSupplier - an object contains two funcions: generate_secret and generate_cid
+ * @param {ClientRepository} clientRepository - client repository
+ */
 function client_service(clientIdSupplier, clientRepository) {
   this.clientIdSupplier = clientIdSupplier;
   this.clientRepository = clientRepository;
@@ -73,4 +78,11 @@ exports.ClientService = client_service;
  * @type {Object}
  * @property {String} client_id - client id
  * @property {Strign} client_secret - client secret
+ */
+
+/**
+ * @typedef ClientIdSupplier
+ * @type {Object}
+ * @property {Function} generate_cid
+ * @property {Function} generate_secret
  */
