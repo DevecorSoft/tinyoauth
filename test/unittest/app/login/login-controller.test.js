@@ -11,11 +11,14 @@ describe("Given a user with correct password", () => {
     const fake_client_service = {
       issue_identifier: sinon.fake.returns({
         client_id: "my_client_id",
-        client_secret: "my_client_secret"
+        client_secret: "my_client_secret",
       }),
     };
     const fake_res = { json: sinon.fake() };
-    const login_controller = new LoginController(fake_login_service, fake_client_service);
+    const login_controller = new LoginController(
+      fake_login_service,
+      fake_client_service
+    );
 
     login_controller.handler(
       { body: { username: "user", password: "my pass" } },
@@ -30,7 +33,14 @@ describe("Given a user with correct password", () => {
       expect(set_status_args).to.be.deep.equal(["user", true]);
     });
 
-    it("Then should set response body with success message", () => {
+    it("Then should issue client identifier", () => {
+      expect(fake_client_service.issue_identifier.calledOnce).to.be.true;
+      const issue_identifier_args =
+        fake_client_service.issue_identifier.getCall(0).args;
+      expect(issue_identifier_args).to.be.deep.equal(["user"]);
+    });
+
+    it("Then should set response body with success message and client info", () => {
       expect(fake_res.json.calledOnce).to.be.true;
       const json_args = fake_res.json.getCall(0).args[0];
       expect(json_args).to.be.deep.equal({

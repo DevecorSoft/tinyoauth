@@ -5,15 +5,13 @@
 
 const { LoginRepository } = require("./repository");
 
-
 /**
  * @constructor
- * @param {LoginRepository} login_repo 
+ * @param {LoginRepository} login_repo
  */
 function login_service(login_repo) {
   this.login_repo = login_repo;
 }
-
 
 /**
  * verify user password
@@ -32,7 +30,6 @@ login_service.prototype.verify = async function (username, password) {
   return false;
 };
 
-
 /**
  * set user status
  * @param {String} username - user name
@@ -44,7 +41,36 @@ login_service.prototype.set_status = async function (username, status) {
   return true;
 };
 
-function client_service() {}
+function client_service(clientIdSupplier, clientRepository) {
+  this.clientIdSupplier = clientIdSupplier;
+  this.clientRepository = clientRepository;
+}
+
+/**
+ * issue client id and client secret
+ * @param {String} username - user name
+ * @returns {ClientIdentifier}
+ */
+client_service.prototype.issue_identifier = function (username) {
+  const client_id = this.clientIdSupplier.generate_cid();
+  const client_secret = this.clientIdSupplier.generate_secret();
+  this.clientRepository.create_client_identifier({
+    user: username,
+    client_id,
+    client_secret
+  });
+  return {
+    client_id,
+    client_secret,
+  };
+};
 
 exports.LoginService = login_service;
 exports.ClientService = client_service;
+
+/**
+ * @typedef ClientIdentifier
+ * @type {Object}
+ * @property {String} client_id - client id
+ * @property {Strign} client_secret - client secret
+ */
