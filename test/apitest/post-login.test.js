@@ -44,6 +44,8 @@ describe("Given a correct pair of username and password", () => {
 
       expect(res.status).to.be.equal(200);
       expect(res.data.result).to.be.equal("succeeded");
+      expect(res.data.client_id).to.be.equal("my client id");
+      expect(res.data.client_secret).to.be.equal("my client secret");
 
       await new Promise((resolve) => {
         setTimeout(() => resolve(), 500);
