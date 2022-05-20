@@ -16,6 +16,10 @@ describe("Given user try to login our system", () => {
 
     it("Then should issue client identifier", () => {
       expect(fake_supplier.generate_cid.calledOnce).to.be.true;
+      const generate_cid_args = fake_supplier.generate_cid.getCall(0).args[0]
+      expect(generate_cid_args.username).to.be.equal("user")
+      expect(generate_cid_args.id.length).to.be.equal(36)
+
       expect(fake_supplier.generate_secret.calledOnce).to.be.true;
       expect(client_identifier).to.be.deep.equal({
         client_id: "my client id",

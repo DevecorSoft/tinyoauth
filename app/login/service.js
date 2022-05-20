@@ -4,6 +4,7 @@
  */
 
 const { LoginRepository } = require("./repository");
+const crypto = require("crypto")
 
 /**
  * @constructor
@@ -57,7 +58,10 @@ function client_service(clientIdSupplier, clientRepository) {
  * @returns {ClientIdentifier}
  */
 client_service.prototype.issue_identifier = function (username) {
-  const client_id = this.clientIdSupplier.generate_cid();
+  const client_id = this.clientIdSupplier.generate_cid({
+    username,
+    id: crypto.randomUUID()
+  });
   const client_secret = this.clientIdSupplier.generate_secret();
   this.clientRepository.create_client_identifier({
     user: username,
