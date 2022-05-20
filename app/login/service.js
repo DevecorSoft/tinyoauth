@@ -44,4 +44,7 @@ login_service.prototype.set_status = async function (username, status) {
   return true;
 };
 
+function client_service() {}
+
 exports.LoginService = login_service;
+exports.ClientService = client_service;
