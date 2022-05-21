@@ -9,29 +9,33 @@ const {
 
 describe("Given a correct pair of username and password", () => {
   beforeEach(async () => {
-    await ddbClient.send(
-      new CreateTableCommand({
-        TableName: "tinyoauth_user",
-        KeySchema: [{ AttributeName: "username", KeyType: "HASH" }],
-        AttributeDefinitions: [
-          { AttributeName: "username", AttributeType: "S" },
-        ],
-        ProvisionedThroughput: {
-          ReadCapacityUnits: 1,
-          WriteCapacityUnits: 1,
-        },
-      })
+    console.log(
+      await ddbClient.send(
+        new CreateTableCommand({
+          TableName: "tinyoauth_user",
+          KeySchema: [{ AttributeName: "username", KeyType: "HASH" }],
+          AttributeDefinitions: [
+            { AttributeName: "username", AttributeType: "S" },
+          ],
+          ProvisionedThroughput: {
+            ReadCapacityUnits: 1,
+            WriteCapacityUnits: 1,
+          },
+        })
+      )
     );
-    await ddbClient.send(
-      new PutItemCommand({
-        TableName: "tinyoauth_user",
-        Item: {
-          username: { S: "test" },
-          password: { S: "pwd for test" },
-          user_status: { S: "offline" },
-          operation_time: { S: "Wed, 14 Jun 2017 07:00:00 GMT" },
-        },
-      })
+    console.log(
+      await ddbClient.send(
+        new PutItemCommand({
+          TableName: "tinyoauth_user",
+          Item: {
+            username: { S: "test" },
+            password: { S: "pwd for test" },
+            user_status: { S: "offline" },
+            operation_time: { S: "Wed, 14 Jun 2017 07:00:00 GMT" },
+          },
+        })
+      )
     );
   });
 
