@@ -8,10 +8,11 @@ const {
   UpdateItemCommand,
   DynamoDBClient,
   GetItemOutput,
+  PutItemCommand,
 } = require("@aws-sdk/client-dynamodb");
 
 /**
- * @typedef TimeSuppiler
+ * @typedef TimeSupplier
  * @type {Object}
  * @property {Function} utc_now - current utc time in format
  */
@@ -19,7 +20,7 @@ const {
 /**
  * @constructor
  * @param {DynamoDBClient} dynamodb
- * @param {TimeSuppiler} timeSuppiler
+ * @param {TimeSupplier} timeSuppiler
  */
 const login_repository = function (dynamodb, timeSuppiler) {
   this.ddbClient = dynamodb;
@@ -66,4 +67,30 @@ login_repository.prototype.update_user_status = async function (
   );
 };
 
+/**
+ * @constructor
+ * @param {DynamoDBClient} dynamodb - dynamodb client
+ * @param {TimeSupplier} timeSuppiler - time supplier
+ */
+function client_repository(dynamodb, timeSuppiler) {
+  this.ddbClient = dynamodb;
+  this.timeSuppiler = timeSuppiler;
+}
+
+client_repository.prototype.create_client_identifier = function (identifier) {
+  this.ddbClient.send(
+    new PutItemCommand({
+      TableName: "tinyoauth_client",
+      Item: {
+        user_id: { S: identifier.user_id },
+        client_id: { S: identifier.client_id },
+        client_secret: { S: identifier.client_secret },
+        operation_time: { S: this.timeSuppiler.utc_now },
+        creation_time: { S: this.timeSuppiler.utc_now },
+      },
+    })
+  );
+};
+
 exports.LoginRepository = login_repository;
+exports.ClientRepository = client_repository;
