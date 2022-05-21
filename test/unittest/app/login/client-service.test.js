@@ -12,13 +12,13 @@ describe("Given user try to login our system", () => {
       create_client_identifier: sinon.fake(),
     };
     const client_service = new ClientService(fake_supplier, fake_repo);
-    const client_identifier = client_service.issue_identifier("user");
+    const client_identifier = client_service.issue_identifier("user id");
 
     it("Then should issue client identifier", () => {
       expect(fake_supplier.generate_cid.calledOnce).to.be.true;
-      const generate_cid_args = fake_supplier.generate_cid.getCall(0).args[0]
-      expect(generate_cid_args.username).to.be.equal("user")
-      expect(generate_cid_args.id.length).to.be.equal(36)
+      const generate_cid_args = fake_supplier.generate_cid.getCall(0).args[0];
+      expect(generate_cid_args.user_id).to.be.equal("user id");
+      expect(generate_cid_args.id.length).to.be.equal(36);
 
       expect(fake_supplier.generate_secret.calledOnce).to.be.true;
       expect(client_identifier).to.be.deep.equal({
@@ -34,7 +34,7 @@ describe("Given user try to login our system", () => {
 
       expect(create_client_identifier_args).to.be.deep.equal([
         {
-          user: "user",
+          user_id: "user id",
           client_id: "my client id",
           client_secret: "my client secret",
         },

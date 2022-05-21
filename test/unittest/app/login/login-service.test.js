@@ -4,17 +4,18 @@ const { LoginService } = require("../../../../app/login/service");
 
 describe("Given a valid pair of user name and password", () => {
   describe("When verify password by login service", () => {
-    it("Then should return true to indicate successful authentication", async () => {
+    it("Then should return user_id to indicate successful authentication", async () => {
       const repo = {
         find_user_by_user_name: sinon.fake.returns({
           username: { S: "user" },
+          user_id: {S: "my uuid"},
           password: { S: "pass" },
           user_status: { S: "offline" },
         }),
       };
       const login_service = new LoginService(repo);
       const res = await login_service.verify("user", "pass");
-      expect(res).to.be.true;
+      expect(res).to.be.equal("my uuid");
     });
   });
 

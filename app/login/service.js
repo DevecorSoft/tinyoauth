@@ -24,7 +24,7 @@ login_service.prototype.verify = async function (username, password) {
   const user = await this.login_repo.find_user_by_user_name(username);
   if (user) {
     if (user.password.S === password) {
-      return true;
+      return user.user_id.S;
     }
     return false;
   }
@@ -54,17 +54,17 @@ function client_service(clientIdSupplier, clientRepository) {
 
 /**
  * issue client id and client secret
- * @param {String} username - user name
+ * @param {String} user_id - user id
  * @returns {ClientIdentifier}
  */
-client_service.prototype.issue_identifier = function (username) {
+client_service.prototype.issue_identifier = function (user_id) {
   const client_id = this.clientIdSupplier.generate_cid({
-    username,
+    user_id,
     id: crypto.randomUUID()
   });
   const client_secret = this.clientIdSupplier.generate_secret();
   this.clientRepository.create_client_identifier({
-    user: username,
+    user_id,
     client_id,
     client_secret
   });

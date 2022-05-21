@@ -5,7 +5,7 @@ const { LoginController } = require("../../../../app/login/controller");
 describe("Given a user with correct password", () => {
   describe("When this user try to login", () => {
     const fake_login_service = {
-      verify: sinon.fake.returns(true),
+      verify: sinon.fake.returns("my uuid"),
       set_status: sinon.fake.returns(true),
     };
     const fake_client_service = {
@@ -37,7 +37,7 @@ describe("Given a user with correct password", () => {
       expect(fake_client_service.issue_identifier.calledOnce).to.be.true;
       const issue_identifier_args =
         fake_client_service.issue_identifier.getCall(0).args;
-      expect(issue_identifier_args).to.be.deep.equal(["user"]);
+      expect(issue_identifier_args).to.be.deep.equal(["my uuid"]);
     });
 
     it("Then should set response body with success message and client info", () => {

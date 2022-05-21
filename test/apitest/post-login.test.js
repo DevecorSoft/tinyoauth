@@ -36,7 +36,7 @@ describe("Given a correct pair of username and password", () => {
   });
 
   describe("When it post /login api", () => {
-    it.skip("Then response code should be 200", async () => {
+    it("Then response code should be 200", async () => {
       const res = await axios.post("/login", {
         username: "test",
         password: "pwd for test",
