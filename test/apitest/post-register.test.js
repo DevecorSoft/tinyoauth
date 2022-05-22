@@ -24,7 +24,7 @@ describe("Given guest try to register tinyoauth", () => {
       );
     });
 
-    it("Then should get proper reponse", async () => {
+    it.only("Then should get proper reponse", async () => {
       const res = await axios.post("/register", {
         username: "user",
         password: "xxx",
@@ -32,17 +32,13 @@ describe("Given guest try to register tinyoauth", () => {
       expect(res.status).to.be.equal(200);
       expect(res.data.result).to.be.equal("succeeded");
 
-      await new Promise((resolve) => {
-        setTimeout(() => resolve(), 500);
-      });
-
       const user_item = await ddbClient.send(
         new GetItemCommand({
           TableName: "tinyoauth_user",
           Key: { username: { S: "user" } },
         })
       );
-      expect(user_item.Item).to.be.not.undefined;
+      expect(user_item.Item).to.be.an.instanceof(Object);
     });
   });
 });

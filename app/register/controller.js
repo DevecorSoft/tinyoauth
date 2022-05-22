@@ -1,5 +1,10 @@
 const { request, response } = require("express");
+const { RegisterService } = require("./service");
 
+/**
+ * @constructor
+ * @param {RegisterService} register_service - register service
+ */
 function register_controller(register_service) {
   this.register_service = register_service;
 }
@@ -9,10 +14,10 @@ function register_controller(register_service) {
  * @param {request} req
  * @param {response} res
  */
-register_controller.prototype.handler = function(req, res) {
+register_controller.prototype.handler = async function(req, res) {
     const username = req?.body?.username
     const password = req?.body?.password
-    if (this.register_service.register(username, password)) {
+    if (await this.register_service.register(username, password)) {
       res.json({
           result: "succeeded"
       })

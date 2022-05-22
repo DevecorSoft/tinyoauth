@@ -15,8 +15,8 @@ function register_service(register_repository) {
  * @param {String} password 
  * @returns Boolean
  */
-register_service.prototype.register = function (username, password) {
-  this.register_repo.create_user(username, password);
+register_service.prototype.register = async function (username, password) {
+  await this.register_repo.create_user(username, password);
   return true;
 };
 

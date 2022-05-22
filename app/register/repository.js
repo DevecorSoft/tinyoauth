@@ -15,12 +15,12 @@ function register_repository(dynamodb, time_suppiler) {
  * @param {String} username
  * @param {String} passowrd
  */
-register_repository.prototype.create_user = function (
+register_repository.prototype.create_user = async function (
   username,
   passowrd,
   user_id
 ) {
-  this.ddbclient.send(
+  await this.ddbclient.send(
     new PutItemCommand({
       TableName: "tinyoauth_user",
       Item: {

@@ -22,7 +22,7 @@ describe("Given guest try to register tinyoauth", () => {
       expect(resgiter_args).to.be.deep.equal(["user", "my pass"]);
     });
 
-    it("Then should return a successfull result as response", () => {
+    it("Then should return a successfull result as response", async () => {
       const fake_service = {
         register: sinon.fake.returns(true),
       };
@@ -30,7 +30,7 @@ describe("Given guest try to register tinyoauth", () => {
 
       const fake_res = { json: sinon.fake() };
 
-      register_controller.handler(
+      await register_controller.handler(
         { body: { username: "user", password: "my pass" } },
         fake_res
       );
@@ -45,7 +45,7 @@ describe("Given guest try to register tinyoauth", () => {
 
   describe("When register fails for some reason", () => {
 
-    it("Then should return a failure result as response", () => {
+    it("Then should return a failure result as response", async () => {
       const fake_service = {
         register: sinon.fake.returns(false),
       };
@@ -53,7 +53,7 @@ describe("Given guest try to register tinyoauth", () => {
 
       const fake_res = { json: sinon.fake() };
 
-      register_controller.handler(
+      await register_controller.handler(
         { body: { username: "user", password: "my pass" } },
         fake_res
       );
