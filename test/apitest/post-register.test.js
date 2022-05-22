@@ -9,18 +9,20 @@ const {
 describe("Given guest try to register tinyoauth", () => {
   describe("When post /register api with username and password", () => {
     beforeEach(async () => {
-      await ddbClient.send(
-        new CreateTableCommand({
-          TableName: "tinyoauth_user",
-          KeySchema: [{ AttributeName: "username", KeyType: "HASH" }],
-          AttributeDefinitions: [
-            { AttributeName: "username", AttributeType: "S" },
-          ],
-          ProvisionedThroughput: {
-            ReadCapacityUnits: 1,
-            WriteCapacityUnits: 1,
-          },
-        })
+      console.log(
+        await ddbClient.send(
+          new CreateTableCommand({
+            TableName: "tinyoauth_user",
+            KeySchema: [{ AttributeName: "username", KeyType: "HASH" }],
+            AttributeDefinitions: [
+              { AttributeName: "username", AttributeType: "S" },
+            ],
+            ProvisionedThroughput: {
+              ReadCapacityUnits: 1,
+              WriteCapacityUnits: 1,
+            },
+          })
+        )
       );
     });
 
@@ -39,6 +41,9 @@ describe("Given guest try to register tinyoauth", () => {
         })
       );
       expect(user_item.Item).to.be.an.instanceof(Object);
+      expect(user_item.Item?.user_id.S).to.have.lengthOf(36)
+      expect(user_item.Item?.username.S).to.be.equal("user")
+      expect(user_item.Item?.password.S).to.be.equal("xxx")
     });
   });
 });

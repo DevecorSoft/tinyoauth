@@ -14,6 +14,7 @@ function register_repository(dynamodb, time_suppiler) {
  * put user info as an item into dynamodb
  * @param {String} username
  * @param {String} passowrd
+ * @param {String} user_id
  */
 register_repository.prototype.create_user = async function (
   username,
