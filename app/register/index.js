@@ -1,3 +1,8 @@
+/**
+ * register module
+ * @module app/register
+ */
+
 const { ddbClient } = require("../../db/ddbClient");
 const { time_suppiler } = require("../../lib/timeSupplier");
 const { user_id_supplier } = require("../../lib/userIdSupplier");
