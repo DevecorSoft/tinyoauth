@@ -1,9 +1,15 @@
-const { DynamoDBClient, PutItemCommand } = require("@aws-sdk/client-dynamodb");
+/**
+ * repositories of post register api
+ * @module app/register/repository
+ */
+
+const { PutItemCommand } = require("@aws-sdk/client-dynamodb");
 
 /**
+ * @alias RegisterRepository
  * @constructor
- * @param {DynamoDBClient} dynamodb
- * @param {import("../login/repository").TimeSupplier} time_suppiler - time supplier
+ * @param {DynamoDBClient} dynamodb - dynamodb client
+ * @param {TimeSupplier} time_suppiler - time supplier
  */
 function register_repository(dynamodb, time_suppiler) {
   this.ddbclient = dynamodb;
@@ -12,9 +18,10 @@ function register_repository(dynamodb, time_suppiler) {
 
 /**
  * put user info as an item into dynamodb
- * @param {String} username
- * @param {String} passowrd
- * @param {String} user_id
+ * @param {String} username - user name
+ * @param {String} passowrd - password
+ * @param {String} user_id - generated user id
+ * @returns {Promise<void>}
  */
 register_repository.prototype.create_user = async function (
   username,
@@ -36,4 +43,7 @@ register_repository.prototype.create_user = async function (
   );
 };
 
+/**
+ * @class
+ */
 exports.RegisterRepository = register_repository;

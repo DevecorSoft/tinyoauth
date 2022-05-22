@@ -9,4 +9,11 @@ const register_controller = new RegisterController(
   new RegisterService(new RegisterRepository(ddbClient, time_suppiler), user_id_supplier)
 );
 
+/**
+ * post register api handler
+ * @function
+ * @param {request} req - express request
+ * @param {response} res - express response
+ * @see RegisterController#handler
+ */
 exports.register = register_controller.handler.bind(register_controller);

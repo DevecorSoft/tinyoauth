@@ -1,6 +1,10 @@
-const { RegisterRepository } = require("./repository");
+/**
+ * services of post register api
+ * @module app/register/service
+ */
 
 /**
+ * @alias RegisterService
  * @constructor
  * @param {RegisterRepository} register_repository
  * @param {UserIdSupplier} user_id_supplier
@@ -25,4 +29,7 @@ register_service.prototype.register = async function (username, password) {
   return true;
 };
 
+/**
+ * @class
+ */
 exports.RegisterService = register_service;

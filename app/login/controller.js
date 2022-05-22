@@ -1,7 +1,10 @@
-const { request, response } = require("express");
-const { LoginService, ClientService } = require("./service");
+/**
+ * login controller module
+ * @module app/login/controller
+ */
 
 /**
+ * @alias LoginController
  * @constructor
  * @param {LoginService} login_service
  * @param {ClientService} client_service
@@ -12,7 +15,7 @@ function login_controller(login_service, client_service) {
 }
 
 /**
- *
+ * post login api handler
  * @param {request} req
  * @param {response} res
  */
@@ -39,4 +42,7 @@ login_controller.prototype.handler = async function (req, res) {
   }
 };
 
+/**
+ * @class
+ */
 exports.LoginController = login_controller;

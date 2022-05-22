@@ -1,20 +1,21 @@
 /**
- * login repository
- * @module login/repository
+ * repositories of post login api
+ * @module app/login/repository
  */
 
 const {
   GetItemCommand,
   UpdateItemCommand,
-  DynamoDBClient,
   GetItemOutput,
   PutItemCommand,
 } = require("@aws-sdk/client-dynamodb");
 
 /**
+ * login repository
+ * @alias LoginRepository
  * @constructor
- * @param {DynamoDBClient} dynamodb
- * @param {TimeSupplier} timeSuppiler
+ * @param {DynamoDBClient} dynamodb - dynamodb client
+ * @param {TimeSupplier} timeSuppiler - time supplier
  */
 const login_repository = function (dynamodb, timeSuppiler) {
   this.ddbClient = dynamodb;
@@ -24,7 +25,7 @@ const login_repository = function (dynamodb, timeSuppiler) {
 /**
  * find user by username from dynamodb
  * @param {String} username - the key of tinyoauth_user table
- * @returns {GetItemOutput.Item|undefined}
+ * @returns {(GetItemOutput.Item|undefined)} result from db
  */
 login_repository.prototype.find_user_by_user_name = async function (username) {
   const user = await this.ddbClient.send(
@@ -39,8 +40,9 @@ login_repository.prototype.find_user_by_user_name = async function (username) {
 
 /**
  * update user status and operation time
- * @param {String} username
- * @param {Boolean} islogin
+ * @param {String} username - user name
+ * @param {Boolean} islogin - true: login, false: logout
+ * @returns {Promise<void>}
  */
 login_repository.prototype.update_user_status = async function (
   username,
@@ -62,6 +64,8 @@ login_repository.prototype.update_user_status = async function (
 };
 
 /**
+ * client repository
+ * @alias ClientRepository
  * @constructor
  * @param {DynamoDBClient} dynamodb - dynamodb client
  * @param {TimeSupplier} timeSuppiler - time supplier
@@ -71,7 +75,14 @@ function client_repository(dynamodb, timeSuppiler) {
   this.timeSuppiler = timeSuppiler;
 }
 
-client_repository.prototype.create_client_identifier = async function (identifier) {
+/**
+ * save an item of client identifier
+ * @param {ClientIdentifier} identifier - client identifier
+ * @returns {Promise<void>}
+ */
+client_repository.prototype.create_client_identifier = async function (
+  identifier
+) {
   await this.ddbClient.send(
     new PutItemCommand({
       TableName: "tinyoauth_client",
@@ -86,5 +97,15 @@ client_repository.prototype.create_client_identifier = async function (identifie
   );
 };
 
+/** @class */
 exports.LoginRepository = login_repository;
+/** @class */
 exports.ClientRepository = client_repository;
+
+/**
+ * @typedef ClientIdentifier
+ * @type {Object}
+ * @property {String} user_id - user id and the primary key of client identifier
+ * @property {String} client_id - client id
+ * @property {String} client_secret - client secret
+ */

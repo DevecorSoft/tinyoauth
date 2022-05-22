@@ -1,13 +1,14 @@
 /**
- * login service
- * @module login/service
+ * services of post login api
+ * @module app/login/service
  */
-const { LoginRepository, ClientRepository } = require("./repository");
+
 const crypto = require("crypto");
 
 /**
+ * @alias LoginService
  * @constructor
- * @param {LoginRepository} login_repo
+ * @param {LoginRepository} login_repo - login repository
  */
 function login_service(login_repo) {
   this.login_repo = login_repo;
@@ -17,7 +18,7 @@ function login_service(login_repo) {
  * verify user password
  * @param {String} username - user name
  * @param {String} password - hypertext password
- * @returns Boolean
+ * @returns {(Boolean|String)} return user_id authentication passed, otherwise false.
  */
 login_service.prototype.verify = async function (username, password) {
   const user = await this.login_repo.find_user_by_user_name(username);
@@ -34,7 +35,7 @@ login_service.prototype.verify = async function (username, password) {
  * set user status
  * @param {String} username - user name
  * @param {Boolean} status - online: true, offline: false
- * @returns Boolean
+ * @returns {Boolean}
  */
 login_service.prototype.set_status = async function (username, status) {
   await this.login_repo.update_user_status(username, status);
@@ -42,7 +43,9 @@ login_service.prototype.set_status = async function (username, status) {
 };
 
 /**
- * 
+ * client service
+ * @alias ClientService
+ * @constructor
  * @param {ClientIdSupplier} clientIdSupplier - an object contains two funcions: generate_secret and generate_cid
  * @param {ClientRepository} clientRepository - client repository
  */
@@ -54,18 +57,18 @@ function client_service(clientIdSupplier, clientRepository) {
 /**
  * issue client id and client secret
  * @param {String} user_id - user id
- * @returns {Promise<ClientIdentifier>}
+ * @returns {Promise<ClientIdentifier>} issued {@link ClientIdentifier}
  */
 client_service.prototype.issue_identifier = async function (user_id) {
   const client_id = this.clientIdSupplier.generate_cid({
     user_id,
-    id: crypto.randomUUID()
+    id: crypto.randomUUID(),
   });
   const client_secret = this.clientIdSupplier.generate_secret();
   await this.clientRepository.create_client_identifier({
     user_id,
     client_id,
-    client_secret
+    client_secret,
   });
   return {
     client_id,
@@ -73,7 +76,14 @@ client_service.prototype.issue_identifier = async function (user_id) {
   };
 };
 
+/**
+ * @class
+ */
 exports.LoginService = login_service;
+
+/**
+ * @class
+ */
 exports.ClientService = client_service;
 
 /**

@@ -1,7 +1,5 @@
-const { request, response } = require("express");
-const { RegisterService } = require("./service");
-
 /**
+ * @alias RegisterController
  * @constructor
  * @param {RegisterService} register_service - register service
  */
@@ -28,4 +26,7 @@ register_controller.prototype.handler = async function(req, res) {
     }
 }
 
+/**
+ * @class
+ */
 exports.RegisterController = register_controller;
