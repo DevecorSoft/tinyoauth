@@ -24,7 +24,7 @@ describe("Given guest try to register tinyoauth", () => {
       );
     });
 
-    it.only("Then should get proper reponse", async () => {
+    it("Then should get proper reponse", async () => {
       const res = await axios.post("/register", {
         username: "user",
         password: "xxx",
