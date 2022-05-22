@@ -12,12 +12,6 @@ const {
 } = require("@aws-sdk/client-dynamodb");
 
 /**
- * @typedef TimeSupplier
- * @type {Object}
- * @property {Function} utc_now - current utc time in format
- */
-
-/**
  * @constructor
  * @param {DynamoDBClient} dynamodb
  * @param {TimeSupplier} timeSuppiler
