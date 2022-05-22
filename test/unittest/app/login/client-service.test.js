@@ -3,7 +3,7 @@ const { expect } = require("chai");
 const { ClientService } = require("../../../../app/login/service");
 
 describe("Given user try to login our system", () => {
-  describe("When user password authenticated", () => {
+  describe("When user password authenticated", async () => {
     const fake_supplier = {
       generate_cid: sinon.fake.returns("my client id"),
       generate_secret: sinon.fake.returns("my client secret"),
@@ -12,7 +12,7 @@ describe("Given user try to login our system", () => {
       create_client_identifier: sinon.fake(),
     };
     const client_service = new ClientService(fake_supplier, fake_repo);
-    const client_identifier = client_service.issue_identifier("user id");
+    const client_identifier = await client_service.issue_identifier("user id");
 
     it("Then should issue client identifier", () => {
       expect(fake_supplier.generate_cid.calledOnce).to.be.true;

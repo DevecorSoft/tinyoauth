@@ -77,8 +77,8 @@ function client_repository(dynamodb, timeSuppiler) {
   this.timeSuppiler = timeSuppiler;
 }
 
-client_repository.prototype.create_client_identifier = function (identifier) {
-  this.ddbClient.send(
+client_repository.prototype.create_client_identifier = async function (identifier) {
+  await this.ddbClient.send(
     new PutItemCommand({
       TableName: "tinyoauth_client",
       Item: {

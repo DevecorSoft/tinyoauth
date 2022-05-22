@@ -2,9 +2,8 @@
  * login service
  * @module login/service
  */
-
-const { LoginRepository } = require("./repository");
-const crypto = require("crypto")
+const { LoginRepository, ClientRepository } = require("./repository");
+const crypto = require("crypto");
 
 /**
  * @constructor
@@ -55,15 +54,15 @@ function client_service(clientIdSupplier, clientRepository) {
 /**
  * issue client id and client secret
  * @param {String} user_id - user id
- * @returns {ClientIdentifier}
+ * @returns {Promise<ClientIdentifier>}
  */
-client_service.prototype.issue_identifier = function (user_id) {
+client_service.prototype.issue_identifier = async function (user_id) {
   const client_id = this.clientIdSupplier.generate_cid({
     user_id,
     id: crypto.randomUUID()
   });
   const client_secret = this.clientIdSupplier.generate_secret();
-  this.clientRepository.create_client_identifier({
+  await this.clientRepository.create_client_identifier({
     user_id,
     client_id,
     client_secret

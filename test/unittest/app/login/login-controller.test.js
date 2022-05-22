@@ -3,7 +3,7 @@ const sinon = require("sinon");
 const { LoginController } = require("../../../../app/login/controller");
 
 describe("Given a user with correct password", () => {
-  describe("When this user try to login", () => {
+  describe("When this user try to login", async () => {
     const fake_login_service = {
       verify: sinon.fake.returns("my uuid"),
       set_status: sinon.fake.returns(true),
@@ -20,7 +20,7 @@ describe("Given a user with correct password", () => {
       fake_client_service
     );
 
-    login_controller.handler(
+    await login_controller.handler(
       { body: { username: "user", password: "my pass" } },
       fake_res
     );
@@ -53,7 +53,7 @@ describe("Given a user with correct password", () => {
 });
 
 describe("Given a invalid user", () => {
-  describe("When this user play with login api", () => {
+  describe("When this user play with login api", async () => {
     const fake_service = {
       verify: sinon.fake.returns(false),
       set_status: sinon.fake(),
@@ -62,7 +62,7 @@ describe("Given a invalid user", () => {
 
     const login_controller = new LoginController(fake_service);
 
-    login_controller.handler(
+    await login_controller.handler(
       { body: { username: "user", password: "my pass" } },
       fake_res
     );
