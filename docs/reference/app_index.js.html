@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Home</title>
+    <title>JSDoc: Source: app/index.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,32 +17,38 @@
 
 <div id="main">
 
-    <h1 class="page-title">Home</h1>
+    <h1 class="page-title">Source: app/index.js</h1>
 
     
 
 
 
     
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * primary module of tinyoauth
+ * @module app
+ */
 
+const express = require("express");
+const { login } = require("./login");
+const { register } = require("./register");
 
-    <h3> </h3>
+const app = express();
+app.use(express.json());
 
+app.post("/login", login);
+app.post("/register", register);
 
-
-
-
-
-
-
-
-
-    
-
-
-
-
-
+/** 
+ * express application
+ * @type {Express}
+ */
+module.exports.app = app;
+</code></pre>
+        </article>
+    </section>
 
 
 

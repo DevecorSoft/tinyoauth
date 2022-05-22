@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Class: login_repository</title>
+    <title>JSDoc: Class: LoginRepository</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Class: login_repository</h1>
+    <h1 class="page-title">Class: LoginRepository</h1>
 
     
 
@@ -28,8 +28,7 @@
 
 <header>
     
-        <h2><span class="attribs"><span class="type-signature"></span></span>
-            <span class="ancestors"><a href="module-login_repository.html">login/repository</a>~</span>login_repository<span class="signature">(dynamodb, timeSuppiler)</span><span class="type-signature"></span></h2>
+        <h2><span class="attribs"><span class="type-signature"></span></span>LoginRepository<span class="signature">(dynamodb, timeSuppiler)</span><span class="type-signature"></span></h2>
         
     
 </header>
@@ -42,12 +41,16 @@
     
 
     
-    <h4 class="name" id="login_repository"><span class="type-signature"></span>new login_repository<span class="signature">(dynamodb, timeSuppiler)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="LoginRepository"><span class="type-signature"></span>new LoginRepository<span class="signature">(dynamodb, timeSuppiler)</span><span class="type-signature"></span></h4>
     
 
     
 
 
+
+<div class="description">
+    login repository
+</div>
 
 
 
@@ -98,7 +101,7 @@
 
             
 
-            <td class="description last"></td>
+            <td class="description last">dynamodb client</td>
         </tr>
 
     
@@ -111,7 +114,7 @@
             <td class="type">
             
                 
-<span class="param-type">TimeSuppiler</span>
+<span class="param-type"><a href="global.html#TimeSupplier">TimeSupplier</a></span>
 
 
             
@@ -121,7 +124,7 @@
 
             
 
-            <td class="description last"></td>
+            <td class="description last">time supplier</td>
         </tr>
 
     
@@ -162,7 +165,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="repository.js.html">repository.js</a>, <a href="repository.js.html#line24">line 24</a>
+        <a href="app_login_repository.js.html">app/login/repository.js</a>, <a href="app_login_repository.js.html#line20">line 20</a>
     </li></ul></dd>
     
 
@@ -319,7 +322,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="repository.js.html">repository.js</a>, <a href="repository.js.html#line34">line 34</a>
+        <a href="app_login_repository.js.html">app/login/repository.js</a>, <a href="app_login_repository.js.html#line30">line 30</a>
     </li></ul></dd>
     
 
@@ -347,6 +350,10 @@
 <h5>Returns:</h5>
 
         
+<div class="param-desc">
+    result from db
+</div>
+
 
 
 <dl>
@@ -376,7 +383,7 @@
     
 
     
-    <h4 class="name" id="update_user_status"><span class="type-signature"></span>update_user_status<span class="signature">(username, islogin)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="update_user_status"><span class="type-signature"></span>update_user_status<span class="signature">(username, islogin)</span><span class="type-signature"> &rarr; {Promise.&lt;void>}</span></h4>
     
 
     
@@ -436,7 +443,7 @@
 
             
 
-            <td class="description last"></td>
+            <td class="description last">user name</td>
         </tr>
 
     
@@ -459,7 +466,7 @@
 
             
 
-            <td class="description last"></td>
+            <td class="description last">true: login, false: logout</td>
         </tr>
 
     
@@ -500,7 +507,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="repository.js.html">repository.js</a>, <a href="repository.js.html#line50">line 50</a>
+        <a href="app_login_repository.js.html">app/login/repository.js</a>, <a href="app_login_repository.js.html#line47">line 47</a>
     </li></ul></dd>
     
 
@@ -525,6 +532,24 @@
 
 
 
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise.&lt;void></span>
+
+
+    </dd>
+</dl>
+
+    
 
 
 
@@ -546,13 +571,13 @@
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-login_repository.html">login/repository</a></li></ul><h3>Classes</h3><ul><li><a href="module-login_repository-login_repository.html">login_repository</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-app.html">app</a></li><li><a href="module-app_login.html">app/login</a></li><li><a href="module-app_login_controller.html">app/login/controller</a></li><li><a href="module-app_login_repository.html">app/login/repository</a></li><li><a href="module-app_login_service.html">app/login/service</a></li><li><a href="module-app_register_repository.html">app/register/repository</a></li><li><a href="module-app_register_service.html">app/register/service</a></li></ul><h3>Classes</h3><ul><li><a href="ClientRepository.html">ClientRepository</a></li><li><a href="ClientService.html">ClientService</a></li><li><a href="LoginController.html">LoginController</a></li><li><a href="LoginRepository.html">LoginRepository</a></li><li><a href="LoginService.html">LoginService</a></li><li><a href="module-app_login_controller.LoginController.html">LoginController</a></li><li><a href="module-app_login_repository.ClientRepository.html">ClientRepository</a></li><li><a href="module-app_login_repository.LoginRepository.html">LoginRepository</a></li><li><a href="module-app_login_service.ClientService.html">ClientService</a></li><li><a href="module-app_login_service.LoginService.html">LoginService</a></li><li><a href="module-app_register_repository.RegisterRepository.html">RegisterRepository</a></li><li><a href="module-app_register_service.RegisterService.html">RegisterService</a></li><li><a href="RegisterController.html">RegisterController</a></li><li><a href="RegisterRepository.html">RegisterRepository</a></li><li><a href="RegisterService.html">RegisterService</a></li></ul><h3>Global</h3><ul><li><a href="global.html#register">register</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.10</a> on Thu May 19 2022 09:26:13 GMT+0000 (Coordinated Universal Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.10</a> on Sun May 22 2022 15:01:43 GMT+0000 (Coordinated Universal Time)
 </footer>
 
 <script> prettyPrint(); </script>

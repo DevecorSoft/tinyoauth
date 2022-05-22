@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Home</title>
+    <title>JSDoc: Source: app/register/repository.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,32 +17,67 @@
 
 <div id="main">
 
-    <h1 class="page-title">Home</h1>
+    <h1 class="page-title">Source: app/register/repository.js</h1>
 
     
 
 
 
     
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * repositories of post register api
+ * @module app/register/repository
+ */
 
+const { PutItemCommand } = require("@aws-sdk/client-dynamodb");
 
-    <h3> </h3>
+/**
+ * @alias RegisterRepository
+ * @constructor
+ * @param {DynamoDBClient} dynamodb - dynamodb client
+ * @param {TimeSupplier} time_suppiler - time supplier
+ */
+function register_repository(dynamodb, time_suppiler) {
+  this.ddbclient = dynamodb;
+  this.time_suppiler = time_suppiler;
+}
 
+/**
+ * put user info as an item into dynamodb
+ * @param {String} username - user name
+ * @param {String} passowrd - password
+ * @param {String} user_id - generated user id
+ * @returns {Promise&lt;void>}
+ */
+register_repository.prototype.create_user = async function (
+  username,
+  passowrd,
+  user_id
+) {
+  await this.ddbclient.send(
+    new PutItemCommand({
+      TableName: "tinyoauth_user",
+      Item: {
+        username: { S: username },
+        user_id: { S: user_id },
+        password: { S: passowrd },
+        user_status: { S: "online" },
+        operation_time: { S: this.time_suppiler.utc_now },
+        creation_time: { S: this.time_suppiler.utc_now },
+      },
+    })
+  );
+};
 
-
-
-
-
-
-
-
-
-    
-
-
-
-
-
+/**
+ * @class
+ */
+exports.RegisterRepository = register_repository;
+</code></pre>
+        </article>
+    </section>
 
 
 

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Home</title>
+    <title>JSDoc: Source: app/login/controller.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,32 +17,66 @@
 
 <div id="main">
 
-    <h1 class="page-title">Home</h1>
+    <h1 class="page-title">Source: app/login/controller.js</h1>
 
     
 
 
 
     
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * login controller module
+ * @module app/login/controller
+ */
 
+/**
+ * @alias LoginController
+ * @constructor
+ * @param {LoginService} login_service
+ * @param {ClientService} client_service
+ */
+function login_controller(login_service, client_service) {
+  this.login_service = login_service;
+  this.client_service = client_service;
+}
 
-    <h3> </h3>
+/**
+ * post login api handler
+ * @param {request} req
+ * @param {response} res
+ */
+login_controller.prototype.handler = async function (req, res) {
+  const username = req.body?.username;
+  const password = req.body?.password;
 
+  const user_id = await this.login_service.verify(username, password);
+  if (user_id) {
+    await this.login_service.set_status(username, true);
+    const { client_id, client_secret } =
+      await this.client_service.issue_identifier(user_id);
+    res.json({
+      result: "succeeded",
+      client_id,
+      client_secret,
+    });
+  } else {
+    res.json({
+      result: "failed",
+      client_id: null,
+      client_secret: null,
+    });
+  }
+};
 
-
-
-
-
-
-
-
-
-    
-
-
-
-
-
+/**
+ * @class
+ */
+exports.LoginController = login_controller;
+</code></pre>
+        </article>
+    </section>
 
 
 

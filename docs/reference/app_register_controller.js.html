@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Home</title>
+    <title>JSDoc: Source: app/register/controller.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,32 +17,50 @@
 
 <div id="main">
 
-    <h1 class="page-title">Home</h1>
+    <h1 class="page-title">Source: app/register/controller.js</h1>
 
     
 
 
 
     
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * @alias RegisterController
+ * @constructor
+ * @param {RegisterService} register_service - register service
+ */
+function register_controller(register_service) {
+  this.register_service = register_service;
+}
 
+/**
+ *
+ * @param {request} req
+ * @param {response} res
+ */
+register_controller.prototype.handler = async function(req, res) {
+    const username = req?.body?.username
+    const password = req?.body?.password
+    if (await this.register_service.register(username, password)) {
+      res.json({
+          result: "succeeded"
+      })
+    } else {
+      res.json({
+        result: "failed"
+      })
+    }
+}
 
-    <h3> </h3>
-
-
-
-
-
-
-
-
-
-
-    
-
-
-
-
-
+/**
+ * @class
+ */
+exports.RegisterController = register_controller;
+</code></pre>
+        </article>
+    </section>
 
 
 

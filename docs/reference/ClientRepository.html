@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Class: ClientRepository</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Class: ClientRepository</h1>
+
+    
+
+
+
+
+<section>
+
+<header>
+    
+        <h2><span class="attribs"><span class="type-signature"></span></span>ClientRepository<span class="signature">(dynamodb, timeSuppiler)</span><span class="type-signature"></span></h2>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+
+    
+
+    
+    <h4 class="name" id="ClientRepository"><span class="type-signature"></span>new ClientRepository<span class="signature">(dynamodb, timeSuppiler)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    client repository
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>dynamodb</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">DynamoDBClient</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">dynamodb client</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>timeSuppiler</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#TimeSupplier">TimeSupplier</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">time supplier</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="app_login_repository.js.html">app/login/repository.js</a>, <a href="app_login_repository.js.html#line73">line 73</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h3 class="subsection-title">Methods</h3>
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="create_client_identifier"><span class="type-signature"></span>create_client_identifier<span class="signature">(identifier)</span><span class="type-signature"> &rarr; {Promise.&lt;void>}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    save an item of client identifier
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>identifier</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#ClientIdentifier">ClientIdentifier</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">client identifier</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="app_login_repository.js.html">app/login/repository.js</a>, <a href="app_login_repository.js.html#line83">line 83</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise.&lt;void></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-app.html">app</a></li><li><a href="module-app_login.html">app/login</a></li><li><a href="module-app_login_controller.html">app/login/controller</a></li><li><a href="module-app_login_repository.html">app/login/repository</a></li><li><a href="module-app_login_service.html">app/login/service</a></li><li><a href="module-app_register_repository.html">app/register/repository</a></li><li><a href="module-app_register_service.html">app/register/service</a></li></ul><h3>Classes</h3><ul><li><a href="ClientRepository.html">ClientRepository</a></li><li><a href="ClientService.html">ClientService</a></li><li><a href="LoginController.html">LoginController</a></li><li><a href="LoginRepository.html">LoginRepository</a></li><li><a href="LoginService.html">LoginService</a></li><li><a href="module-app_login_controller.LoginController.html">LoginController</a></li><li><a href="module-app_login_repository.ClientRepository.html">ClientRepository</a></li><li><a href="module-app_login_repository.LoginRepository.html">LoginRepository</a></li><li><a href="module-app_login_service.ClientService.html">ClientService</a></li><li><a href="module-app_login_service.LoginService.html">LoginService</a></li><li><a href="module-app_register_repository.RegisterRepository.html">RegisterRepository</a></li><li><a href="module-app_register_service.RegisterService.html">RegisterService</a></li><li><a href="RegisterController.html">RegisterController</a></li><li><a href="RegisterRepository.html">RegisterRepository</a></li><li><a href="RegisterService.html">RegisterService</a></li></ul><h3>Global</h3><ul><li><a href="global.html#register">register</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.10</a> on Sun May 22 2022 15:01:43 GMT+0000 (Coordinated Universal Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

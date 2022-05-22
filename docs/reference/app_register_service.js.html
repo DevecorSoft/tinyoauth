@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Home</title>
+    <title>JSDoc: Source: app/register/service.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,32 +17,53 @@
 
 <div id="main">
 
-    <h1 class="page-title">Home</h1>
+    <h1 class="page-title">Source: app/register/service.js</h1>
 
     
 
 
 
     
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * services of post register api
+ * @module app/register/service
+ */
 
+/**
+ * @alias RegisterService
+ * @constructor
+ * @param {RegisterRepository} register_repository
+ * @param {UserIdSupplier} user_id_supplier
+ */
+function register_service(register_repository, user_id_supplier) {
+  this.register_repo = register_repository;
+  this.user_id_supplier = user_id_supplier;
+}
 
-    <h3> </h3>
+/**
+ * create user with username and password
+ * @param {String} username
+ * @param {String} password
+ * @returns Boolean
+ */
+register_service.prototype.register = async function (username, password) {
+  await this.register_repo.create_user(
+    username,
+    password,
+    this.user_id_supplier.generate_user_id()
+  );
+  return true;
+};
 
-
-
-
-
-
-
-
-
-
-    
-
-
-
-
-
+/**
+ * @class
+ */
+exports.RegisterService = register_service;
+</code></pre>
+        </article>
+    </section>
 
 
 

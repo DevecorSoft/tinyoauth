@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: app/login/repository.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: app/login/repository.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * repositories of post login api
+ * @module app/login/repository
+ */
+
+const {
+  GetItemCommand,
+  UpdateItemCommand,
+  GetItemOutput,
+  PutItemCommand,
+} = require("@aws-sdk/client-dynamodb");
+
+/**
+ * login repository
+ * @alias LoginRepository
+ * @constructor
+ * @param {DynamoDBClient} dynamodb - dynamodb client
+ * @param {TimeSupplier} timeSuppiler - time supplier
+ */
+const login_repository = function (dynamodb, timeSuppiler) {
+  this.ddbClient = dynamodb;
+  this.timeSuppiler = timeSuppiler;
+};
+
+/**
+ * find user by username from dynamodb
+ * @param {String} username - the key of tinyoauth_user table
+ * @returns {(GetItemOutput.Item|undefined)} result from db
+ */
+login_repository.prototype.find_user_by_user_name = async function (username) {
+  const user = await this.ddbClient.send(
+    new GetItemCommand({
+      TableName: "tinyoauth_user",
+      Key: { username: { S: username } },
+    })
+  );
+
+  return user.Item?.username ? user.Item : null;
+};
+
+/**
+ * update user status and operation time
+ * @param {String} username - user name
+ * @param {Boolean} islogin - true: login, false: logout
+ * @returns {Promise&lt;void>}
+ */
+login_repository.prototype.update_user_status = async function (
+  username,
+  islogin
+) {
+  await this.ddbClient.send(
+    new UpdateItemCommand({
+      TableName: "tinyoauth_user",
+      Key: {
+        username: { S: username },
+      },
+      UpdateExpression: "set user_status = :s, operation_time = :u",
+      ExpressionAttributeValues: {
+        ":s": { S: islogin ? "online" : "offline" },
+        ":u": { S: this.timeSuppiler.utc_now },
+      },
+    })
+  );
+};
+
+/**
+ * client repository
+ * @alias ClientRepository
+ * @constructor
+ * @param {DynamoDBClient} dynamodb - dynamodb client
+ * @param {TimeSupplier} timeSuppiler - time supplier
+ */
+function client_repository(dynamodb, timeSuppiler) {
+  this.ddbClient = dynamodb;
+  this.timeSuppiler = timeSuppiler;
+}
+
+/**
+ * save an item of client identifier
+ * @param {ClientIdentifier} identifier - client identifier
+ * @returns {Promise&lt;void>}
+ */
+client_repository.prototype.create_client_identifier = async function (
+  identifier
+) {
+  await this.ddbClient.send(
+    new PutItemCommand({
+      TableName: "tinyoauth_client",
+      Item: {
+        user_id: { S: identifier.user_id },
+        client_id: { S: identifier.client_id },
+        client_secret: { S: identifier.client_secret },
+        operation_time: { S: this.timeSuppiler.utc_now },
+        creation_time: { S: this.timeSuppiler.utc_now },
+      },
+    })
+  );
+};
+
+/** @class */
+exports.LoginRepository = login_repository;
+/** @class */
+exports.ClientRepository = client_repository;
+
+/**
+ * @typedef ClientIdentifier
+ * @type {Object}
+ * @property {String} user_id - user id and the primary key of client identifier
+ * @property {String} client_id - client id
+ * @property {String} client_secret - client secret
+ */
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-app.html">app</a></li><li><a href="module-app_login.html">app/login</a></li><li><a href="module-app_login_controller.html">app/login/controller</a></li><li><a href="module-app_login_repository.html">app/login/repository</a></li><li><a href="module-app_login_service.html">app/login/service</a></li><li><a href="module-app_register_repository.html">app/register/repository</a></li><li><a href="module-app_register_service.html">app/register/service</a></li></ul><h3>Classes</h3><ul><li><a href="ClientRepository.html">ClientRepository</a></li><li><a href="ClientService.html">ClientService</a></li><li><a href="LoginController.html">LoginController</a></li><li><a href="LoginRepository.html">LoginRepository</a></li><li><a href="LoginService.html">LoginService</a></li><li><a href="module-app_login_controller.LoginController.html">LoginController</a></li><li><a href="module-app_login_repository.ClientRepository.html">ClientRepository</a></li><li><a href="module-app_login_repository.LoginRepository.html">LoginRepository</a></li><li><a href="module-app_login_service.ClientService.html">ClientService</a></li><li><a href="module-app_login_service.LoginService.html">LoginService</a></li><li><a href="module-app_register_repository.RegisterRepository.html">RegisterRepository</a></li><li><a href="module-app_register_service.RegisterService.html">RegisterService</a></li><li><a href="RegisterController.html">RegisterController</a></li><li><a href="RegisterRepository.html">RegisterRepository</a></li><li><a href="RegisterService.html">RegisterService</a></li></ul><h3>Global</h3><ul><li><a href="global.html#register">register</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.10</a> on Sun May 22 2022 15:01:43 GMT+0000 (Coordinated Universal Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

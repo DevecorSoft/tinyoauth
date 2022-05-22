@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Home</title>
+    <title>JSDoc: Source: app/register/index.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,32 +17,37 @@
 
 <div id="main">
 
-    <h1 class="page-title">Home</h1>
+    <h1 class="page-title">Source: app/register/index.js</h1>
 
     
 
 
 
     
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>const { ddbClient } = require("../../db/ddbClient");
+const { time_suppiler } = require("../../lib/timeSupplier");
+const { user_id_supplier } = require("../../lib/userIdSupplier");
+const { RegisterController } = require("./controller");
+const { RegisterRepository } = require("./repository");
+const { RegisterService } = require("./service");
 
+const register_controller = new RegisterController(
+  new RegisterService(new RegisterRepository(ddbClient, time_suppiler), user_id_supplier)
+);
 
-    <h3> </h3>
-
-
-
-
-
-
-
-
-
-
-    
-
-
-
-
-
+/**
+ * post register api handler
+ * @function
+ * @param {request} req - express request
+ * @param {response} res - express response
+ * @see RegisterController#handler
+ */
+exports.register = register_controller.handler.bind(register_controller);
+</code></pre>
+        </article>
+    </section>
 
 
 

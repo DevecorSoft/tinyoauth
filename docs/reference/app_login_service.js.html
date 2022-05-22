@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: app/login/service.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: app/login/service.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * services of post login api
+ * @module app/login/service
+ */
+
+const crypto = require("crypto");
+
+/**
+ * @alias LoginService
+ * @constructor
+ * @param {LoginRepository} login_repo - login repository
+ */
+function login_service(login_repo) {
+  this.login_repo = login_repo;
+}
+
+/**
+ * verify user password
+ * @param {String} username - user name
+ * @param {String} password - hypertext password
+ * @returns {(Boolean|String)} return user_id authentication passed, otherwise false.
+ */
+login_service.prototype.verify = async function (username, password) {
+  const user = await this.login_repo.find_user_by_user_name(username);
+  if (user) {
+    if (user.password.S === password) {
+      return user.user_id.S;
+    }
+    return false;
+  }
+  return false;
+};
+
+/**
+ * set user status
+ * @param {String} username - user name
+ * @param {Boolean} status - online: true, offline: false
+ * @returns {Boolean}
+ */
+login_service.prototype.set_status = async function (username, status) {
+  await this.login_repo.update_user_status(username, status);
+  return true;
+};
+
+/**
+ * client service
+ * @alias ClientService
+ * @constructor
+ * @param {ClientIdSupplier} clientIdSupplier - an object contains two funcions: generate_secret and generate_cid
+ * @param {ClientRepository} clientRepository - client repository
+ */
+function client_service(clientIdSupplier, clientRepository) {
+  this.clientIdSupplier = clientIdSupplier;
+  this.clientRepository = clientRepository;
+}
+
+/**
+ * issue client id and client secret
+ * @param {String} user_id - user id
+ * @returns {Promise&lt;ClientIdentifier>} issued {@link ClientIdentifier}
+ */
+client_service.prototype.issue_identifier = async function (user_id) {
+  const client_id = this.clientIdSupplier.generate_cid({
+    user_id,
+    id: crypto.randomUUID(),
+  });
+  const client_secret = this.clientIdSupplier.generate_secret();
+  await this.clientRepository.create_client_identifier({
+    user_id,
+    client_id,
+    client_secret,
+  });
+  return {
+    client_id,
+    client_secret,
+  };
+};
+
+/**
+ * @class
+ */
+exports.LoginService = login_service;
+
+/**
+ * @class
+ */
+exports.ClientService = client_service;
+
+/**
+ * @typedef ClientIdentifier
+ * @type {Object}
+ * @property {String} client_id - client id
+ * @property {Strign} client_secret - client secret
+ */
+
+/**
+ * @typedef ClientIdSupplier
+ * @type {Object}
+ * @property {Function} generate_cid
+ * @property {Function} generate_secret
+ */
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-app.html">app</a></li><li><a href="module-app_login.html">app/login</a></li><li><a href="module-app_login_controller.html">app/login/controller</a></li><li><a href="module-app_login_repository.html">app/login/repository</a></li><li><a href="module-app_login_service.html">app/login/service</a></li><li><a href="module-app_register_repository.html">app/register/repository</a></li><li><a href="module-app_register_service.html">app/register/service</a></li></ul><h3>Classes</h3><ul><li><a href="ClientRepository.html">ClientRepository</a></li><li><a href="ClientService.html">ClientService</a></li><li><a href="LoginController.html">LoginController</a></li><li><a href="LoginRepository.html">LoginRepository</a></li><li><a href="LoginService.html">LoginService</a></li><li><a href="module-app_login_controller.LoginController.html">LoginController</a></li><li><a href="module-app_login_repository.ClientRepository.html">ClientRepository</a></li><li><a href="module-app_login_repository.LoginRepository.html">LoginRepository</a></li><li><a href="module-app_login_service.ClientService.html">ClientService</a></li><li><a href="module-app_login_service.LoginService.html">LoginService</a></li><li><a href="module-app_register_repository.RegisterRepository.html">RegisterRepository</a></li><li><a href="module-app_register_service.RegisterService.html">RegisterService</a></li><li><a href="RegisterController.html">RegisterController</a></li><li><a href="RegisterRepository.html">RegisterRepository</a></li><li><a href="RegisterService.html">RegisterService</a></li></ul><h3>Global</h3><ul><li><a href="global.html#register">register</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.10</a> on Sun May 22 2022 15:01:43 GMT+0000 (Coordinated Universal Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
