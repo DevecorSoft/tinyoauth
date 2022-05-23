@@ -28,4 +28,4 @@ Welcome to tinyoauth's documentation!
    :maxdepth: 2
    :caption: Reference:
 
-   Module index <reference#http://>
+   reference/index
