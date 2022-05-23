@@ -105,8 +105,7 @@ jobs:
           docker logout
 
   deploy_to_staging:
-    runs-on: ubuntu-latest
-    if: ${{ false }}
+    runs-on: [self-hosted, remote]
     needs: ["integrate", "prepare"]
     steps:
       - name: Install ssh-key
@@ -120,6 +119,11 @@ jobs:
       - name: Service up
         run: |
           ssh-keyscan -H "54.254.235.111" >> ~/.ssh/known_hosts
+          ssh ubuntu@54.254.235.111 '
+            docker stop tinyoauth_staging;
+            docker rm tinyoauth_staging;
+            docker run -p 3333:3333 -e HOST_NAME="http://172.17.0.1" --name tinyoauth_staging ghcr.io/devecorsoft/tinyoauth:${{ needs.prepare.outputs.version }}
+          '
 
       - name: Delete ssh-key
         run: rm ~/.ssh/id_ed25519
