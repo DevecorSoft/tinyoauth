@@ -24,9 +24,6 @@ jobs:
       - name: Install
         run: npm install
 
-      - name: Unit test
-        run: npm run test:unit
-
       - name: Api test
         run: |
           mkdir -p ~/.aws
@@ -38,6 +35,24 @@ jobs:
           echo "aws_secret_access_key = xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx" >> ~/.aws/credentials
           npm run test:api
   
+      - name: Unit test
+        run: npm run test:unit:ci
+
+      - name: Collect coverage
+        id: collect_coverage
+        run: |
+          npm run makebadges
+          echo "::set-output name=diff::$(git status -s)"
+      
+      - name: Eval coverage
+        if: ${{ steps.collect_coverage.outputs.diff != '' }}
+        run: |
+          git add README.md
+          git config --local user.name "bot"
+          git config --local user.email "bot@github.com"
+          git commit -m "eval coverage"
+          git push
+
   prepare:
     uses: Devecorsoft/workflows/.github/workflows/read-version.yml@read-v1
     with:

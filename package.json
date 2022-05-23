@@ -7,10 +7,11 @@
     "test:api": "HOST_NAME=http://localhost NODE_ENV=apitest npx mocha --recursive --colors --timeout 60000 ./test/apitest",
     "test:unit": "HOST_NAME=http://localhost NODE_ENV=unittest npx nyc mocha --recursive --colors ./test/unittest",
     "test:api:ci": "HOST_NAME=http://172.17.0.1 NODE_ENV=apitest npx mocha --recursive --colors --timeout 60000 ./test/apitest",
-    "test:unit:ci": "HOST_NAME=http://172.17.0.1 NODE_ENV=unittest npx nyc mocha --recursive --colors ./test/unittest",
+    "test:unit:ci": "HOST_NAME=http://localhost NODE_ENV=unittest npx nyc --reporter=json-summary mocha --recursive --colors ./test/unittest",
     "build:serverless:aws": "./scripts/build_aws.sh",
     "build:server": "./scripts/build_server.sh",
-    "build:docs": "./scripts/build_docs.sh"
+    "build:docs": "./scripts/build_docs.sh",
+    "makebadges": "npx istanbul-badges-readme"
   },
   "repository": {
     "type": "git",
@@ -38,6 +39,7 @@
     "axios": "^0.27.2",
     "chai": "^4.3.6",
     "esbuild": "^0.14.38",
+    "istanbul-badges-readme": "^1.8.1",
     "jsdoc": "^3.6.10",
     "mocha": "^9.2.2",
     "nyc": "^15.1.0",
