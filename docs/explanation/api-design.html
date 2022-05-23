@@ -421,6 +421,47 @@ title="Print to PDF"
 </section>
 <section id="post-authorize">
 <h2>post /authorize<a class="headerlink" href="#post-authorize" title="Permalink to this headline">#</a></h2>
+<ul class="simple">
+<li><p>[ ] authenticate client</p></li>
+<li><p>[ ] issue authorization code</p></li>
+</ul>
+<ul>
+<li><p>Request</p>
+<ul>
+<li><p>General:</p>
+<ul class="simple">
+<li><p>Request Method: <code class="docutils literal notranslate"><span class="pre">GET</span></code></p></li>
+</ul>
+</li>
+<li><p>Headers:</p></li>
+<li><p>Payload:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">response_type</span><span class="p">:</span> <span class="n">code</span> <span class="o">*</span>
+<span class="n">client_id</span><span class="p">:</span> <span class="n">s6BhdRkqt3</span> <span class="o">*</span>
+<span class="n">redirect_uri</span><span class="p">:</span> <span class="n">url</span> <span class="o">*</span>
+<span class="n">state</span><span class="p">:</span> <span class="n">xyz</span>
+<span class="n">scope</span><span class="p">:</span> <span class="n">xxx</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</li>
+<li><p>Response</p>
+<ul>
+<li><p>General:</p>
+<ul class="simple">
+<li><p>Status Code: <code class="docutils literal notranslate"><span class="pre">302</span></code></p></li>
+</ul>
+</li>
+<li><p>Payload:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;Location&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://host:port/path?code=xxx&amp;state=xyz&quot;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+</li>
+</ul>
+</li>
+</ul>
 </section>
 </section>
 

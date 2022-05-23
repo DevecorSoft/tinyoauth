@@ -76,3 +76,28 @@ flowchart LR
 
 
 ## post /authorize
+
+- [ ] authenticate client
+- [ ] issue authorization code
+
+* Request
+  * General:
+    * Request Method: `GET`
+  * Headers:
+  * Payload:
+    ```
+    response_type: code *
+    client_id: s6BhdRkqt3 *
+    redirect_uri: url *
+    state: xyz
+    scope: xxx
+    ```
+* Response
+  * General:
+    * Status Code: `302`
+  * Payload:
+    ```json
+    {
+      "Location": "https://host:port/path?code=xxx&state=xyz"
+    }
+    ```
