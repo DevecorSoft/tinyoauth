@@ -122,7 +122,7 @@ jobs:
           ssh ubuntu@54.254.235.111 '
             docker stop tinyoauth_staging;
             docker rm tinyoauth_staging;
-            docker run -p 3333:3333 -e HOST_NAME="http://172.17.0.1" --name tinyoauth_staging ghcr.io/devecorsoft/tinyoauth:${{ needs.prepare.outputs.version }}
+            docker run -d -p 3333:3333 -e HOST_NAME="http://172.17.0.1" --name tinyoauth_staging ghcr.io/devecorsoft/tinyoauth:${{ needs.prepare.outputs.version }}
           '
 
       - name: Delete ssh-key
