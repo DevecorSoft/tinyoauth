@@ -37,3 +37,74 @@ jobs:
           echo "aws_access_key_id = xxxxxxxxxxxxxxxxxxxx" >> ~/.aws/credentials
           echo "aws_secret_access_key = xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx" >> ~/.aws/credentials
           npm run test:api
+  
+  prepare:
+    uses: Devecorsoft/workflows/.github/workflows/read-version.yml@read-v1
+    with:
+      platform: "nodejs"
+      path: "./package.json"
+
+  verify:
+    needs:
+      - prepare
+      - test
+    uses: Devecorsoft/workflows/.github/workflows/verify-version.yml@verify-v1
+    with:
+      current: ${{ needs.prepare.outputs.version }}
+      destination: "git-tag"
+
+  integrate:
+    needs: ["verify", "prepare"]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: "16"
+
+      - name: Install
+        run: npm install
+
+      - name: Build
+        run: |
+          npm run build:server
+          docker build -t tinyoauth:latest .
+
+      - name: tagging
+        run: |
+          git config --local user.name "bot"
+          git config --local user.email "bot@github.com"
+          git tag ${{ needs.prepare.outputs.version }}
+          git push origin --tags
+
+      - name: Publish to github container registry
+        run: |
+          docker login ghcr.io -u devecor -p ${{ secrets.GITHUB_TOKEN }}
+          docker tag tinyoauth:latest ghcr.io/devecorsoft/tinyoauth:latest
+          docker tag tinyoauth:latest ghcr.io/devecorsoft/tinyoauth:${{ needs.prepare.outputs.version }}
+          docker push ghcr.io/devecorsoft/tinyoauth:latest
+          docker push ghcr.io/devecorsoft/tinyoauth:${{ needs.prepare.outputs.version }}
+          docker logout
+
+  deploy_to_staging:
+    runs-on: ubuntu-latest
+    if: ${{ false }}
+    needs: ["integrate", "prepare"]
+    steps:
+      - name: Install ssh-key
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_KEY }}" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+          eval "$(ssh-agent -s)"
+          ssh-add ~/.ssh/id_ed25519
+
+      - name: Service up
+        run: |
+          ssh-keyscan -H "54.254.235.111" >> ~/.ssh/known_hosts
+
+      - name: Delete ssh-key
+        run: rm ~/.ssh/id_ed25519
