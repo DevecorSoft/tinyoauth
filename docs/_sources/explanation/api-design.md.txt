@@ -8,7 +8,7 @@ flowchart LR
       request_protected_api[request /protected/resource]
       post_login_api[post /login]
       post_register_api[post /register]
-      post_authorize_api[post /authrize]
+      post_authorize_api[post /authorize]
       post_token_api[post /token]
     end
 
@@ -38,8 +38,8 @@ flowchart LR
 
 - [x] mark user as online
 - [x] update operation time
-- [ ] register user's current clients(issue client id)
-- [ ] issue client secret
+- [x] register user's current clients(issue client id)
+- [x] issue client secret
 
 * Request
   * General:
