@@ -7,6 +7,7 @@ on:
       - "app/**"
       - "lib/**"
       - ".github/workflows/pages.yml"
+      - "README.md"
 
 jobs:
   publish:
