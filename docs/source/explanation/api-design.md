@@ -75,9 +75,10 @@ flowchart LR
         ```
 
 
-## post /authorize
+## get /authorize
 
 - [ ] authenticate client
+- [ ] update clients table with authoriztion code
 - [ ] issue authorization code
 
 * Request
