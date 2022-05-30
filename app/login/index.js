@@ -13,8 +13,6 @@ const { time_suppiler } = require("../../lib/timeSupplier");
 const {
   clientIdentifierSupplier,
 } = require("../../lib/clientIdentifierSupplier");
-const { request } = require("express");
-const { response } = require("express");
 
 const login_controller = new LoginController(
   new LoginService(new LoginRepository(ddbClient, time_suppiler)),
