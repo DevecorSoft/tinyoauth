@@ -38,8 +38,7 @@ flowchart LR
 
 - [x] mark user as online
 - [x] update operation time
-- [x] register user's current clients(issue client id)
-- [x] issue client secret
+- [ ] issue jwt token
 
 * Request
   * General:
@@ -61,23 +60,32 @@ flowchart LR
         ```json
         {
             "result": "succeeded",
-            "client_id": "xxxxx",
-            "client_secret": "xxxxx"
+            "token": "xxx"
         }
         ```
     * failure:
         ```json
         {
             "result": "failed",
-            "client_id": null,
-            "client_secret": null
+            "token": null
         }
         ```
+
+
+## post /client
+
+register a new 3rdparty application.
+
+- [ ] verify user logged in
+- [ ] issue client id/secret
+- [ ] store client id/secret into `tinyoauth_client` table
 
 
 ## get /authorize
 
 - [ ] authenticate client
+  - [ ] verify user logged in
+  - [ ] verify client id/secret
 - [ ] update clients table with authoriztion code
 - [ ] issue authorization code
 
@@ -85,6 +93,7 @@ flowchart LR
   * General:
     * Request Method: `GET`
   * Headers:
+    * Authorization: `Bearer <token>`
   * Payload:
     ```
     response_type: code *
