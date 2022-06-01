@@ -28,9 +28,18 @@ That's the reason why we need an awesome document tool and follow document quadr
 
 ### 4. [Spike aws lambda](spike-aws-lambda.rst)
 
+### 5. Authentication trade-off
+
+* stateless
+* CAP
+* CORS
+* security
+
+### 6. Authorization: OAuth2.0
+
 ## Design principle perspective
 
-WIP...
+* SOLID
 
 ## Architecture characteristics perspective
 
