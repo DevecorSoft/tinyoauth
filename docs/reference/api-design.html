@@ -35,8 +35,7 @@
     <script>mermaid.initialize({startOnLoad:true});</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Infrastructure" href="infrastructure.html" />
-    <link rel="prev" title="Api test" href="apitest.html" />
+    <link rel="prev" title="Module Index" href="index.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -88,29 +87,24 @@
   Explanation:
  </span>
 </p>
-<ul class="current nav bd-sidenav">
+<ul class="nav bd-sidenav">
  <li class="toctree-l1">
-  <a class="reference internal" href="architecture.html">
+  <a class="reference internal" href="../explanation/architecture.html">
    Architecture
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="spike-aws-lambda.html">
+  <a class="reference internal" href="../explanation/spike-aws-lambda.html">
    Spike aws lambda
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="apitest.html">
+  <a class="reference internal" href="../explanation/apitest.html">
    Api test
   </a>
  </li>
- <li class="toctree-l1 current active">
-  <a class="current reference internal" href="#">
-   Api design
-  </a>
- </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="infrastructure.html">
+  <a class="reference internal" href="../explanation/infrastructure.html">
    Infrastructure
   </a>
  </li>
@@ -132,12 +126,17 @@
   Reference:
  </span>
 </p>
-<ul class="nav bd-sidenav">
+<ul class="current nav bd-sidenav">
  <li class="toctree-l1">
-  <a class="reference internal" href="../reference/index.html">
+  <a class="reference internal" href="index.html">
    <span class="xref myst">
     Module Index
    </span>
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Api design
   </a>
  </li>
 </ul>
@@ -213,7 +212,7 @@ title="Fullscreen mode"
   <div class="menu-dropdown__content">
     <ul>
       <li>
-        <a href="../_sources/explanation/api-design.md.txt"
+        <a href="../_sources/reference/api-design.md.txt"
    class="headerbtn"
    data-toggle="tooltip"
 data-placement="left"
@@ -278,6 +277,11 @@ title="Print to PDF"
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#post-client">
+   post /client
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#get-authorize">
    get /authorize
   </a>
@@ -307,6 +311,11 @@ title="Print to PDF"
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#post-client">
+   post /client
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#get-authorize">
    get /authorize
   </a>
@@ -323,14 +332,14 @@ title="Print to PDF"
                 
   <section id="api-design">
 <h1>Api design<a class="headerlink" href="#api-design" title="Permalink to this headline">#</a></h1>
-<div class="mermaid">
-            flowchart LR
+<div class="highlight-mermaid notranslate"><div class="highlight"><pre><span></span>flowchart LR
   subgraph tinyoauth
 
     subgraph gateway[api gateway]
       request_protected_api[request /protected/resource]
       post_login_api[post /login]
       post_register_api[post /register]
+      post_client_api[post /client]
       post_authorize_api[post /authorize]
       post_token_api[post /token]
     end
@@ -355,13 +364,14 @@ title="Print to PDF"
 
   authenticate -- success --&gt; service
   user_agent((user agent)) --&gt; request_protected_api
-        </div><section id="post-login">
+</pre></div>
+</div>
+<section id="post-login">
 <h2>post /login<a class="headerlink" href="#post-login" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>[x] mark user as online</p></li>
 <li><p>[x] update operation time</p></li>
-<li><p>[x] register user’s current clients(issue client id)</p></li>
-<li><p>[x] issue client secret</p></li>
+<li><p>[ ] issue jwt token</p></li>
 </ul>
 <ul>
 <li><p>Request</p>
@@ -398,8 +408,7 @@ title="Print to PDF"
 <li><p>success:</p>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="w"></span>
 <span class="w">    </span><span class="nt">&quot;result&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;succeeded&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&quot;client_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;xxxxx&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&quot;client_secret&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;xxxxx&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;token&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;xxx&quot;</span><span class="w"></span>
 <span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
@@ -407,8 +416,7 @@ title="Print to PDF"
 <li><p>failure:</p>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="w"></span>
 <span class="w">    </span><span class="nt">&quot;result&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;failed&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&quot;client_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&quot;client_secret&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;token&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w"></span>
 <span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
@@ -419,10 +427,24 @@ title="Print to PDF"
 </li>
 </ul>
 </section>
+<section id="post-client">
+<h2>post /client<a class="headerlink" href="#post-client" title="Permalink to this headline">#</a></h2>
+<p>register a new 3rdparty application.</p>
+<ul class="simple">
+<li><p>[ ] verify user logged in</p></li>
+<li><p>[ ] issue client id/secret</p></li>
+<li><p>[ ] store client id/secret into <code class="docutils literal notranslate"><span class="pre">tinyoauth_client</span></code> table</p></li>
+</ul>
+</section>
 <section id="get-authorize">
 <h2>get /authorize<a class="headerlink" href="#get-authorize" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
-<li><p>[ ] authenticate client</p></li>
+<li><p>[ ] authenticate client</p>
+<ul>
+<li><p>[ ] verify user logged in</p></li>
+<li><p>[ ] verify client id/secret</p></li>
+</ul>
+</li>
 <li><p>[ ] update clients table with authoriztion code</p></li>
 <li><p>[ ] issue authorization code</p></li>
 </ul>
@@ -434,7 +456,11 @@ title="Print to PDF"
 <li><p>Request Method: <code class="docutils literal notranslate"><span class="pre">GET</span></code></p></li>
 </ul>
 </li>
-<li><p>Headers:</p></li>
+<li><p>Headers:</p>
+<ul class="simple">
+<li><p>Authorization: <code class="docutils literal notranslate"><span class="pre">Bearer</span> <span class="pre">&lt;token&gt;</span></code></p></li>
+</ul>
+</li>
 <li><p>Payload:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">response_type</span><span class="p">:</span> <span class="n">code</span> <span class="o">*</span>
 <span class="n">client_id</span><span class="p">:</span> <span class="n">s6BhdRkqt3</span> <span class="o">*</span>
@@ -474,19 +500,12 @@ title="Print to PDF"
                 
     <!-- Previous / next buttons -->
 <div class='prev-next-area'>
-    <a class='left-prev' id="prev-link" href="apitest.html" title="previous page">
+    <a class='left-prev' id="prev-link" href="index.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">Api test</p>
+            <p class="prev-next-title"><span class="xref myst">Module Index</span></p>
         </div>
-    </a>
-    <a class='right-next' id="next-link" href="infrastructure.html" title="next page">
-    <div class="prev-next-info">
-        <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Infrastructure</p>
-    </div>
-    <i class="fas fa-angle-right"></i>
     </a>
 </div>
             </footer>

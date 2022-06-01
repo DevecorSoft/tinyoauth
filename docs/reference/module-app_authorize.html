@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Class: ClientService</title>
+    <title>JSDoc: Module: app/authorize</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Class: ClientService</h1>
+    <h1 class="page-title">Module: app/authorize</h1>
 
     
 
@@ -28,7 +28,8 @@
 
 <header>
     
-        <h2><span class="attribs"><span class="type-signature"></span></span>ClientService<span class="signature">(clientIdSupplier, clientRepository)</span><span class="type-signature"></span></h2>
+        
+            
         
     
 </header>
@@ -37,99 +38,20 @@
     <div class="container-overview">
     
         
-
-    
-
-    
-    <h4 class="name" id="ClientService"><span class="type-signature"></span>new ClientService<span class="signature">(clientIdSupplier, clientRepository)</span><span class="type-signature"></span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    client service
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
+            <div class="description">authorize module</div>
         
 
         
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>clientIdSupplier</code></td>
             
 
-            <td class="type">
-            
-                
-<span class="param-type"><a href="global.html#ClientIdSupplier">ClientIdSupplier</a></span>
 
 
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">an object contains two funcions: generate_secret and generate_cid</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>clientRepository</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="ClientRepository.html">ClientRepository</a></span>
 
 
-            
-            </td>
 
-            
 
-            
 
-            <td class="description last">client repository</td>
-        </tr>
 
-    
-    </tbody>
-</table>
 
 
 
@@ -165,7 +87,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="app_login_service.js.html">app/login/service.js</a>, <a href="app_login_service.js.html#line52">line 52</a>
+        <a href="app_authorize_index.js.html">app/authorize/index.js</a>, <a href="app_authorize_index.js.html#line1">line 1</a>
     </li></ul></dd>
     
 
@@ -195,6 +117,7 @@
 
 
 
+        
     
     </div>
 
@@ -221,7 +144,7 @@
     
 
     
-    <h4 class="name" id="issue_identifier"><span class="type-signature"></span>issue_identifier<span class="signature">(user_id)</span><span class="type-signature"> &rarr; {Promise.&lt;<a href="global.html#ClientIdentifier">ClientIdentifier</a>>}</span></h4>
+    <h4 class="name" id=".authorize"><span class="type-signature">(static) </span>authorize<span class="signature">(req, res)</span><span class="type-signature"></span></h4>
     
 
     
@@ -229,7 +152,7 @@
 
 
 <div class="description">
-    issue client id and client secret
+    get authorize api handler
 </div>
 
 
@@ -265,13 +188,13 @@
 
         <tr>
             
-                <td class="name"><code>user_id</code></td>
+                <td class="name"><code>req</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">String</span>
+<span class="param-type">request</span>
 
 
             
@@ -281,7 +204,30 @@
 
             
 
-            <td class="description last">user id</td>
+            <td class="description last">express request</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>res</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">response</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">express response</td>
         </tr>
 
     
@@ -322,53 +268,38 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="app_login_service.js.html">app/login/service.js</a>, <a href="app_login_service.js.html#line62">line 62</a>
+        <a href="app_authorize_index.js.html">app/authorize/index.js</a>, <a href="app_authorize_index.js.html#line14">line 14</a>
     </li></ul></dd>
     
 
     
 
     
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    issued <a href="global.html#ClientIdentifier">ClientIdentifier</a>
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Promise.&lt;<a href="global.html#ClientIdentifier">ClientIdentifier</a>></span>
-
-
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li>AuthorizeController#handler</li>
+        </ul>
     </dd>
-</dl>
+    
 
     
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
