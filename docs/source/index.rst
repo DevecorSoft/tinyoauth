@@ -29,3 +29,4 @@ Welcome to tinyoauth's documentation!
    :caption: Reference:
 
    reference/index
+   reference/api-design

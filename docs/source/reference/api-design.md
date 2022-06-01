@@ -1,6 +1,6 @@
 # Api design
 
-```{mermaid}
+```mermaid
 flowchart LR
   subgraph tinyoauth
 
@@ -8,6 +8,7 @@ flowchart LR
       request_protected_api[request /protected/resource]
       post_login_api[post /login]
       post_register_api[post /register]
+      post_client_api[post /client]
       post_authorize_api[post /authorize]
       post_token_api[post /token]
     end
