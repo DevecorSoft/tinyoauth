@@ -21,7 +21,9 @@
     "oauth2.0",
     "serverless",
     "node.js",
-    "express.js"
+    "express.js",
+    "JWT",
+    "OpenID Connect"
   ],
   "author": "devecorsoft",
   "license": "MIT",
