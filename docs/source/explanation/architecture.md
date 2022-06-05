@@ -35,6 +35,19 @@ That's the reason why we need an awesome document tool and follow document quadr
 * CORS
 * security
 
+#### JWT token
+
+* Cross-Origin Resource Sharing (CORS) won't be an issue as it doesn't use cookies.
+
+```mermaid
+flowchart LR
+  app["Application (Client)"]
+  auth["authorization server"]
+  api["resource server (Your Api)"]
+
+  app -- requests authorization --> auth -- grant --> app --access token--> api
+```
+
 ### 6. Authorization: OAuth2.0
 
 ## Design principle perspective
