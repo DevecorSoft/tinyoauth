@@ -332,7 +332,8 @@ title="Print to PDF"
                 
   <section id="api-design">
 <h1>Api design<a class="headerlink" href="#api-design" title="Permalink to this headline">#</a></h1>
-<div class="highlight-mermaid notranslate"><div class="highlight"><pre><span></span>flowchart LR
+<div class="mermaid">
+            flowchart LR
   subgraph tinyoauth
 
     subgraph gateway[api gateway]
@@ -364,9 +365,7 @@ title="Print to PDF"
 
   authenticate -- success --&gt; service
   user_agent((user agent)) --&gt; request_protected_api
-</pre></div>
-</div>
-<section id="post-login">
+        </div><section id="post-login">
 <h2>post /login<a class="headerlink" href="#post-login" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>[x] mark user as online</p></li>

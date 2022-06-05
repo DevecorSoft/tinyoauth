@@ -312,6 +312,13 @@ title="Print to PDF"
     <a class="reference internal nav-link" href="#authentication-trade-off">
      5. Authentication trade-off
     </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#jwt-token">
+       JWT token
+      </a>
+     </li>
+    </ul>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#authorization-oauth2-0">
@@ -389,6 +396,13 @@ title="Print to PDF"
     <a class="reference internal nav-link" href="#authentication-trade-off">
      5. Authentication trade-off
     </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#jwt-token">
+       JWT token
+      </a>
+     </li>
+    </ul>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#authorization-oauth2-0">
@@ -458,6 +472,20 @@ title="Print to PDF"
 <li><p>CORS</p></li>
 <li><p>security</p></li>
 </ul>
+<section id="jwt-token">
+<h4>JWT token<a class="headerlink" href="#jwt-token" title="Permalink to this headline">#</a></h4>
+<ul class="simple">
+<li><p>Cross-Origin Resource Sharing (CORS) won’t be an issue as it doesn’t use cookies.</p></li>
+</ul>
+<div class="highlight-mermaid notranslate"><div class="highlight"><pre><span></span>flowchart LR
+  app[&quot;Application (Client)&quot;]
+  auth[&quot;authorization server&quot;]
+  api[&quot;resource server (Your Api)&quot;]
+
+  app -- requests authorization --&gt; auth -- grant --&gt; app --access token--&gt; api
+</pre></div>
+</div>
+</section>
 </section>
 <section id="authorization-oauth2-0">
 <h3>6. Authorization: OAuth2.0<a class="headerlink" href="#authorization-oauth2-0" title="Permalink to this headline">#</a></h3>

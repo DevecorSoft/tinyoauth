@@ -1,6 +1,6 @@
 # Api design
 
-```mermaid
+```{mermaid}
 flowchart LR
   subgraph tinyoauth
 
