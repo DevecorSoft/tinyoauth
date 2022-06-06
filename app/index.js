@@ -12,9 +12,7 @@ app.use(express.json());
 
 app.post("/login", login);
 app.post("/register", register);
-app.get("/authorize", (req, res) => {
-  res.status(302).send("xxx");
-});
+app.get("/authorize", authorize);
 
 /**
  * express application
