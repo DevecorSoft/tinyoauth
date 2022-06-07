@@ -13,9 +13,10 @@ const { time_suppiler } = require("../../lib/timeSupplier");
 const {
   clientIdentifierSupplier,
 } = require("../../lib/clientIdentifierSupplier");
+const { JwtSupplier } = require("../../lib/jwtSupplier");
 
 const login_controller = new LoginController(
-  new LoginService(new LoginRepository(ddbClient, time_suppiler)),
+  new LoginService(new LoginRepository(ddbClient, time_suppiler), JwtSupplier),
   new ClientService(
     clientIdentifierSupplier,
     new ClientRepository(ddbClient, time_suppiler)

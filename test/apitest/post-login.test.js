@@ -57,6 +57,8 @@ describe("Given a correct pair of username and password", () => {
 
   describe("When it post /login api", () => {
     it("Then response code should be 200", async () => {
+      process.env.SECRET_OF_JWT = "fake secret password"
+
       const res = await axios.post("/login", {
         username: "test",
         password: "pwd for test",
@@ -64,8 +66,7 @@ describe("Given a correct pair of username and password", () => {
 
       expect(res.status).to.be.equal(200);
       expect(res.data.result).to.be.equal("succeeded");
-      expect(typeof res.data.client_id).to.be.equal("string");
-      expect(res.data.client_secret).to.be.equal("");
+      expect(typeof res.data.authenticator).to.be.equal("string");
 
       const user_item = await ddbClient.send(
         new GetItemCommand({
@@ -74,14 +75,6 @@ describe("Given a correct pair of username and password", () => {
         })
       );
       expect(user_item.Item?.user_status.S).to.be.equal("online");
-
-      const client_item = await ddbClient.send(
-        new GetItemCommand({
-          TableName: "tinyoauth_client",
-          Key: { user_id: { S: "my user id" } },
-        })
-      );
-      expect(client_item.Item).to.be.an.instanceof(Object)
     });
   });
 });
