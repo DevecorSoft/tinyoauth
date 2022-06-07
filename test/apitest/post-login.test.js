@@ -5,7 +5,6 @@ const {
   CreateTableCommand,
   PutItemCommand,
   GetItemCommand,
-  GetItemOutput,
 } = require("@aws-sdk/client-dynamodb");
 
 describe("Given a correct pair of username and password", () => {

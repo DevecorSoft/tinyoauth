@@ -11,4 +11,6 @@
  * @param {response} res - express response
  * @see AuthorizeController#handler
  */
-exports.authorize = (req, res) => {};
+exports.authorize = (req, res) => {
+    res.status(302).send("xxx");
+};

@@ -6,6 +6,7 @@
 const express = require("express");
 const { login } = require("./login");
 const { register } = require("./register");
+const { authorize } = require("./authorize");
 
 const app = express();
 app.use(express.json());
