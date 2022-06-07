@@ -16,6 +16,8 @@ describe("When get a jwt token from header", () => {
     it("Then should verify its signature and decode", () => {
         const token = jsonwebtoken.sign({user_id: "fake user"}, "mysecretpassword");
         const plaintext = JwtSupplier.verify(token, "mysecretpassword")
-        expect(plaintext).to.be.equal("")
+        expect(plaintext).to.be.contains({
+            user_id: "fake user"
+        })
     })
 })
