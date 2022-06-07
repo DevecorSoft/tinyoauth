@@ -45,6 +45,13 @@ login_service.prototype.set_status = async function (username, status) {
 };
 
 /**
+ * issue jwt token
+ */
+login_service.prototype.issue_jwt = function (user_id) {
+  return this.jwt_supplier.sign({ user_id }, process.env.SECRET_OF_JWT);
+};
+
+/**
  * client service
  * @alias ClientService
  * @constructor

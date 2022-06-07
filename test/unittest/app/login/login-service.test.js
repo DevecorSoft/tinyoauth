@@ -8,7 +8,7 @@ describe("Given a valid pair of user name and password", () => {
       const repo = {
         find_user_by_user_name: sinon.fake.returns({
           username: { S: "user" },
-          user_id: {S: "my uuid"},
+          user_id: { S: "my uuid" },
           password: { S: "pass" },
           user_status: { S: "offline" },
         }),
@@ -57,6 +57,30 @@ describe("Given a valid pair of user name and password", () => {
         expect(err.message).to.be.equal("some error");
       }
     });
+  });
+
+  describe("When issue jwt", () => {
+    const fake_jwt_supplier = {
+      sign: sinon.fake.returns("fake jwt token"),
+    };
+    process.env.SECRET_OF_JWT = "fake secret";
+
+    const login_service = new LoginService(null, fake_jwt_supplier);
+    const token = login_service.issue_jwt("fake user id");
+    it("Then should let user id to be payload and fetch secret from env", () => {
+      expect(fake_jwt_supplier.sign.calledOnce).to.be.true;
+      const fake_sign_args = fake_jwt_supplier.sign.getCall(0).args;
+      expect(fake_sign_args).to.be.deep.equal([
+        {
+          user_id: "fake user id",
+        },
+        "fake secret",
+      ]);
+    });
+
+    it("Then should return jwt token", () => {
+      expect(token).to.be.equal("fake jwt token");
+    })
   });
 });
 
