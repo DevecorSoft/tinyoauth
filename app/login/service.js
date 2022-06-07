@@ -87,17 +87,3 @@ exports.LoginService = login_service;
  * @class
  */
 exports.ClientService = client_service;
-
-/**
- * @typedef ClientIdentifier
- * @type {Object}
- * @property {String} client_id - client id
- * @property {Strign} client_secret - client secret
- */
-
-/**
- * @typedef ClientIdSupplier
- * @type {Object}
- * @property {Function} generate_cid
- * @property {Function} generate_secret
- */
