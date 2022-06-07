@@ -1,4 +1,5 @@
 const { expect } = require("chai");
+const jsonwebtoken = require("jsonwebtoken");
 const { JwtSupplier } = require("../../../lib/jwtSupplier");
 
 describe("When to issue jwt token", () => {
@@ -10,3 +11,11 @@ describe("When to issue jwt token", () => {
     expect(typeof token).to.be.equal("string");
   });
 });
+
+describe("When get a jwt token from header", () => {
+    it("Then should verify its signature and decode", () => {
+        const token = jsonwebtoken.sign({user_id: "fake user"}, "mysecretpassword");
+        const plaintext = JwtSupplier.verify(token, "mysecretpassword")
+        expect(plaintext).to.be.equal("")
+    })
+})
