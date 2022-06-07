@@ -26,18 +26,15 @@ login_controller.prototype.handler = async function (req, res) {
   const user_id = await this.login_service.verify(username, password);
   if (user_id) {
     await this.login_service.set_status(username, true);
-    const { client_id, client_secret } =
-      await this.client_service.issue_identifier(user_id);
+    const jwt = this.login_service.issue_jwt(user_id)
     res.json({
       result: "succeeded",
-      client_id,
-      client_secret,
+      authenticator: jwt
     });
   } else {
     res.json({
       result: "failed",
-      client_id: null,
-      client_secret: null,
+      authenticator: null
     });
   }
 };

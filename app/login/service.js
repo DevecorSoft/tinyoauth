@@ -9,9 +9,11 @@ const crypto = require("crypto");
  * @alias LoginService
  * @constructor
  * @param {LoginRepository} login_repo - login repository
+ * @param {JwtSupplier} jwt_supplier - json web token supplier
  */
-function login_service(login_repo) {
+function login_service(login_repo, jwt_supplier) {
   this.login_repo = login_repo;
+  this.jwt_supplier = jwt_supplier;
 }
 
 /**
