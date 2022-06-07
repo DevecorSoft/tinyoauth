@@ -1,6 +1,6 @@
 {
   "name": "tinyoauth",
-  "version": "1.0.13",
+  "version": "1.0.14",
   "description": "a hostable oauth2.0 serverless app",
   "main": "index.js",
   "scripts": {
