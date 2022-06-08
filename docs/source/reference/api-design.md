@@ -39,7 +39,7 @@ flowchart LR
 
 - [x] mark user as online
 - [x] update operation time
-- [ ] issue jwt token
+- [x] issue jwt token
 
 * Request
   * General:
@@ -61,14 +61,14 @@ flowchart LR
         ```json
         {
             "result": "succeeded",
-            "token": "xxx"
+            "authenticator": "xxx"
         }
         ```
     * failure:
         ```json
         {
             "result": "failed",
-            "token": null
+            "authenticator": null
         }
         ```
 
@@ -77,15 +77,15 @@ flowchart LR
 
 register a new 3rdparty application.
 
-- [ ] verify user logged in
+- [ ] make sure user logged in by verify jwt
 - [ ] issue client id/secret
 - [ ] store client id/secret into `tinyoauth_client` table
 
 
 ## get /authorize
 
-- [ ] authenticate client
-  - [ ] verify user logged in
+- [ ] authenticate
+  - [ ] verify jwt
   - [ ] verify client id/secret
 - [ ] update clients table with authoriztion code
 - [ ] issue authorization code
