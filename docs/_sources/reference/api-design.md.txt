@@ -81,6 +81,27 @@ register a new 3rdparty application.
 - [ ] issue client id/secret
 - [ ] store client id/secret into `tinyoauth_client` table
 
+* Request
+  * General:
+    * Request Method: `POST`
+  * Headers:
+    * Authorization: `Bearer <token>`
+    * Content-Type: `application/json`
+  * Payload:
+    ```json
+    {
+      "name": "web app",
+      "client_type": "confidential/public",
+      "authorization_grant_type": [
+        "authorization code",
+        "implicit",
+        "resource owner password credentials",
+        "client credentials"
+      ],
+      "redirect_urls": ["urls"]
+    }
+    ```
+
 
 ## get /authorize
 
