@@ -19,7 +19,7 @@ client_id_controller.prototype.handler = function (req, res) {
     res.status(401);
     return;
   }
-  if (!req?.body?.name) {
+  if (!req?.body?.name || !req?.body?.client_type) {
     res.status(400);
   }
 };
