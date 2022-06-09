@@ -15,7 +15,13 @@ function client_id_controller() {}
  * @param {response} res
  */
 client_id_controller.prototype.handler = function (req, res) {
-  res.status(401);
+  if (!req?.header("Authorization")) {
+    res.status(401);
+    return;
+  }
+  if (!req?.body?.name) {
+    res.status(400);
+  }
 };
 
 /**
