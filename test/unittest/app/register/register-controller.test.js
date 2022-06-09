@@ -66,3 +66,38 @@ describe("Given guest try to register tinyoauth", () => {
     });
   });
 });
+
+
+describe("Given the mandatory fields are not met", () => {
+  describe("When username is missing", () => {
+    it("Then should reply a bad request", async () => {
+      const fake_res = { send: sinon.fake() };
+      fake_res.status = sinon.fake.returns(fake_res);
+
+      const register_controller = new RegisterController();
+
+      await register_controller.handler({ body: {} }, fake_res);
+
+      expect(fake_res.status.calledOnce).to.be.true;
+      expect(fake_res.status.getCall(0).args).to.be.deep.equal([400]);
+      expect(fake_res.send.calledOnce).to.be.true;
+      expect(fake_res.send.getCall(0).args).to.be.deep.equal([""]);
+    });
+  });
+
+  describe("When password is missing", () => {
+    it("Then should reply a bad request", async () => {
+      const fake_res = { send: sinon.fake() };
+      fake_res.status = sinon.fake.returns(fake_res);
+
+      const register_controller = new RegisterController();
+
+      await register_controller.handler({ body: { username: "user" } }, fake_res);
+
+      expect(fake_res.status.calledOnce).to.be.true;
+      expect(fake_res.status.getCall(0).args).to.be.deep.equal([400]);
+      expect(fake_res.send.calledOnce).to.be.true;
+      expect(fake_res.send.getCall(0).args).to.be.deep.equal([""]);
+    });
+  });
+});
