@@ -19,7 +19,8 @@ client_id_controller.prototype.handler = function (req, res) {
     res.status(401).send("");
     return;
   }
-  if (!req?.body?.name || !req?.body?.client_type || !req?.body?.authorization_grant_type) {
+  const { name, client_type, authorization_grant_type } = req?.body;
+  if (!name || !client_type || !authorization_grant_type) {
     res.status(400).send("");
   }
 };
