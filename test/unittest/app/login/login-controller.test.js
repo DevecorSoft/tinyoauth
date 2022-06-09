@@ -91,4 +91,20 @@ describe("Given the mandatory fields are not met", () => {
       expect(fake_res.send.getCall(0).args).to.be.deep.equal([""]);
     });
   });
+
+  describe("When password is missing", () => {
+    it("Then should reply a bad request", async () => {
+      const fake_res = { send: sinon.fake() };
+      fake_res.status = sinon.fake.returns(fake_res);
+
+      const login_controller = new LoginController();
+
+      await login_controller.handler({ body: { username: "user" } }, fake_res);
+
+      expect(fake_res.status.calledOnce).to.be.true;
+      expect(fake_res.status.getCall(0).args).to.be.deep.equal([400]);
+      expect(fake_res.send.calledOnce).to.be.true;
+      expect(fake_res.send.getCall(0).args).to.be.deep.equal([""]);
+    });
+  });
 });
