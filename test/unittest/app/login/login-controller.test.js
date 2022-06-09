@@ -88,7 +88,7 @@ describe("Given the mandatory fields are not met", () => {
       expect(fake_res.status.calledOnce).to.be.true;
       expect(fake_res.status.getCall(0).args).to.be.deep.equal([400]);
       expect(fake_res.send.calledOnce).to.be.true;
-      expect(fake_res.send.getCall(0).args).to.be.deep.equal([400]);
+      expect(fake_res.send.getCall(0).args).to.be.deep.equal([""]);
     });
   });
 });

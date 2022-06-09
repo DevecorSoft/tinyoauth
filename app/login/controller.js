@@ -20,21 +20,25 @@ function login_controller(login_service, client_service) {
  * @param {response} res
  */
 login_controller.prototype.handler = async function (req, res) {
-  const username = req.body?.username;
-  const password = req.body?.password;
+  const { username, password } = req.body;
+
+  if (!username || !password) {
+    res.status(400).send("");
+    return;
+  }
 
   const user_id = await this.login_service.verify(username, password);
   if (user_id) {
     await this.login_service.set_status(username, true);
-    const jwt = this.login_service.issue_jwt(user_id)
+    const jwt = this.login_service.issue_jwt(user_id);
     res.json({
       result: "succeeded",
-      authenticator: jwt
+      authenticator: jwt,
     });
   } else {
     res.json({
       result: "failed",
-      authenticator: null
+      authenticator: null,
     });
   }
 };
