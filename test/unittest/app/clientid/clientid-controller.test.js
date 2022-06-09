@@ -60,5 +60,26 @@ describe("Given to handle a client issuing request", () => {
       expect(fake_res.send.calledOnce).to.be.true;
       expect(fake_res.send.getCall(0).args).to.be.deep.equal([""]);
     });
+
+    it("Then should set http status with 400 in case of missing authorization_grant_type", () => {
+        const fake_res = {};
+        fake_res.send = Sinon.fake();
+        fake_res.status = Sinon.fake.returns(fake_res);
+  
+        const fake_req = {
+          body: {
+            name: "client name",
+            client_type: "public"
+          },
+          header: Sinon.fake.returns("Bearer xxx"),
+        };
+        const client_id_controller = new ClientIdController();
+        client_id_controller.handler(fake_req, fake_res);
+  
+        expect(fake_res.status.calledOnce).to.be.true;
+        expect(fake_res.status.getCall(0).args).to.be.deep.equal([400]);
+        expect(fake_res.send.calledOnce).to.be.true;
+        expect(fake_res.send.getCall(0).args).to.be.deep.equal([""]);
+      });
   });
 });
