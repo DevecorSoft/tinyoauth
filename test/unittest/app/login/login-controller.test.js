@@ -7,12 +7,10 @@ describe("Given a user with correct password", () => {
     const fake_login_service = {
       verify: sinon.fake.returns("my uuid"),
       set_status: sinon.fake.returns(true),
-      issue_jwt: sinon.fake.returns("the jwt token")
+      issue_jwt: sinon.fake.returns("the jwt token"),
     };
     const fake_res = { json: sinon.fake() };
-    const login_controller = new LoginController(
-      fake_login_service
-    );
+    const login_controller = new LoginController(fake_login_service);
 
     await login_controller.handler(
       { body: { username: "user", password: "my pass" } },
@@ -29,16 +27,16 @@ describe("Given a user with correct password", () => {
 
     it("Then should issue jwt token with user id", () => {
       expect(fake_login_service.issue_jwt.calledOnce).to.be.true;
-      const issue_jwt_args = fake_login_service.issue_jwt.getCall(0).args
-      expect(issue_jwt_args).to.be.deep.equal(["my uuid"])
-    })
+      const issue_jwt_args = fake_login_service.issue_jwt.getCall(0).args;
+      expect(issue_jwt_args).to.be.deep.equal(["my uuid"]);
+    });
 
     it("Then should set response body with success message and authenticator", () => {
       expect(fake_res.json.calledOnce).to.be.true;
       const json_args = fake_res.json.getCall(0).args[0];
       expect(json_args).to.be.deep.equal({
         result: "succeeded",
-        authenticator: "the jwt token"
+        authenticator: "the jwt token",
       });
     });
   });
@@ -71,8 +69,26 @@ describe("Given a invalid user", () => {
       const json_args = fake_res.json.getCall(0).args[0];
       expect(json_args).to.be.deep.equal({
         result: "failed",
-        authenticator: null
+        authenticator: null,
       });
+    });
+  });
+});
+
+describe("Given the mandatory fields are not met", () => {
+  describe("When username is missing", () => {
+    it("Then should reply a bad request", async () => {
+      const fake_res = { send: sinon.fake() };
+      fake_res.status = sinon.fake.returns(fake_res);
+
+      const login_controller = new LoginController();
+
+      await login_controller.handler({ body: {} }, fake_res);
+
+      expect(fake_res.status.calledOnce).to.be.true;
+      expect(fake_res.status.getCall(0).args).to.be.deep.equal([400]);
+      expect(fake_res.send.calledOnce).to.be.true;
+      expect(fake_res.send.getCall(0).args).to.be.deep.equal([400]);
     });
   });
 });
