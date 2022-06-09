@@ -21,7 +21,8 @@ client_id_controller.prototype.handler = function (req, res) {
   }
   const { name, client_type, authorization_grant_type, redirect_urls } =
     req?.body;
-  if (!name || !client_type || !authorization_grant_type || !redirect_urls) {
+  if (name && client_type && authorization_grant_type && redirect_urls) {
+  } else {
     res.status(400).send("");
   }
 };
