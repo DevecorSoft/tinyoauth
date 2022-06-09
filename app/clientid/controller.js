@@ -16,11 +16,11 @@ function client_id_controller() {}
  */
 client_id_controller.prototype.handler = function (req, res) {
   if (!req?.header("Authorization")) {
-    res.status(401);
+    res.status(401).send("");
     return;
   }
   if (!req?.body?.name || !req?.body?.client_type) {
-    res.status(400);
+    res.status(400).send("");
   }
 };
 
