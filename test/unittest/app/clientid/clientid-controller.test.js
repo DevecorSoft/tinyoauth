@@ -3,6 +3,33 @@ const Sinon = require("sinon");
 const { ClientIdController } = require("../../../../app/clientid/controller");
 
 describe("Given to handle a client issuing request", () => {
+  describe("When defend against attack", () => {
+    it("Then should verify jwt signature", () => {
+      const fake_res = {};
+      fake_res.send = Sinon.fake();
+      fake_res.status = Sinon.fake.returns(fake_res);
+
+      const fake_req = {
+        header: Sinon.fake.returns("Bearer xxx"),
+      };
+      const fake_jwt_supplier = { verify: Sinon.fake.returns(false) };
+      const client_id_controller = new ClientIdController(
+        null,
+        fake_jwt_supplier
+      );
+      client_id_controller.handler(fake_req, fake_res);
+
+      expect(fake_jwt_supplier.verify.calledOnce).to.be.true;
+      expect(fake_jwt_supplier.verify.getCall(0).args).to.be.deep.equal([
+        "xxx",
+      ]);
+      expect(fake_res.status.calledOnce).to.be.true;
+      expect(fake_res.status.getCall(0).args).to.be.deep.equal([401]);
+      expect(fake_res.send.calledOnce).to.be.true;
+      expect(fake_res.send.getCall(0).args).to.be.deep.equal([""]);
+    });
+  });
+
   describe("When user didn't login", () => {
     it("Then should set http status with 401", () => {
       const fake_res = {};
@@ -41,19 +68,25 @@ describe("Given to handle a client issuing request", () => {
       const fake_client_service = {
         issue_identifier: Sinon.fake(),
       };
+      const fake_jwt_supplier = { verify: Sinon.fake.returns(true) };
 
-      const client_id_controller = new ClientIdController(fake_client_service);
+      const client_id_controller = new ClientIdController(
+        fake_client_service,
+        fake_jwt_supplier
+      );
       client_id_controller.handler(fake_req, fake_res);
 
       expect(fake_client_service.issue_identifier.calledOnce).to.be.true;
       expect(
         fake_client_service.issue_identifier.getCall(0).args
-      ).to.be.deep.equal([{
+      ).to.be.deep.equal([
+        {
           client_name: "client name",
           client_type: "public",
           authorization_grant_type: "authorization code",
           redirect_urls: ["url"],
-      }]);
+        },
+      ]);
     });
   });
 });
@@ -68,7 +101,10 @@ describe("Given the mandatory fields are not met", () => {
       body: {},
       header: Sinon.fake.returns("Bearer xxx"),
     };
-    const client_id_controller = new ClientIdController();
+
+    const fake_jwt_supplier = { verify: Sinon.fake.returns(true) };
+
+    const client_id_controller = new ClientIdController(null, fake_jwt_supplier);
     client_id_controller.handler(fake_req, fake_res);
 
     expect(fake_res.status.calledOnce).to.be.true;
@@ -88,7 +124,10 @@ describe("Given the mandatory fields are not met", () => {
       },
       header: Sinon.fake.returns("Bearer xxx"),
     };
-    const client_id_controller = new ClientIdController();
+
+    const fake_jwt_supplier = { verify: Sinon.fake.returns(true) };
+
+    const client_id_controller = new ClientIdController(null, fake_jwt_supplier);
     client_id_controller.handler(fake_req, fake_res);
 
     expect(fake_res.status.calledOnce).to.be.true;
@@ -109,7 +148,9 @@ describe("Given the mandatory fields are not met", () => {
       },
       header: Sinon.fake.returns("Bearer xxx"),
     };
-    const client_id_controller = new ClientIdController();
+    const fake_jwt_supplier = { verify: Sinon.fake.returns(true) };
+
+    const client_id_controller = new ClientIdController(null, fake_jwt_supplier);
     client_id_controller.handler(fake_req, fake_res);
 
     expect(fake_res.status.calledOnce).to.be.true;
@@ -131,7 +172,10 @@ describe("Given the mandatory fields are not met", () => {
       },
       header: Sinon.fake.returns("Bearer xxx"),
     };
-    const client_id_controller = new ClientIdController();
+
+    const fake_jwt_supplier = { verify: Sinon.fake.returns(true) };
+
+    const client_id_controller = new ClientIdController(null, fake_jwt_supplier);
     client_id_controller.handler(fake_req, fake_res);
 
     expect(fake_res.status.calledOnce).to.be.true;
