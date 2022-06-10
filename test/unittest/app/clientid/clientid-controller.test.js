@@ -48,7 +48,12 @@ describe("Given to handle a client issuing request", () => {
       expect(fake_client_service.issue_identifier.calledOnce).to.be.true;
       expect(
         fake_client_service.issue_identifier.getCall(0).args
-      ).to.be.deep.equal([""]);
+      ).to.be.deep.equal([{
+          client_name: "client name",
+          client_type: "public",
+          authorization_grant_type: "authorization code",
+          redirect_urls: ["url"],
+      }]);
     });
   });
 });
