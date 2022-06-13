@@ -27,7 +27,7 @@ client_id_controller.prototype.handler = function (req, res) {
     redirect_urls,
   });
 
-  res.send("");
+  res.json("");
 };
 
 /**
