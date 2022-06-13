@@ -13,11 +13,19 @@ describe("When to issue jwt token", () => {
 });
 
 describe("When get a jwt token from header", () => {
-    it("Then should verify its signature and decode", () => {
-        const token = jsonwebtoken.sign({user_id: "fake user"}, "mysecretpassword");
-        const plaintext = JwtSupplier.verify(token, "mysecretpassword")
-        expect(plaintext).to.be.contains({
-            user_id: "fake user"
-        })
-    })
-})
+  it("Then should verify its signature and decode", () => {
+    const token = jsonwebtoken.sign(
+      { user_id: "fake user" },
+      "mysecretpassword"
+    );
+    const plaintext = JwtSupplier.verify(token, "mysecretpassword");
+    expect(plaintext).to.be.contains({
+      user_id: "fake user",
+    });
+  });
+  it("Then should not throw error for an invalid token", () => {
+    const token = "invalid token";
+    const plaintext = JwtSupplier.verify(token, "mysecretpassword");
+    expect(plaintext).to.be.equal("");
+  });
+});
