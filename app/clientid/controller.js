@@ -1,9 +1,4 @@
 /**
- * clientid controller module
- * @module app/clientid/controller
- */
-
-/**
  * @alias ClientIdController
  * @constructor
  * @param {ClientService} client_service - client service
@@ -18,12 +13,8 @@ function client_id_controller(client_service) {
  * @param {response} res - express response
  */
 client_id_controller.prototype.handler = function (req, res) {
-  const {
-    name,
-    client_type,
-    authorization_grant_type,
-    redirect_urls,
-  } = req?.body;
+  const { name, client_type, authorization_grant_type, redirect_urls } =
+    req?.body;
   if (!name || !client_type || !authorization_grant_type || !redirect_urls) {
     res.status(400).send("");
     return;
@@ -35,6 +26,8 @@ client_id_controller.prototype.handler = function (req, res) {
     authorization_grant_type,
     redirect_urls,
   });
+
+  res.send("");
 };
 
 /**

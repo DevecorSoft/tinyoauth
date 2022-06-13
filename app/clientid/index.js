@@ -1,3 +1,8 @@
+const { ClientService } = require("../login/service");
+const { ClientIdController } = require("./controller");
+
+const client_id_controller = new ClientIdController(new ClientService());
+
 /**
  * post client api handler
  * @function
@@ -5,12 +10,7 @@
  * @param {response} res - express response
  * @see ClientIdController#handler
  */
-exports.clientid = (req, res) => {
-  if (!req.header("Authorization")) {
-    res.status(401);
-  }
-  res.send("");
-};
+exports.clientid = client_id_controller.handler.bind(client_id_controller);
 
 /**
  * @typedef ClientData
